@@ -45,7 +45,7 @@
     /* Shell */
     .phone-viewport{
       width:100%;
-      max-width:420px; /* close to screenshot width */
+  
       background:var(--panel);
       /* border-radius:var(--radius-xl); */
       overflow:hidden;
@@ -66,7 +66,7 @@
     .brand-bar .cut{color:var(--cut); margin:0 .2ch; opacity:1}
 
     .gold-strip{
-      background:#479CD5;
+      background:#00C7FF;
       color:#ffffff;
       text-align:center;
       font-weight:700;
@@ -206,7 +206,7 @@
   <main class="phone-viewport" role="main">
     <!-- Top brand -->
     <div class="brand-bar" aria-label="Brand">
-    <img src="l.svg" alt="Save Max Auto Logo" style="height:28px; vertical-align:middle;" />
+    <img src="l.svg" alt="Save Max Auto Logo" style="height:22px; vertical-align:middle;" />
     </div>
 
     <!-- Gold strip -->
@@ -228,57 +228,25 @@
     <ul aria-label="Key points" 
 style="
   list-style:none;
-  padding-left:40px;
+  padding-left:60px;
   margin:0;
   display:flex;
   flex-direction:column;
   gap:14px;
+  font-size: 20px;
 ">
   <li style="display:flex; align-items:center; gap:10px;">
-    <span style="
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      border:2px solid #d4e8c8;
-      background:#ffffff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    ">
-      <i class="fa-solid fa-check" style="color:#f9c640; font-size:14px;"></i>
-    </span>
+  <img src="ck.png" alt=""  width="14" height="14"/>
     <span style="font-weight:700;">100% Free Help.</span>
   </li>
 
   <li style="display:flex; align-items:center; gap:10px;">
-    <span style="
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      border:2px solid #d4e8c8;
-      background:#ffffff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    ">
-      <i class="fa-solid fa-check" style="color:#f9c640; font-size:14px;"></i>
-    </span>
+   <img src="ck.png" alt=""  width="14" height="14"/>
     <span>Takes <strong>5–10 minutes.</strong></span>
   </li>
 
   <li style="display:flex; align-items:center; gap:10px;">
-    <span style="
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      border:2px solid #d4e8c8;
-      background:#ffffff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    ">
-      <i class="fa-solid fa-check" style="color:#f9c640; font-size:14px;"></i>
-    </span>
+    <img src="ck.png" alt=""  width="14" height="14"/>
     <span>Tap below to <strong>CALL NOW!</strong></span>
   </li>
 </ul>
@@ -295,8 +263,8 @@ style="
       </a>
 
       <p class="subcopy">
-        We keep it simple, fast and to-the-point, <br />
-        <em>let us help you pay less!</em>
+       Don’t want to call? 
+        <em><u>Fill out the form instead</u></em>
       </p>
     </section>
         <section id="live-bar" class="ll-section" aria-hidden="false">
@@ -353,7 +321,7 @@ style="
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          background: rgb(40, 176, 43); /* red live dot */
+          background: #00C7FF;
           position: relative;
           box-shadow: 0 0 0 rgba(239, 68, 68, 0.6);
         }
@@ -389,19 +357,19 @@ style="
         #live-count {
           display: inline-block;
           transition: transform 200ms ease, color 200ms;
-          color: #0b5646;
+          color: #033565;
         }
         #live-count.pulse {
           transform: scale(1.14);
-          color: #0a7a5b;
+          color: #00C7FF;
         }
 
         /* responsive spacing */
         @media (max-width: 576px) {
           .live-pill {
             gap: 8px;
-            padding: 8px 12px;
-            font-size: 15px;
+            padding: 6px 12px;
+            font-size: 12px;
           }
           .live-icon {
             width: 10px;
