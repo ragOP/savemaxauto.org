@@ -54,7 +54,7 @@
 
     /* Header */
     .brand-bar{
-      background:var(--brand);
+      background:#fff;
       color:#fff;
       text-align:center;
       padding:14px 18px 12px;
@@ -66,8 +66,8 @@
     .brand-bar .cut{color:var(--cut); margin:0 .2ch; opacity:1}
 
     .gold-strip{
-      background:linear-gradient(180deg, #ffe890, var(--accent));
-      color:#1a1a1a;
+      background:#479CD5;
+      color:#ffffff;
       text-align:center;
       font-weight:700;
       font-size:14px;
@@ -137,15 +137,15 @@
       width:100%;
       text-decoration:none;
       margin:18px 0 6px;
-      background:var(--accent);
-      color:#111;
+      background:#244572;
+      color:#ffffff;
       border-radius:999px;
-      border:2px solid #111;
+      border:2px solid #76CCF3;
       padding:18px 20px;
       text-align:center;
       font-weight:900;
-      font-size:20px;
-      box-shadow:0 8px 0 #111, 0 18px 40px rgba(0,0,0,.1);
+      font-size:29px;
+      /* box-shadow:0 8px 0 #76CCF3, 0 18px 40px rgba(0,0,0,.1); */
       transition:transform .06s ease, box-shadow .06s ease, background .2s ease;
       position:relative;    /* needed for shimmer pseudo-element */
       overflow:hidden;      /* clip shimmer to button */
@@ -198,7 +198,7 @@
     /* Responsive tweaks */
     @media (max-width:380px){
       .headline{ font-size:26px; }
-      .cta{ font-size:18px; }
+      .cta{ font-size:24px; }
     }
   </style>
 </head>
@@ -206,9 +206,7 @@
   <main class="phone-viewport" role="main">
     <!-- Top brand -->
     <div class="brand-bar" aria-label="Brand">
-      <span class="word">Save</span>
-      <span class="cut">Max</span>
-      <span class="word">Auto</span>
+    <img src="l.svg" alt="Save Max Auto Logo" style="height:28px; vertical-align:middle;" />
     </div>
 
     <!-- Gold strip -->
