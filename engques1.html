@@ -21,24 +21,24 @@
     <style>
       /* Turn the CTA into a full-width clickable anchor */
       .div22 {
-        display: block;               /* makes the whole area clickable */
+        display: block; /* makes the whole area clickable */
         width: 100%;
-        max-width: 520px;             /* adjust as you like */
+        max-width: 520px; /* adjust as you like */
         margin: 12px auto;
-        background: #244572;          /* green */
+        background: #244572; /* green */
         color: #fff;
         text-align: center;
-        text-decoration: none;        /* remove underline */
+        text-decoration: none; /* remove underline */
         font-weight: 800;
-        letter-spacing: .5px;
+        letter-spacing: 0.5px;
         padding: 16px 22px;
         border-radius: 12px;
-        box-shadow: 0 10px 24px rgba(0,0,0,.15);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
         cursor: pointer;
-        transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+        transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease;
       }
       .div22:hover {
-        box-shadow: 0 16px 30px rgba(0,0,0,.18);
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
         filter: brightness(1.03);
       }
       .div22:active {
@@ -50,29 +50,57 @@
         text-decoration: none;
       }
       /* Optional shimmer/glow helpers if you used them */
-      .glow { box-shadow: 0 0 0 rgba(27,176,111,0.5), 0 10px 24px rgba(0,0,0,.15); }
-      .shimmer {
-        position: relative; overflow: hidden; isolation: isolate;
+      .glow {
+        box-shadow: 0 0 0 rgba(27, 176, 111, 0.5), 0 10px 24px rgba(0, 0, 0, 0.15);
       }
-      .shimmer::after{
-        content:""; position:absolute; inset:0 -150% 0 0;
-        transform:skewX(-20deg); background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.22) 50%, transparent 100%);
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .shimmer::after {
+        content: "";
+        position: absolute;
+        inset: 0 -150% 0 0;
+        transform: skewX(-20deg);
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.22) 50%,
+          transparent 100%
+        );
         animation: sh 2.2s infinite;
       }
-      @keyframes sh { 0%{transform:translateX(-100%) skewX(-20deg);} 100%{transform:translateX(100%) skewX(-20deg);} }
+      @keyframes sh {
+        0% {
+          transform: translateX(-100%) skewX(-20deg);
+        }
+        100% {
+          transform: translateX(100%) skewX(-20deg);
+        }
+      }
 
       /* Small chip used for NB verify */
       #nb-chip {
-        position: fixed; right: 12px; bottom: 12px; z-index: 99999;
-        padding: 8px 12px; font-size: 12px; font-weight: 700; border-radius: 999px;
-        background: rgba(20, 180, 90, 0.95); color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,.2);
-        display: none; pointer-events: none;
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 99999;
+        padding: 8px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 999px;
+        background: rgba(20, 180, 90, 0.95);
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        display: none;
+        pointer-events: none;
       }
     </style>
     <!-- ======================================================================= -->
 
     <!-- Ringba -->
-     <!-- <script src=//b-js.ringba.com/CAdab2902d46cb426ebc71aef68c81fe8e async></script> -->
+    <!-- <script src=//b-js.ringba.com/CAdab2902d46cb426ebc71aef68c81fe8e async></script> -->
     <script
       id="ringba-script"
       src="//b-js.ringba.com/CAdab2902d46cb426ebc71aef68c81fe8e"
@@ -81,134 +109,214 @@
       onerror="window.__ringbaBlocked=true;console.warn('[Ringba] script blocked/failed')"
     ></script>
 
-    <!-- Ringba helper: push AGE + console verify -->
+    <!-- Ringba helper: push AGE + Q2 + console verify -->
     <script>
       window._rgba_tags = window._rgba_tags || [];
-      const RINGBA_AGE_KEY = 'age'; // change to exact key if needed, e.g., 'Age'
+
+      const RINGBA_AGE_KEY = "age"; // change to exact key if needed, e.g., 'Age'
+      const RINGBA_Q2_KEY = "insured"; // or 'insured_status' if you prefer
+
       function rbAge(value) {
         try {
           const tag = {};
           tag[RINGBA_AGE_KEY] = value;
-          tag['newsbreak_cid'] = window.newsbreak_cid || '';
+          tag["newsbreak_cid"] = window.newsbreak_cid || "";
           window._rgba_tags.push(tag);
-          console.log('[Ringba] pushed age:', tag, '→ _rgba_tags:', window._rgba_tags);
+          console.log(
+            "[Ringba] pushed age:",
+            tag,
+            "→ _rgba_tags:",
+            window._rgba_tags
+          );
+        } catch (e) {
+          console.warn("[Ringba] age push failed", e);
+        }
+      }
 
-        } catch (e) { console.warn('[Ringba] age push failed', e); }
+      function rbQ2(value) {
+        try {
+          const tag = {};
+          tag[RINGBA_Q2_KEY] = value; // e.g., 'Yes' or 'No'
+          tag["newsbreak_cid"] = window.newsbreak_cid || "";
+          window._rgba_tags.push(tag);
+          console.log(
+            "[Ringba] pushed Q2:",
+            tag,
+            "→ _rgba_tags:",
+            window._rgba_tags
+          );
+        } catch (e) {
+          console.warn("[Ringba] Q2 push failed", e);
+        }
       }
     </script>
 
-    <!-- Google Tag Manager -->
-  
-
- 
     <!-- NB Pixel -->
- <!-- Start NB Pixel Snippet (Cleaned Version) -->
-<script>
-  // ---- NB PIXEL: Initialize only ----
-  !(function (e, n, t, i, p, a, s) {
-    e[i] ||
-      (((p = e[i] =
-        function () {
-          p.process ? p.process.apply(p, arguments) : p.queue.push(arguments);
-        }).queue = []),
-      (p.t = +new Date()),
-      ((a = n.createElement(t)).async = 1),
-      (a.src = 'https://static.newsbreak.com/business/tracking/nbpixel.js?t=' + 864e5 * Math.ceil(new Date() / 864e5)),
-      (s = n.getElementsByTagName(t)[0]).parentNode.insertBefore(a, s));
-  })(window, document, 'script', 'nbpix');
+    <!-- Start NB Pixel Snippet (Cleaned Version) -->
+    <script>
+      // ---- NB PIXEL: Initialize only ----
+      !(function (e, n, t, i, p, a, s) {
+        e[i] ||
+          (((p = e[i] =
+            function () {
+              p.process ? p.process.apply(p, arguments) : p.queue.push(arguments);
+            }).queue = []),
+          (p.t = +new Date()),
+          ((a = n.createElement(t)).async = 1),
+          (a.src =
+            "https://static.newsbreak.com/business/tracking/nbpixel.js?t=" +
+            864e5 * Math.ceil(new Date() / 864e5)),
+          (s = n.getElementsByTagName(t)[0]).parentNode.insertBefore(a, s));
+      })(window, document, "script", "nbpix");
 
-  // ✅ Initialize Pixel ONLY (no event auto-fire)
-  nbpix('init', 'ID-1969942605923770369');
-</script>
-<!-- End NB Pixel Snippet -->
+      // ✅ Initialize Pixel ONLY (no event auto-fire)
+      nbpix("init", "ID-1969942605923770369");
+    </script>
+    <!-- End NB Pixel Snippet -->
 
-<script>
-  // ---- NB RAW_CALL Event (fires only when call button clicked) ----
-  function fireNbRawCall() {
-    try {
-      if (typeof nbpix === 'function') {
-        nbpix('event', 'raw_call');
-        console.log('[NB Pixel] ✅ raw_call fired successfully');
-      } else {
-        console.warn('[NB Pixel] nbpix not ready yet');
+    <script>
+      // ---- NB RAW_CALL Event (fires only when call button clicked) ----
+      function fireNbRawCall() {
+        try {
+          if (typeof nbpix === "function") {
+            nbpix("event", "raw_call");
+            console.log("[NB Pixel] ✅ raw_call fired successfully");
+          } else {
+            console.warn("[NB Pixel] nbpix not ready yet");
+          }
+        } catch (err) {
+          console.error("[NB Pixel] raw_call failed", err);
+        }
       }
-    } catch (err) {
-      console.error('[NB Pixel] raw_call failed', err);
-    }
-  }
 
-  // ---- Attach listener to your call button ----
-  window.addEventListener('DOMContentLoaded', function () {
-    const callButton = document.getElementById('callLink');
-    if (!callButton) return;
+      // ---- Attach listener to your call button ----
+      window.addEventListener("DOMContentLoaded", function () {
+        const callButton = document.getElementById("callLink");
+        if (!callButton) return;
 
-    callButton.addEventListener('click', function () {
-      fireNbRawCall();
-    });
-  });
-</script>
-
+        callButton.addEventListener("click", function () {
+          fireNbRawCall();
+        });
+      });
+    </script>
 
     <!-- NB raw_call instrumentation (fires before tel: and shows chip) -->
     <script>
       window.__nb_events = window.__nb_events || [];
       function showNbChip(text) {
-        var chip = document.getElementById('nb-chip'); if (!chip) return;
-        chip.textContent = text; chip.style.display = 'inline-block';
+        var chip = document.getElementById("nb-chip");
+        if (!chip) return;
+        chip.textContent = text;
+        chip.style.display = "inline-block";
         clearTimeout(window.__nb_chip_to);
-        window.__nb_chip_to = setTimeout(function(){ chip.style.display='none'; }, 2000);
+        window.__nb_chip_to = setTimeout(function () {
+          chip.style.display = "none";
+        }, 2000);
       }
       function fireNbRawCall() {
         try {
-          window.__nb_events.push({ event: 'raw_call', at: new Date().toISOString() });
-          console.log('[NB Pixel] Firing raw_call', window.__nb_events[window.__nb_events.length - 1]);
-          if (typeof nbpix === 'function') nbpix('event','raw_call');
+          window.__nb_events.push({
+            event: "raw_call",
+            at: new Date().toISOString(),
+          });
+          console.log(
+            "[NB Pixel] Firing raw_call",
+            window.__nb_events[window.__nb_events.length - 1]
+          );
+          if (typeof nbpix === "function") nbpix("event", "raw_call");
           else {
-            console.warn('[NB Pixel] nbpix not ready; queuing');
+            console.warn("[NB Pixel] nbpix not ready; queuing");
             window.__nb_fallback_queue = window.__nb_fallback_queue || [];
-            window.__nb_fallback_queue.push(['event','raw_call']);
+            window.__nb_fallback_queue.push(["event", "raw_call"]);
           }
-          showNbChip('NB: raw_call sent');
-        } catch(e){ console.warn('[NB Pixel] raw_call failed', e); }
+          showNbChip("NB: raw_call sent");
+        } catch (e) {
+          console.warn("[NB Pixel] raw_call failed", e);
+        }
       }
-      window.addEventListener('load', function(){
-        if (window.__nb_fallback_queue && typeof nbpix === 'function') {
-          window.__nb_fallback_queue.forEach(function(args){ try{ nbpix.apply(null,args);}catch(_){} });
+      window.addEventListener("load", function () {
+        if (window.__nb_fallback_queue && typeof nbpix === "function") {
+          window.__nb_fallback_queue.forEach(function (args) {
+            try {
+              nbpix.apply(null, args);
+            } catch (_) {}
+          });
           window.__nb_fallback_queue.length = 0;
         }
       });
     </script>
+
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PL5B9NSD');</script>
-<!-- End Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js",
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-PL5B9NSD");
+    </script>
+    <!-- End Google Tag Manager -->
   </head>
 
   <body>
-  
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL5B9NSD"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PL5B9NSD"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-    <div class="div1" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-      <img src="./l.svg" alt="Policy Benefits" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer; width: auto;height: 28px;padding: 4px;" />
+    <div
+      class="div1"
+      onclick="smoothScrollToTop(1000, 432)"
+      style="cursor: pointer"
+    >
+      <img
+        src="./l.svg"
+        alt="Policy Benefits"
+        onclick="smoothScrollToTop(1000, 432)"
+        style="cursor: pointer; width: auto; height: 28px; padding: 4px"
+      />
     </div>
 
-    <div class="div2" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
+    <div
+      class="div2"
+      onclick="smoothScrollToTop(1000, 432)"
+      style="cursor: pointer"
+    >
       <!-- <img src="./live.png" alt="Live" /> -->
-      <span><strong id="counter">Stop Overpaying Today – Call Us Now!</span>
+      <span
+        ><strong id="counter">Stop Overpaying Today – Call Us Now!</strong></span
+      >
     </div>
 
     <div class="div6">
       <div class="div7">
-        <div class="div8" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;">
-         CALL US and cut your Auto Insurance rate by upto 80% today!
+        <div
+          class="div8"
+          onclick="smoothScrollToTop(1000, 432)"
+          style="cursor: pointer"
+        >
+          CALL US and cut your Auto Insurance rate by upto 80% today!
         </div>
-        <img class="div9" src="./mana.png" alt="Money in hand" onclick="smoothScrollToTop(1000, 432)" style="cursor: pointer;" />
+        <img
+          class="div9"
+          src="./mana.png"
+          alt="Money in hand"
+          onclick="smoothScrollToTop(1000, 432)"
+          style="cursor: pointer"
+        />
         <div class="div10">
           Checking your eligibility is very simple and takes just 60 seconds,
           simply answer the questions below to see if you qualify now.
@@ -228,11 +336,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="div15" id="answerOptions">
           <div class="div16" onclick="handleQuizP('50-65')">50-65</div>
           <div class="div16" onclick="handleQuizN('65-80')">65-80</div>
-          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">80+</div>
+          <div class="div16" id="ageOption80Plus" onclick="handleQuizP('80+')">
+            80+
+          </div>
         </div>
         <div class="div17">
           <div class="div18"></div>
-          <span><em><span id="claim">72</span> People Are Claiming Right Now!</em></span>
+          <span
+            ><em
+              ><span id="claim">72</span> People Are Claiming Right
+              Now!</em
+            ></span
+          >
         </div>
       </div>
     </div>
@@ -244,20 +359,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="div4 div5" id="congratulations">
       <div class="div19">Congratulations, You Qualify 🎉</div>
       <div class="div20">
-        Make A <span>Quick Call</span> To Claim Your Reduction On Auto Insurance Plan Now!
+        Make A <span>Quick Call</span> To Claim Your Reduction On Auto Insurance
+        Plan Now!
       </div>
       <div class="div21">Spots remaining: 4</div>
       <div class="div99"><h2>Tap Below To Call Now! 👇</h2></div>
 
-      <!-- ✅ FIXED: the ENTIRE green element is now an <a> (block) so whole area clicks -->
+      <!-- ✅ CTA anchor (you can add id="callLink" if you want NB click hook here) -->
       <a
         href="tel:+16197753027"
         class="cta shimmer"
-       
+        id="callLink"
       >
         CALL (619) 775-3027
       </a>
-      <!-- No inner <a> tag; the big green element itself IS the anchor -->
 
       <div class="div23">
         Due to high call volume, your official agent is waiting for only
@@ -286,6 +401,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- <img src="baarish.GIF" alt="" /> -->
     </div>
 
+    <div id="nb-chip"></div>
+
     <script>
       let step = "process";
       let quizQuestion = "1. Are you over the age of 64?";
@@ -305,12 +422,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       // Redundant listener: fire again on click without blocking dialer
       (function attachCallHandler() {
-        const link = document.getElementById('callLink');
+        const link = document.getElementById("callLink");
         if (!link) return;
-        link.addEventListener('click', function () {
-          try { fireNbRawCall(); } catch (_) {}
-          // do not preventDefault; let tel: open immediately
-        }, { passive: true });
+        link.addEventListener(
+          "click",
+          function () {
+            try {
+              fireNbRawCall();
+            } catch (_) {}
+            // do not preventDefault; let tel: open immediately
+          },
+          { passive: true }
+        );
       })();
 
       setInterval(() => {
@@ -338,9 +461,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }, 3000);
 
       function handleQuizP(ageValue) {
+        // ⭐ AGE SENT TO RINGBA HERE
         if (ageValue) rbAge(ageValue);
+
         if (quizQuestion === "1. Are you over the age of 64?") {
-          quizQuestion = "2. Are you a U.S. Citizen?";
+          quizQuestion = "2. Are you Currently Insured?";
           quizText.textContent = quizQuestion;
           setYesNoOptions();
           smoothScrollToTop(1000, 432);
@@ -350,9 +475,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
 
       function handleQuizN(ageValue) {
+        // ⭐ AGE SENT TO RINGBA HERE
         if (ageValue) rbAge(ageValue);
+
         if (quizQuestion === "1. Are you over the age of 64?") {
-          quizQuestion = "2. Are you a U.S. Citizen?";
+          quizQuestion = "2. Are you Currently Insured?";
           quizText.textContent = quizQuestion;
           setYesNoOptions();
           smoothScrollToTop(1000, 632);
@@ -362,8 +489,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
 
       function setYesNoOptions() {
+        // value param used for Ringba Q2 in stepProcess
         answerOptions.innerHTML = `
-          <div class="div16" onclick="stepProcess('yes','Above-25K')">Yes</div>
+          <div class="div16" onclick="stepProcess('yes','Yes')">Yes</div>
           <div class="div16" onclick="stepProcess('no','No')">No</div>
         `;
       }
@@ -389,6 +517,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
 
       const stepProcess = (answer, value) => {
+        // ⭐ Q2 SENT TO RINGBA HERE
+        if (value) {
+          rbQ2(value);
+        }
+
         smoothScrollToTop(1000);
         const mainContent = document.querySelector(".div6");
         mainContent.classList.add("div5");
@@ -417,8 +550,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         congratulationsDiv.classList.remove("div5");
         imageContainer.style.display = "block";
         startTimer();
-        setTimeout(() => { imageContainer.style.display = "none"; }, 2000);
-        setTimeout(() => { window.scrollTo({ top: 0, behavior: "smooth" }); }, 100);
+        setTimeout(() => {
+          imageContainer.style.display = "none";
+        }, 2000);
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 100);
       }
 
       function startTimer() {
