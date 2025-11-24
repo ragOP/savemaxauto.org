@@ -7,9 +7,9 @@
 
   <style>
     :root{
-      --blue:#0b63ad;        /* main blue like screenshot */
+      --blue:#0b63ad;
       --blue-dark:#084f8a;
-      --blue-line:#4e8fd3;   /* border blue */
+      --blue-line:#4e8fd3;
       --soft:#eef4fb;
       --text:#0b1220;
       --muted:#5b6575;
@@ -54,7 +54,7 @@
       object-fit:cover;
     }
 
-    /* =================== HERO (USE GIVEN BANNER IMG) =================== */
+    /* =================== HERO =================== */
     .hero{
       position:relative;
       color:#fff;
@@ -89,7 +89,6 @@
       text-shadow:0 1px 6px rgba(0,0,0,.25);
     }
 
-    /* Question card (matches screenshot) */
     .q-card{
       background:#fff;
       color:#000;
@@ -144,13 +143,11 @@
       border:2px solid #fff; border-bottom:none; border-radius:7px 7px 0 0;
     }
 
-    /* Blue car strip image (given) */
     .hero-strip{
       width:100%;
       height:160px;
       margin-top:10px;
       background:url("https://s.autoquotepilot.com/V4-rfv-opf-5/images/banner-img.jpg") center bottom/cover no-repeat;
-      /* if your banner already includes strip in bottom, this keeps it consistent */
     }
 
     /* =================== TRUST STRIP =================== */
@@ -209,6 +206,26 @@
       grid-template-columns:1.2fr 1fr .8fr .8fr;
       gap:6px;
     }
+
+    /* SLOW scrolling viewport */
+    .quotes-viewport{
+      position:relative;
+      height:260px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .quotes-body{
+      display:block;
+      will-change:transform;
+      animation: quotesScroll linear infinite;
+      animation-duration: var(--scroll-time, 60s); /* default fallback slow */
+    }
+
+    @keyframes quotesScroll{
+      from{ transform: translateY(0); }
+      to{ transform: translateY(-50%); }
+    }
+
     .quotes-row{
       display:grid;
       grid-template-columns:1.2fr 1fr .8fr .8fr;
@@ -225,6 +242,10 @@
       border-radius:999px;
     }
     .rate{font-weight:900; text-align:right;}
+
+    .quotes-viewport:hover .quotes-body{
+      animation-play-state:paused;
+    }
 
     /* =================== REVIEWS =================== */
     .reviews{
@@ -292,7 +313,6 @@
       margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-weight:800;
     }
 
-    /* =================== DESKTOP (MATCH SCREENSHOT) =================== */
     @media (min-width: 900px){
       .hero{
         min-height:720px;
@@ -325,6 +345,7 @@
       }
       .quotes-card, .r-card{max-width:750px;}
       .section h2{font-size:22px;}
+      .quotes-viewport{height:300px;}
     }
   </style>
 </head>
@@ -359,31 +380,29 @@
           </div>
         </div>
 
-        <!-- bottom strip feel -->
         <div class="hero-strip" aria-hidden="true"></div>
       </section>
 
-      <!-- TRUST STRIP (placeholders except 3 logos you gave before) -->
+      <!-- TRUST STRIP -->
       <div class="trust-wrap">
         <div class="trust-row">
           <div class="trust">
             <div class="logo">
-              <!-- placeholder logo -->
-              <div style="width:90px;height:24px;background:#e5e7eb;border-radius:4px;"></div>
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon1.png" style="width:90px;height:24px;border-radius:4px;"/>
             </div>
             <small>Based on 6,000+ Reviews</small>
           </div>
 
           <div class="trust">
             <div class="logo">
-              <div style="width:90px;height:24px;background:#e5e7eb;border-radius:4px;"></div>
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon2.png" style="width:90px;height:24px;border-radius:4px;"/>
             </div>
             <small>Based on 31,000+ Reviews</small>
           </div>
 
           <div class="trust">
             <div class="logo">
-              <div style="width:90px;height:24px;background:#e5e7eb;border-radius:4px;"></div>
+                         <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon3.png" style="width:90px;height:24px;border-radius:4px;"/>
             </div>
             <small>Based on 22,000+ Reviews</small>
           </div>
@@ -400,43 +419,48 @@
               <div>Name</div><div>Model</div><div>State</div><div style="text-align:right;">Rate</div>
             </div>
 
-            <div class="quotes-row">
-              <div><div class="blur"></div></div>
-              <div>Chrysler</div>
-              <div>MT</div>
-              <div class="rate">$32/mo</div>
-            </div>
-            <div class="quotes-row">
-              <div><div class="blur" style="width:55%"></div></div>
-              <div>Ford</div>
-              <div>NC</div>
-              <div class="rate">$29/mo</div>
-            </div>
-            <div class="quotes-row">
-              <div><div class="blur" style="width:60%"></div></div>
-              <div>Dodge</div>
-              <div>MO</div>
-              <div class="rate">$30/mo</div>
-            </div>
-            <div class="quotes-row">
-              <div><div class="blur" style="width:50%"></div></div>
-              <div>Fiat</div>
-              <div>WI</div>
-              <div class="rate">$33/mo</div>
-            </div>
-            <div class="quotes-row">
-              <div><div class="blur" style="width:65%"></div></div>
-              <div>Ford</div>
-              <div>TX</div>
-              <div class="rate">$30/mo</div>
-            </div>
-            <div class="quotes-row">
-              <div><div class="blur" style="width:58%"></div></div>
-              <div>Genesis</div>
-              <div>NY</div>
-              <div class="rate">$25/mo</div>
+            <div class="quotes-viewport" id="quotesViewport">
+              <div class="quotes-body" id="quotesBody">
+                <div class="quotes-row">
+                  <div><div class="blur"></div></div>
+                  <div>Chrysler</div>
+                  <div>MT</div>
+                  <div class="rate">$32/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:55%"></div></div>
+                  <div>Ford</div>
+                  <div>NC</div>
+                  <div class="rate">$29/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:60%"></div></div>
+                  <div>Dodge</div>
+                  <div>MO</div>
+                  <div class="rate">$30/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:50%"></div></div>
+                  <div>Fiat</div>
+                  <div>WI</div>
+                  <div class="rate">$33/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:65%"></div></div>
+                  <div>Ford</div>
+                  <div>TX</div>
+                  <div class="rate">$30/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:58%"></div></div>
+                  <div>Genesis</div>
+                  <div>NY</div>
+                  <div class="rate">$25/mo</div>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -457,7 +481,7 @@
             </div>
             <div class="r-user">
               <div class="r-avatar">
-                     <img src="https://quotediscountusa.com/images/download%20(4).jpeg" style="width:100%;height:100%;background:#455f7f;"></div>
+                <img src="https://quotediscountusa.com/images/download%20(4).jpeg" style="width:100%;height:100%;background:#455f7f;">
               </div>
               <div>
                 <div class="r-name">Grace K</div>
@@ -475,7 +499,7 @@
             </div>
             <div class="r-user">
               <div class="r-avatar">
-                <img src="https://quotediscountusa.com/images/download%20(2).jpeg" style="width:100%;height:100%;background:#455f7f;"></div>
+                <img src="https://quotediscountusa.com/images/download%20(2).jpeg" style="width:100%;height:100%;background:#455f7f;">
               </div>
               <div>
                 <div class="r-name">Emily B.</div>
@@ -493,7 +517,7 @@
             </div>
             <div class="r-user">
               <div class="r-avatar">
-                <img src="https://quotediscountusa.com/images/aca_hero_4.png" style="width:100%;height:100%;background:#cbd5e1;"></div>
+                <img src="https://quotediscountusa.com/images/aca_hero_4.png" style="width:100%;height:100%;background:#cbd5e1;">
               </div>
               <div>
                 <div class="r-name">Amy I.</div>
@@ -523,5 +547,23 @@
 
     </main>
   </div>
+
+  <!-- SLOW vertical scroll JS -->
+  <script>
+    (function(){
+      const body = document.getElementById("quotesBody");
+      if(!body) return;
+
+      const rows = Array.from(body.children);
+      rows.forEach(r => body.appendChild(r.cloneNode(true)));
+
+      // VERY VERY SLOW
+      const perRowSeconds = 2;          // each row takes ~10s to pass
+      const minSeconds = 40;            // minimum total loop time
+      const time = Math.max(minSeconds, rows.length * perRowSeconds);
+
+      body.style.setProperty("--scroll-time", time + "s");
+    })();
+  </script>
 </body>
 </html>
