@@ -5,497 +5,434 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SaveMax-auto</title>
 
-  <style>
-    :root{
-      --blue:#1976d2;
-      --blue-2:#2f89ff;
-      --navy:#233a63;
-      --text:#0f172a;
-      --muted:#6b7280;
-      --card:#ffffff;
-      --line:#e5e7eb;
-      --soft:#f5f7fb;
-      --radius:18px;
-      --inner:860px;
-      --cta:#00b157;
-    }
-
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--text);
-      background:#fff;
-    }
-
-    .page{width:100%;}
-    .container{width:100%;}
-    .inner{
-      max-width:var(--inner);
-      margin:0 auto;
-      padding:0 14px;
-    }
-
-    /* ================= HERO (FULL-WIDTH) ================= */
-    .hero{
-      position:relative;
-      width:100%;
-      height:520px;
-      overflow:hidden;
-      color:#fff;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-    }
-    .hero-bg{
-      position:absolute; inset:0;
-      background:url("https://autoquotepilot.com/ad2/newwww.png") center/cover no-repeat;
-      transform:scale(1.02);
-    }
-    .hero-overlay{
-      position:absolute; inset:0;
-    }
-
-    .hero-content{
-      position:relative;
-      z-index:2;
-      width:100%;
-      padding:10px 14px 0;
-      text-align:center;
-    }
-
-   .social-proof{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:.2px;
-  text-shadow:0 2px 10px rgba(0,0,0,.45);
-  /* margin-top:10px; */
-  flex-wrap:wrap;
-}
-
-.social-proof .count{
-  font-weight:800;
-}
-
-.social-proof .faces{
-  display:inline-flex;
-  align-items:center;
-  gap:2px;
-}
-
-.social-proof .faces img{
-  height:14px;
-  width:auto;
-  border-radius:999px;
-  object-fit:cover;
-}
-
-/* main headline + subtext */
-.hero h1{
-  margin:18px auto 10px;
-  font-weight:800;
-  line-height:1.16;
-  font-size:26px;
-  text-shadow:0 4px 18px rgba(0,0,0,.6);
-  max-width:19ch; /* keeps breaks tight, like screenshot */
-}
-
-.hero .sub{
-  font-size:13px;
-  font-weight:700;
-  opacity:.98;
-  text-shadow:0 2px 12px rgba(0,0,0,.55);
-}
-
-/* desktop tweak to match layout in screenshot */
-@media (min-width: 900px){
-  .hero h1{
-    font-size:44px;
-    max-width:20ch;
+<style>
+  :root{
+    --blue:#1976d2;
+    --blue-2:#2f89ff;
+    --navy:#233a63;
+    --text:#0f172a;
+    --muted:#6b7280;
+    --card:#ffffff;
+    --line:#e5e7eb;
+    --soft:#f5f7fb;
+    --radius:18px;
+    --inner:860px;
+    --cta:#00b157;
   }
 
-  .hero .sub{
-    font-size:18px;
-    font-weight:700;
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    background:#fff;
+  }
+
+  .page{width:100%;}
+  .container{width:100%;}
+  .inner{
+    max-width:var(--inner);
+    margin:0 auto;
+    padding:0 14px;
+  }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative;
+    width:100%;
+    min-height:520px;          /* was height:520px */
+    padding-bottom:40px;       /* room for taller card */
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    overflow:visible;          /* was overflow:hidden */
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background:url("https://autoquotepilot.com/ad2/newwww.png") center/cover no-repeat;
+    transform:scale(1.02);
+  }
+  .hero-overlay{ position:absolute; inset:0; }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    width:100%;
+    padding:10px 14px 0;
+    text-align:center;
   }
 
   .social-proof{
-    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.2px;
+    text-shadow:0 2px 10px rgba(0,0,0,.45);
+    flex-wrap:wrap;
   }
-}
+  .social-proof .count{ font-weight:800; }
+  .social-proof .faces{
+    display:inline-flex;
+    align-items:center;
+    gap:2px;
+  }
+  .social-proof .faces img{
+    height:14px;
+    width:auto;
+    border-radius:999px;
+    object-fit:cover;
+  }
 
+  .hero h1{
+    margin:18px auto 10px;
+    font-weight:800;
+    line-height:1.16;
+    font-size:26px;
+    text-shadow:0 4px 18px rgba(0,0,0,.6);
+    max-width:19ch;
+  }
 
-    .hero h1{
-      margin:14px auto 6px;
-      font-weight:900;
-      line-height:1.18;
-      font-size:26px;
-      text-shadow:0 4px 18px rgba(0,0,0,.6);
-      max-width:95%;
+  .hero .sub{
+    font-size:13px;
+    font-weight:700;
+    opacity:.98;
+    text-shadow:0 2px 12px rgba(0,0,0,.55);
+  }
+
+  @media (min-width:900px){
+    .hero{
+      min-height:640px;        /* was height:640px */
+      padding-bottom:60px;
     }
-    .hero .sub{
-      font-size:12.5px;
-      font-weight:800;
-      opacity:.98;
-      text-shadow:0 2px 12px rgba(0,0,0,.55);
-    }
+    .hero h1{ font-size:44px; max-width:20ch; }
+    .hero .sub{ font-size:18px; }
+    .social-proof{ font-size:14px; }
+  }
 
-    /* ================= QUESTION ================= */
+  /* ================= QUESTION CARD ================= */
+  .question-wrap{
+    position:relative;
+    z-index:3;
+    margin-top:300px;
+    padding:0 12px;
+  }
+  .question-card{
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:0 14px 40px rgba(0,0,0,.18);
+    padding:14px 12px 12px;
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .question-title{
+    font-weight:900;
+    text-align:center;
+    font-size:22px;
+    margin-bottom:10px;
+    color:#0b1220;
+  }
+
+  /* ================= BUTTONS STACKED ================= */
+  .btn-row{
+    display:grid;
+    grid-template-columns:1fr;    /* stacked */
+    gap:14px;
+    width:100%;
+  }
+
+  .btn{
+    position:relative;
+    overflow:hidden;
+    background:var(--cta);
+    color:#ffffff;
+    font-weight:900;
+    padding:14px 0;
+    border-radius:8px;
+    text-align:center;
+    cursor:pointer;
+    width:100%;
+    user-select:none;
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    letter-spacing:.3px;
+    border:none;
+    display:block;
+    text-decoration:none;
+    box-shadow:
+      0 0 0 1px rgba(0,177,87,.75),
+      0 0 24px rgba(0,177,87,.95),
+      0 12px 30px rgba(0,0,0,.25);
+  }
+
+  .btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-140%;
+    width:120%;
+    height:100%;
+    background:linear-gradient(
+      120deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,.18) 40%,
+      rgba(255,255,255,0) 80%
+    );
+    transform:skewX(-20deg);
+    animation:shimmer 2.2s infinite;
+    pointer-events:none;
+  }
+
+  @keyframes shimmer{
+    0%{left:-140%;}
+    100%{left:140%;}
+  }
+
+  .btn:hover{
+    transform:translateY(-1px) scale(1.01);
+    filter:brightness(1.05);
+  }
+
+  .btn:active{
+    transform:translateY(1px) scale(0.99);
+  }
+
+  @media (min-width:900px){
     .question-wrap{
-      position:relative;
-      z-index:3;
-      margin-top:270px;
-      padding:0 12px;
+      margin-top:190px;
+      padding:0;
+      display:flex;
+      justify-content:center;
     }
     .question-card{
-      background:var(--card);
-      border-radius:14px;
-      box-shadow:0 14px 40px rgba(0,0,0,.18);
-      padding:14px 12px 12px;
-      border:1px solid rgba(0,0,0,.04);
+      background:transparent;
+      box-shadow:none;
+      border:none;
+      padding:0;
+      border-radius:0;
     }
     .question-title{
-      font-weight:900;
-      text-align:center;
-      font-size:16px;
-      margin-bottom:10px;
-      color:#0b1220;
+      color:#fff;
+      text-shadow:0 3px 10px rgba(0,0,0,.6);
+      font-size:20px;
+      margin-bottom:12px;
     }
     .btn-row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
+      grid-template-columns:1fr;   /* still stacked */
+      width:380px;
+      margin:0 auto;
+      gap:16px;
     }
-
-    /* ================= CTA BUTTONS (GREEN + GLOW + SHIMMER) ================= */
     .btn{
-      position:relative;
-      overflow:hidden;
-      background:var(--cta);
-      color:#ffffff;
-      font-weight:900;
-      padding:12px 0;
-      border-radius:8px;
-      text-align:center;
-      cursor:pointer;
-      user-select:none;
-      transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;
-      letter-spacing:.3px;
-      border:none;
-      box-shadow:
-        0 0 0 1px rgba(0,177,87,.75),
-        0 0 24px rgba(0,177,87,.95),
-        0 12px 30px rgba(0,0,0,.25);
-      text-decoration:none;
-      display:inline-block;
+      font-size:16px;
+      padding:16px 0;
+      border-radius:6px;
     }
+  }
 
-    .btn::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:-140%;
-      width:120%;
-      height:100%;
-      background:linear-gradient(
-        120deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,.18) 40%,
-        rgba(255,255,255,0) 80%
-      );
-      transform:skewX(-20deg);
-      animation:shimmer 2.2s infinite;
-      pointer-events:none;
-    }
+  @media (max-width:360px){
+    .hero h1{font-size:21px;}
+    .btn{font-size:13px;}
+  }
 
-    @keyframes shimmer{
-      0%{left:-140%;}
-      100%{left:140%;}
-    }
+  /* ================= TRUST LOGO SLIDER ================= */
+  .trust-slider-wrap{
+    background:#fff;
+    padding:10px 0 6px;
+    overflow:hidden;
+    border-bottom:1px solid #f1f5f9;
+  }
+  .trust-track{
+    display:flex;
+    gap:26px;
+    align-items:center;
+    width:max-content;
+    animation: marquee 18s linear infinite;
+    padding:0 14px;
+  }
 
-    .btn:hover{
-      transform:translateY(-1px) scale(1.01);
-      box-shadow:
-        0 0 0 1px rgba(0,177,87,1),
-        0 0 32px rgba(0,177,87,1),
-        0 16px 40px rgba(0,0,0,.35);
-      filter:brightness(1.05);
-    }
+  .trust{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-width:135px;
+    text-align:center;
+    font-size:11px;
+    color:#0b1220;
+    font-weight:800;
+    white-space:nowrap;
+  }
+  .trust .logo{
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:4px;
+  }
+  .trust .logo img{
+    height:28px;
+    width:auto;
+    object-fit:contain;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,.06));
+  }
+  .trust small{
+    font-size:9.5px;
+    color:var(--muted);
+    font-weight:800;
+    letter-spacing:.2px;
+  }
+  @keyframes marquee{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
 
-    .btn:active{
-      transform:translateY(1px) scale(0.99);
-      box-shadow:
-        0 0 0 1px rgba(0,177,87,.9),
-        0 0 20px rgba(0,177,87,.8),
-        0 10px 24px rgba(0,0,0,.35);
-    }
+  /* ================= REAL-TIME QUOTES ================= */
+  .section{
+    background:#fff;
+    padding:10px 0 0;
+  }
+  .section h2{
+    text-align:center;
+    font-size:20px;
+    margin:8px 0;
+    font-weight:900;
+    color:#0b1220;
+  }
+  .section p.lead{
+    text-align:center;
+    font-size:12.5px;
+    color:#111827;
+    margin:0 10px 10px;
+    font-weight:650;
+  }
 
-    .btn.yes{}
-    .btn.no{}
+  .quotes-card{
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    margin:8px 0 14px;
+  }
+  .quotes-head{
+    background:var(--blue);
+    color:#fff;
+    font-weight:900;
+    font-size:12px;
+    padding:10px 8px;
+    display:grid;
+    grid-template-columns:1.2fr 1fr .8fr .8fr;
+    gap:6px;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+  }
 
-    /* ================= TRUST LOGO SLIDER ================= */
-    .trust-slider-wrap{
-      background:#fff;
-      padding:10px 0 6px;
-      overflow:hidden;
-      border-bottom:1px solid #f1f5f9;
-    }
-    .trust-track{
-      display:flex;
-      gap:26px;
-      align-items:center;
-      width:max-content;
-      animation: marquee 18s linear infinite;
-      padding:0 14px;
-    }
-    .trust{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      min-width:135px;
-      text-align:center;
-      font-size:11px;
-      color:#0b1220;
-      font-weight:800;
-      white-space:nowrap;
-    }
-    .trust .logo{
-      height:28px;
-      display:flex; align-items:center; justify-content:center;
-      margin-bottom:4px;
-    }
-    .trust .logo img{
-      height:28px;
-      width:auto;
-      object-fit:contain;
-      filter: drop-shadow(0 1px 0 rgba(0,0,0,.06));
-    }
-    .trust small{
-      font-size:9.5px;
-      color:var(--muted);
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    @keyframes marquee{
-      0%{transform:translateX(0);}
-      100%{transform:translateX(-50%);}
-    }
+  .quotes-body{
+    max-height:230px;
+    overflow:hidden;
+    position:relative;
+    background:#fff;
+  }
+  .quotes-track-vertical{
+    display:flex;
+    flex-direction:column;
+    animation:quotesScroll 18s linear infinite;
+  }
 
-    /* ================= SECTIONS ================= */
-    .section{
-      background:#fff;
-      padding:10px 0 0;
-    }
-    .section h2{
-      text-align:center;
-      font-size:20px;
-      margin:8px 0;
-      font-weight:900;
-      color:#0b1220;
-    }
-    .section p.lead{
-      text-align:center;
-      font-size:12.5px;
-      color:#111827;
-      margin:0 10px 10px;
-      font-weight:650;
-    }
+  @keyframes quotesScroll{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-50%);}
+  }
 
-    /* Quotes card */
-    .quotes-card{
-      border:1px solid var(--line);
-      border-radius:12px;
-      overflow:hidden;
-      margin:8px 0 14px;
-    }
-    .quotes-head{
-      background:var(--blue);
-      color:#fff;
-      font-weight:900;
-      font-size:12px;
-      padding:10px 8px;
-      display:grid;
-      grid-template-columns:1.2fr 1fr .8fr .8fr;
-      gap:6px;
-      text-transform:uppercase;
-      letter-spacing:.6px;
-    }
+  .quotes-row{
+    display:grid;
+    grid-template-columns:1.2fr 1fr .8fr .8fr;
+    gap:6px;
+    padding:12px 8px;
+    font-size:13px;
+    align-items:center;
+    border-top:1px solid var(--line);
+    background:#fff;
+  }
+  .quotes-row:nth-child(even){background:#f7f9fc;}
+  .blur{
+    height:12px;width:70%;
+    background:linear-gradient(90deg,#d1d5db,#eef2f7);
+    border-radius:999px;
+  }
+  .rate{font-weight:900;text-align:right;color:#111827;}
+  .state,.make{font-weight:700;color:#111827;}
 
-    /* moving body */
-    .quotes-body{
-      max-height:230px;
-      overflow:hidden;
-      position:relative;
-      background:#fff;
-    }
-    .quotes-track-vertical{
-      display:flex;
-      flex-direction:column;
-      animation:quotesScroll 18s linear infinite;
-    }
+  /* ================= REVIEWS ================= */
+  .reviews{
+    background:var(--soft);
+    padding:14px 0 8px;
+    border-top:1px solid #eef2f7;
+    margin-top:6px;
+  }
+  .review-card{
+    background:#fff;
+    border-radius:14px;
+    padding:12px;
+    box-shadow:0 8px 22px rgba(15,23,42,.08);
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:12px;
+    margin:12px 0;
+    align-items:flex-start;
+  }
+  .avatar{
+    width:58px;height:58px;border-radius:50%;
+    background:#e5e7eb;
+    border:3px solid #fff;
+    box-shadow:0 4px 10px rgba(0,0,0,.12);
+    margin-top:2px;
+    overflow:hidden;
+    flex:0 0 auto;
+  }
+  .avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .quote{
+    font-size:12.8px;
+    color:#0f172a;
+    font-weight:650;
+    font-style:italic;
+    line-height:1.5;
+    margin-bottom:8px;
+  }
+  .stars{display:flex;gap:4px;margin:2px 0 6px;}
+  .star{
+    width:16px;height:16px;
+    background:conic-gradient(from 0deg,#fbbf24 0 100%);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 67% 57%, 79% 91%,
+    50% 70%, 21% 91%, 33% 57%, 2% 35%, 39% 35%);
+    filter:drop-shadow(0 1px 0 rgba(0,0,0,.12));
+  }
+  .review-name{font-size:12px;font-weight:900;color:#0b1220;}
 
-    @keyframes quotesScroll{
-      0%{transform:translateY(0);}
-      100%{transform:translateY(-50%);}
-    }
+  /* ================= FOOTER ================= */
+  footer{
+    background:#fff;
+    padding:14px 0 26px;
+    font-size:10.5px;
+    color:#374151;
+    line-height:1.45;
+    text-align:center;
+  }
+  footer .fine{
+    font-size:9.8px;color:#6b7280;margin-top:10px;font-weight:700;
+  }
+  footer a{color:#111827;text-decoration:none;font-weight:800;}
+  footer .links{
+    margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-weight:800;
+  }
+</style>
 
-    .quotes-row{
-      display:grid;
-      grid-template-columns:1.2fr 1fr .8fr .8fr;
-      gap:6px;
-      padding:12px 8px;
-      font-size:13px;
-      align-items:center;
-      border-top:1px solid var(--line);
-      background:#fff;
-    }
-    .quotes-row:nth-child(even){background:#f7f9fc;}
-    .blur{
-      height:12px;width:70%;
-      background:linear-gradient(90deg,#d1d5db,#eef2f7);
-      border-radius:999px;
-    }
-    .rate{font-weight:900;text-align:right;color:#111827;}
-    .state,.make{font-weight:700;color:#111827;}
 
-    /* Reviews */
-    .reviews{
-      background:var(--soft);
-      padding:14px 0 8px;
-      border-top:1px solid #eef2f7;
-      margin-top:6px;
-    }
-    .review-card{
-      background:#fff;
-      border-radius:14px;
-      padding:12px;
-      box-shadow:0 8px 22px rgba(15,23,42,.08);
-      display:grid;
-      grid-template-columns:64px 1fr;
-      gap:12px;
-      margin:12px 0;
-      align-items:flex-start;
-    }
-    .avatar{
-      width:58px;height:58px;border-radius:50%;
-      background:#e5e7eb;
-      border:3px solid #fff;
-      box-shadow:0 4px 10px rgba(0,0,0,.12);
-      margin-top:2px;
-      overflow:hidden;
-      flex:0 0 auto;
-    }
-    .avatar img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .quote{
-      font-size:12.8px;
-      color:#0f172a;
-      font-weight:650;
-      font-style:italic;
-      line-height:1.5;
-      margin-bottom:8px;
-    }
-    .stars{display:flex;gap:4px;margin:2px 0 6px;}
-    .star{
-      width:16px;height:16px;
-      background:conic-gradient(from 0deg,#fbbf24 0 100%);
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 67% 57%, 79% 91%, 50% 70%, 21% 91%, 33% 57%, 2% 35%, 39% 35%);
-      filter:drop-shadow(0 1px 0 rgba(0,0,0,.12));
-    }
-    .review-name{font-size:12px;font-weight:900;color:#0b1220;}
-
-    /* Footer */
-    footer{
-      background:#fff;
-      padding:14px 0 26px;
-      font-size:10.5px;
-      color:#374151;
-      line-height:1.45;
-      text-align:center;
-    }
-    footer .fine{
-      font-size:9.8px;color:#6b7280;margin-top:10px;font-weight:700;
-    }
-    footer a{color:#111827;text-decoration:none;font-weight:800;}
-    footer .links{
-      margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-weight:800;
-    }
-
-    /* ================= DESKTOP FIX (MATCH ORIGINAL) ================= */
-    @media (min-width: 900px){
-      .hero{ height:640px; }
-
-      .hero-content{
-        max-width:1100px;
-        margin:0 auto;
-        padding-top:16px;
-      }
-      .hero h1{ font-size:44px; max-width:82%; }
-      .hero .sub{ font-size:18px; }
-
-      .question-wrap{
-        margin-top:190px;
-        padding:0;
-        display:flex;
-        justify-content:center;
-      }
-      .question-card{
-        background:transparent;
-        box-shadow:none;
-        border:none;
-        padding:0;
-        border-radius:0;
-      }
-      .question-title{
-        color:#fff;
-        text-shadow:0 3px 10px rgba(0,0,0,.6);
-        font-size:20px;
-        margin-bottom:12px;
-      }
-      .btn-row{
-        grid-template-columns:220px 220px;
-        gap:18px;
-        justify-content:center;
-      }
-      .btn{
-        border-radius:6px;
-        padding:14px 0;
-        font-size:16px;
-      }
-
-      .trust-track{
-        animation-duration:22s;
-        gap:46px;
-        padding:0 30px;
-      }
-      .trust{min-width:170px;}
-      .trust .logo img{height:34px;}
-
-      .inner{max-width:900px;}
-      .review-card{
-        grid-template-columns:80px 1fr;
-        padding:18px;
-      }
-      .avatar{width:72px;height:72px;}
-      .quote{font-size:15px;}
-      footer{font-size:11.5px;}
-    }
-
-    @media (max-width:360px){
-      .hero h1{font-size:21px;}
-      .btn{font-size:13px;}
-      .trust{min-width:115px;}
-    }
-  </style>
 
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
