@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SmartDriveQuote Style Lander</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root{
       --blue:#2f7df6;
@@ -48,7 +49,32 @@
       max-width:900px;
       letter-spacing:.1px;
     }
+.arrow-section {
+  text-align: center;
+  padding: 1em 0 1.5em 0;
+  color: #6b7280;
+}
 
+.arrow-section i {
+  font-size: 2.8em;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-0.3em);
+  }
+  60% {
+    transform: translateY(-0.15em);
+  }
+}
     /* ======================================================
        BLUE BANNER CARD (WITH DRIBBBLE-STYLE ANIMATIONS)
        ====================================================== */
@@ -455,6 +481,10 @@
       <section class="blue-section">
         <p class="save-line">See How Much You Can Save!</p>
         <div class="age-title">Whats Your Age Range?</div>
+
+         <div class="arrow-section">
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
 
        <div class="age-grid">
   <a href="https://trk.reliableautopolicy.com/click" class="age-btn">18 to 34</a>
