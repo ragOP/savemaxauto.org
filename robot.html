@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoQuote Pilot — Purple Clean App Theme</title>
+
+  <!-- Fonts + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ugaqmwe991");
+  </script>
+
+  <!-- GTM -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PL5B9NSD');</script>
+
+  <!-- Tracking -->
+  <script type="text/javascript" src="https://trk.reliableautopolicy.com/track.js?rtkcmpid=692430d43ce7194f6210e962"></script>
+
+  <style>
+    :root{
+      /* Purple clean-app theme */
+      --bg:#0d1020;                 /* outer background (like screenshot) */
+      --page:#ffffff;               /* page surface */
+      --ink:#0f1326;
+      --muted:#6b7280;
+      --line:rgba(15,19,38,.12);
+
+      --violet:#a78bfa;            /* lavender */
+      --violet-2:#c4b5fd;          /* lighter lavender */
+      --violet-3:#ede9fe;          /* very light */
+      --black:#0b0d14;
+
+      --radius-xl:26px;
+      --radius-lg:20px;
+      --radius-md:16px;
+
+      --shadow:0 18px 50px rgba(0,0,0,.16);
+      --shadow-soft:0 14px 34px rgba(0,0,0,.10);
+
+      --inner:980px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(700px 500px at 20% 20%, rgba(167,139,250,.22), transparent 55%),
+        radial-gradient(900px 600px at 80% 30%, rgba(196,181,253,.16), transparent 60%),
+        radial-gradient(900px 700px at 50% 120%, rgba(15,19,38,.25), transparent 60%),
+        var(--bg);
+      color:var(--ink);
+    }
+
+    .inner{max-width:var(--inner); margin:0 auto; padding:0 14px;}
+    .tap{cursor:pointer; -webkit-tap-highlight-color:transparent;}
+    .tap:active{transform:translateY(1px);}
+
+    /* ===== Phone-like page container ===== */
+    .frame{
+      margin:18px auto 22px;
+      max-width:520px;
+      border-radius:34px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      background:var(--page);
+      border:1px solid rgba(255,255,255,.06);
+      position:relative;
+    }
+
+    /* ===== Header (Hello Aaron style) ===== */
+    .top{
+      padding:16px 16px 8px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .hello{
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.4px;
+      margin:0;
+      line-height:1.05;
+    }
+    .hello small{
+      display:block;
+      margin-top:8px;
+      font-size:12.5px;
+      font-weight:800;
+      color:var(--muted);
+      letter-spacing:0;
+    }
+
+    .top-icons{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding-top:2px;
+    }
+    .circle{
+      width:40px;height:40px;border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      display:grid;place-items:center;
+      box-shadow:0 10px 20px rgba(0,0,0,.06);
+    }
+    .circle i{color:var(--ink); opacity:.85;}
+
+    /* ===== Purple balance card (like screenshot) ===== */
+    .balance{
+      margin:6px 16px 12px;
+      border-radius:22px;
+      border:2px solid var(--ink);
+      background:linear-gradient(180deg, var(--violet-2), var(--violet));
+      box-shadow:0 18px 36px rgba(167,139,250,.25);
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .balance:before{
+      content:"";
+      position:absolute; inset:-40% -30%;
+      background:radial-gradient(260px 180px at 30% 40%, rgba(255,255,255,.25), transparent 60%);
+      transform:rotate(10deg);
+      pointer-events:none;
+    }
+    .flag{
+      width:28px;height:28px;border-radius:999px;
+      background:#fff;
+      display:grid;place-items:center;
+      border:2px solid rgba(15,19,38,.22);
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .flag img{width:100%;height:100%;object-fit:cover;}
+    .bal-top{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      position:relative;
+      z-index:1;
+    }
+    .mask{
+      font-weight:900;
+      font-size:12px;
+      color:rgba(15,19,38,.60);
+      letter-spacing:.6px;
+    }
+    .bal-mid{
+      margin-top:14px;
+      position:relative; z-index:1;
+    }
+    .bal-mid .label{
+      font-size:12px;
+      font-weight:900;
+      color:rgba(15,19,38,.65);
+      margin-bottom:6px;
+    }
+    .bal-mid .amt{
+      font-size:36px;
+      font-weight:900;
+      letter-spacing:-.8px;
+      color:var(--ink);
+    }
+
+    /* ===== Actions row (Send/Receive/Transfer/Add) ===== */
+    .actions{
+      margin:0 16px 10px;
+      border:2px solid var(--ink);
+      border-radius:22px;
+      padding:12px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      background:#fff;
+      box-shadow:0 16px 28px rgba(0,0,0,.08);
+    }
+    .act{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      text-align:center;
+      font-weight:900;
+      font-size:12px;
+      color:var(--ink);
+      user-select:none;
+    }
+    .act .ico{
+      width:46px;height:46px;border-radius:999px;
+      border:2px solid var(--ink);
+      background:#fff;
+      display:grid;place-items:center;
+    }
+    .act .ico i{font-size:16px;}
+    .act:active{transform:translateY(1px);}
+
+    /* ===== Minimal hero (your landing part) ===== */
+    .lander{
+      padding:6px 16px 10px;
+    }
+
+    .lander-title{
+      margin:6px 0 10px;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:-.4px;
+    }
+
+    /* Question Card (matches the app style) */
+    .qcard{
+      border:2px solid var(--ink);
+      border-radius:22px;
+      background:#fff;
+      box-shadow:0 18px 40px rgba(0,0,0,.10);
+      padding:14px;
+      scroll-margin-top: 84px;
+    }
+    .qhead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .qhead .q{
+      font-size:14px;
+      font-weight:900;
+      margin:0;
+      letter-spacing:-.2px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:2px solid var(--ink);
+      background:var(--violet-3);
+      font-size:12px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .btn{
+      border:2px solid var(--ink);
+      border-radius:18px;
+      padding:14px 12px;
+      font-weight:900;
+      font-size:14px;
+      text-decoration:none;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      box-shadow:0 14px 28px rgba(0,0,0,.10);
+      user-select:none;
+      transition:transform .12s ease, filter .12s ease;
+    }
+    .btn:active{transform:translateY(1px) scale(.99);}
+    .btn.primary{
+      background:linear-gradient(180deg, var(--violet-2), var(--violet));
+      color:var(--ink);
+    }
+    .btn.secondary{
+      background:#fff;
+      color:var(--ink);
+    }
+
+    .cta{
+      margin-top:12px;
+      background:var(--black);
+      color:#fff;
+      border:2px solid var(--black);
+      border-radius:22px;
+      padding:16px 14px;
+      font-weight:900;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      box-shadow:0 18px 40px rgba(0,0,0,.20);
+      position:relative;
+      overflow:hidden;
+      user-select:none;
+    }
+    /* shimmer only CTA */
+    .cta:before{
+      content:"";
+      position:absolute; inset:-40% -30%;
+      background:linear-gradient(110deg, transparent 35%, rgba(255,255,255,.25), transparent 65%);
+      transform:translateX(-60%) rotate(8deg);
+      animation:sh 2.8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes sh{
+      0%{transform:translateX(-70%) rotate(8deg)}
+      55%{transform:translateX(20%) rotate(8deg)}
+      100%{transform:translateX(70%) rotate(8deg)}
+    }
+
+    .secure{
+      margin-top:10px;
+      font-size:12px;
+      font-weight:800;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-align:center;
+    }
+    .lock{
+      width:18px;height:18px;border-radius:7px;
+      border:2px solid var(--ink);
+      background:var(--violet-3);
+      display:grid;place-items:center;
+      color:var(--ink);
+      flex:0 0 auto;
+    }
+
+    /* ===== Real-Time Quotes (card list style like app) ===== */
+    .section{
+      padding:12px 16px 6px;
+    }
+    .section-head{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.3px;
+    }
+    .livepill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:2px solid var(--ink);
+      background:#fff;
+      font-weight:900;
+      font-size:12px;
+      user-select:none;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background:#22c55e;
+      box-shadow:0 0 0 0 rgba(34,197,94,.38);
+      animation:pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(34,197,94,.35)}
+      70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}
+      100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+    }
+
+    .quotes{
+      border:2px solid var(--ink);
+      border-radius:22px;
+      background:#fff;
+      box-shadow:0 18px 40px rgba(0,0,0,.10);
+      overflow:hidden;
+    }
+    .qtop{
+      padding:12px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid var(--line);
+      background:rgba(237,233,254,.55);
+      font-weight:900;
+      font-size:12px;
+    }
+    .qtop .mut{color:rgba(15,19,38,.60); font-weight:900;}
+    .qviewport{
+      height:260px;
+      overflow:hidden;
+      position:relative;
+    }
+    .qlist{
+      will-change:transform;
+      animation:scroll linear infinite;
+      animation-duration: var(--scroll-time, 55s);
+    }
+    @keyframes scroll{
+      from{transform:translateY(0);}
+      to{transform:translateY(-50%);}
+    }
+    .qviewport:hover .qlist{animation-play-state:paused;}
+
+    .row{
+      padding:12px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-top:1px solid var(--line);
+    }
+    .row:nth-child(even){background:rgba(237,233,254,.28);}
+    .left{
+      display:flex; align-items:center; gap:10px; min-width:0;
+    }
+    .car{
+      width:44px;height:44px;border-radius:16px;
+      border:2px solid var(--ink);
+      background:linear-gradient(180deg, rgba(196,181,253,.70), rgba(167,139,250,.48));
+      display:grid;place-items:center;
+      flex:0 0 auto;
+      box-shadow:0 14px 26px rgba(167,139,250,.18);
+    }
+    .car i{font-size:16px;}
+    .meta{min-width:0;}
+    .meta .n{
+      font-weight:900;
+      font-size:13px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .meta .s{
+      margin-top:3px;
+      font-size:12px;
+      font-weight:800;
+      color:var(--muted);
+      display:flex; align-items:center; gap:8px;
+    }
+    .blurname{
+      width:82px;height:10px;border-radius:999px;
+      background:linear-gradient(90deg, rgba(15,19,38,.18), rgba(15,19,38,.06));
+      display:inline-block;
+    }
+    .right{
+      display:flex; align-items:center; gap:10px; flex:0 0 auto;
+    }
+    .state{
+      border:2px solid var(--ink);
+      border-radius:999px;
+      padding:8px 10px;
+      font-weight:900;
+      font-size:12px;
+      background:#fff;
+      min-width:46px;
+      text-align:center;
+    }
+    .rate{
+      border:2px solid var(--ink);
+      border-radius:999px;
+      padding:10px 12px;
+      font-weight:900;
+      font-size:12px;
+      background:linear-gradient(180deg, rgba(196,181,253,.70), rgba(167,139,250,.52));
+      white-space:nowrap;
+      box-shadow:0 14px 22px rgba(167,139,250,.18);
+    }
+
+    /* ===== Reviews (swipeable carousel like screenshot quick send) ===== */
+    .reviews{
+      border:2px solid var(--ink);
+      border-radius:22px;
+      background:#fff;
+      box-shadow:0 18px 40px rgba(0,0,0,.10);
+      overflow:hidden;
+    }
+    .rhead{
+      padding:12px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid var(--line);
+      background:rgba(237,233,254,.55);
+    }
+    .rhead .stars{
+      display:inline-flex; gap:3px; color:#caa44b; font-size:12px;
+    }
+    .verified{
+      border:2px solid var(--ink);
+      border-radius:999px;
+      padding:8px 10px;
+      font-weight:900;
+      font-size:12px;
+      background:#fff;
+      display:inline-flex;align-items:center;gap:8px;
+    }
+    .verified i{color:var(--ink);}
+
+    .rail{
+      display:flex;
+      gap:12px;
+      padding:12px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+      background:rgba(237,233,254,.18);
+    }
+    .rail::-webkit-scrollbar{display:none;}
+    .card{
+      min-width:84%;
+      max-width:84%;
+      scroll-snap-align:center;
+      border:2px solid var(--ink);
+      border-radius:22px;
+      background:linear-gradient(180deg, rgba(237,233,254,.60), rgba(255,255,255,.95));
+      box-shadow:0 18px 40px rgba(0,0,0,.10);
+      padding:14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-40% -30%;
+      background:radial-gradient(240px 160px at 25% 30%, rgba(167,139,250,.28), transparent 60%);
+      pointer-events:none;
+    }
+    .card .q{
+      position:relative;
+      font-size:14px;
+      font-weight:900;
+      line-height:1.5;
+      margin:10px 0 14px;
+      letter-spacing:-.2px;
+    }
+    .card .q .qm{
+      color:rgba(167,139,250,.55);
+      font-size:26px;
+      margin-right:6px;
+      vertical-align:top;
+    }
+    .who{
+      position:relative;
+      display:flex; align-items:center; gap:10px;
+    }
+    .ava{
+      width:44px;height:44px;border-radius:999px;
+      border:2px solid var(--ink);
+      overflow:hidden;
+      background:#fff;
+      box-shadow:0 14px 24px rgba(0,0,0,.10);
+      flex:0 0 auto;
+    }
+    .ava img{width:100%;height:100%;object-fit:cover;}
+    .who .nm{font-weight:900;font-size:13px; margin:0;}
+    .who .sb{
+      margin-top:3px;
+      font-weight:800;
+      font-size:12px;
+      color:var(--muted);
+      display:flex;align-items:center;gap:8px;
+    }
+
+    /* Footer */
+    footer{
+      padding:10px 16px 22px;
+      color:rgba(15,19,38,.70);
+      font-size:10.75px;
+      line-height:1.5;
+    }
+    .links{
+      margin-top:10px;
+      display:flex; flex-wrap:wrap;
+      justify-content:center;
+      gap:8px;
+      font-weight:900;
+    }
+    .links a{
+      color:var(--ink);
+      text-decoration:none;
+      border:2px solid var(--ink);
+      padding:8px 10px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    /* Bottom nav like screenshot */
+    .nav{
+      position:sticky;
+      bottom:0;
+      background:#fff;
+      border-top:1px solid var(--line);
+      padding:10px 10px 14px;
+    }
+    .nav-row{
+      border:2px solid var(--ink);
+      border-radius:22px;
+      padding:10px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      box-shadow:0 14px 28px rgba(0,0,0,.10);
+      background:#fff;
+    }
+    .nav .item{
+      border:2px solid transparent;
+      border-radius:18px;
+      padding:10px 8px;
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      font-weight:900;
+      font-size:12px;
+      color:var(--ink);
+      user-select:none;
+    }
+    .nav .item i{font-size:14px;}
+    .nav .item.active{
+      border-color:var(--ink);
+      background:rgba(237,233,254,.55);
+    }
+
+    @media (min-width: 900px){
+      .frame{max-width:560px;}
+      .qviewport{height:290px;}
+      .actions{grid-template-columns:repeat(4,1fr);}
+      .card{min-width:360px;max-width:360px;}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- GTM noscript -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL5B9NSD"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div class="inner">
+    <div class="frame">
+
+      <!-- Top header -->
+      <div class="top">
+        <div>
+          <h1 class="hello">Hello!</h1>
+          <small style="display:block;margin-top:8px;font-size:12.5px;font-weight:800;color:var(--muted);" id="stateLine">
+            Rates from <b>$19.99/mo</b> in America
+          </small>
+        </div>
+
+        <div class="top-icons">
+          <div class="circle tap" title="Search"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="circle tap scroll-trigger" title="Quote"><i class="fa-solid fa-bolt"></i></div>
+        </div>
+      </div>
+
+      <!-- Balance card (visual hook) -->
+      <div class="balance tap scroll-trigger" aria-label="Scroll to quote builder">
+        <div class="bal-top">
+          <div class="flag" aria-hidden="true">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="US"/>
+          </div>
+          <div class="mask">XXXX-1234</div>
+        </div>
+
+        <div class="bal-mid">
+          <div class="label">Estimated savings</div>
+          <div class="amt">$710</div>
+        </div>
+      </div>
+
+      <!-- Actions row -->
+      <div class="actions">
+        <div class="act tap scroll-trigger"><div class="ico"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>Send</div>
+        <div class="act tap scroll-trigger"><div class="ico"><i class="fa-solid fa-arrow-down"></i></div>Receive</div>
+        <div class="act tap scroll-trigger"><div class="ico"><i class="fa-solid fa-right-left"></i></div>Transfer</div>
+        <div class="act tap scroll-trigger"><div class="ico"><i class="fa-solid fa-plus"></i></div>Add</div>
+      </div>
+
+      <!-- Minimal lander content -->
+      <div class="lander" id="quoteBuilder">
+        <div class="lander-title">Quick Quote</div>
+
+        <div class="qcard" id="questionCard">
+          <div class="qhead">
+            <p class="q">Are you currently insured?</p>
+            <span class="badge"><i class="fa-solid fa-clock"></i> ~60 sec</span>
+          </div>
+
+          <div class="grid">
+            <a class="btn primary tap" href="https://trk.reliableautopolicy.com/click"><i class="fa-solid fa-check"></i> YES</a>
+            <a class="btn secondary tap" href="https://trk.reliableautopolicy.com/click"><i class="fa-solid fa-xmark"></i> NO</a>
+          </div>
+
+          <div class="cta tap scroll-trigger" role="button">
+            Continue <i class="fa-solid fa-arrow-right"></i>
+          </div>
+
+          <div class="secure">
+            <span class="lock"><i class="fa-solid fa-lock"></i></span>
+            <span>We keep your info secure &amp; confidential.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-Time Quotes -->
+      <div class="section">
+        <div class="section-head">
+          <h2>Real-Time Quotes</h2>
+          <span class="livepill"><span class="dot"></span> Live</span>
+        </div>
+
+        <div class="quotes">
+          <div class="qtop">
+            <span>Latest snapshots</span>
+            <span class="mut">Hover to pause</span>
+          </div>
+
+          <div class="qviewport" id="qViewport">
+            <div class="qlist" id="qList">
+              <div class="row">
+                <div class="left">
+                  <div class="car"><i class="fa-solid fa-car"></i></div>
+                  <div class="meta">
+                    <div class="n"><span class="blurname"></span></div>
+                    <div class="s">Chrysler • Standard</div>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="state">MT</div>
+                  <div class="rate">$32/mo</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="left">
+                  <div class="car"><i class="fa-solid fa-car"></i></div>
+                  <div class="meta">
+                    <div class="n"><span class="blurname" style="width:70px;"></span></div>
+                    <div class="s">Ford • Basic</div>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="state">NC</div>
+                  <div class="rate">$29/mo</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="left">
+                  <div class="car"><i class="fa-solid fa-car"></i></div>
+                  <div class="meta">
+                    <div class="n"><span class="blurname" style="width:78px;"></span></div>
+                    <div class="s">Dodge • Standard</div>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="state">MO</div>
+                  <div class="rate">$30/mo</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="left">
+                  <div class="car"><i class="fa-solid fa-car"></i></div>
+                  <div class="meta">
+                    <div class="n"><span class="blurname" style="width:66px;"></span></div>
+                    <div class="s">Fiat • Basic</div>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="state">WI</div>
+                  <div class="rate">$33/mo</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="left">
+                  <div class="car"><i class="fa-solid fa-car"></i></div>
+                  <div class="meta">
+                    <div class="n"><span class="blurname" style="width:74px;"></span></div>
+                    <div class="s">Ford • Standard</div>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="state">TX</div>
+                  <div class="rate">$30/mo</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="left">
+                  <div class="car"><i class="fa-solid fa-car"></i></div>
+                  <div class="meta">
+                    <div class="n"><span class="blurname" style="width:82px;"></span></div>
+                    <div class="s">Genesis • Basic</div>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="state">NY</div>
+                  <div class="rate">$25/mo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Reviews -->
+      <div class="section">
+        <div class="section-head">
+          <h2>Customer Reviews</h2>
+          <span class="livepill" style="background:rgba(237,233,254,.55);"><i class="fa-solid fa-hand-point-left" style="color:var(--ink)"></i> Swipe</span>
+        </div>
+
+        <div class="reviews">
+          <div class="rhead">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <div class="verified"><i class="fa-solid fa-badge-check"></i> Verified</div>
+          </div>
+
+          <div class="rail">
+            <div class="card">
+              <div class="q"><span class="qm">“</span>Excellent coverage for less money. This is the smartest way to insure your car!</div>
+              <div class="who">
+                <div class="ava"><img src="https://quotediscountusa.com/images/download%20(4).jpeg" alt="Grace K"/></div>
+                <div>
+                  <p class="nm">Grace K</p>
+                  <div class="sb"><i class="fa-solid fa-circle-check" style="color:var(--ink)"></i> Verified Buyer</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="q"><span class="qm">“</span>The signup process was a breeze, and the savings are real. I’m recommending this to everyone!</div>
+              <div class="who">
+                <div class="ava"><img src="https://quotediscountusa.com/images/download%20(2).jpeg" alt="Emily B."/></div>
+                <div>
+                  <p class="nm">Emily B.</p>
+                  <div class="sb"><i class="fa-solid fa-circle-check" style="color:var(--ink)"></i> Verified Buyer</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="q"><span class="qm">“</span>Switching saved me money without compromising on service. Highly recommend!</div>
+              <div class="who">
+                <div class="ava"><img src="https://quotediscountusa.com/images/aca_hero_4.png" alt="Amy I."/></div>
+                <div>
+                  <p class="nm">Amy I.</p>
+                  <div class="sb"><i class="fa-solid fa-circle-check" style="color:var(--ink)"></i> Verified Buyer</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <p style="margin:0;">
+          Disclaimer: savemaxauto is a top savings referral service which enables consumers to quickly and easily request multiple competitive insurance company quotes
+          from optimally selected local insurance agents and companies using our proprietary consumer alignment technology. We do not provide insurance and we do not
+          represent any specific insurance provider. Please note that lowest listed rates and potential savings may not be representative or available from all companies.
+          autoquotepilot.com matches users to advertisers and insurance agents only after we’ve received certain information from you, and your actual rates and savings will
+          vary based on your location, coverage limits, deductibles, driving records, type of vehicle, affiliations, and many other variables.
+        </p>
+
+        <div class="links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms Of Use</a>
+          <a href="mailto:contact@savemaxauto.org">contact@savemaxauto.org</a>
+          <a href="#">savemaxauto.org</a>
+        </div>
+      </footer>
+
+      <!-- Bottom nav -->
+      <div class="nav">
+        <div class="nav-row">
+          <div class="item active tap" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-house"></i>Home</div>
+          <div class="item tap" onclick="document.getElementById('qViewport')?.scrollIntoView({behavior:'smooth',block:'start'})"><i class="fa-regular fa-credit-card"></i>Quotes</div>
+          <div class="item tap" onclick="document.getElementById('questionCard')?.scrollIntoView({behavior:'smooth',block:'center'})"><i class="fa-regular fa-message"></i>Chat</div>
+          <div class="item tap scroll-trigger"><i class="fa-regular fa-bookmark"></i>Start</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Dynamic state line
+    async function setStateName(){
+      const el = document.getElementById("stateLine");
+      try{
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        const state = data.region || "Your State";
+        el.innerHTML = `Rates from <b>$19.99/mo</b> in <b>${state}</b>`;
+      }catch(e){
+        el.innerHTML = `Rates from <b>$19.99/mo</b> in Your State`;
+      }
+    }
+    setStateName();
+
+    // Scroll triggers -> question card
+    document.addEventListener("DOMContentLoaded", ()=>{
+      const triggers = document.querySelectorAll(".scroll-trigger");
+      const target = document.getElementById("questionCard");
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      triggers.forEach(el=>{
+        el.addEventListener("click", ()=>{
+          target?.scrollIntoView({behavior: prefersReduced ? "auto" : "smooth", block:"center"});
+          target?.animate?.(
+            [
+              { transform:"scale(1)" },
+              { transform:"scale(1.015)" },
+              { transform:"scale(1)" }
+            ],
+            { duration: 420, easing: "ease-out" }
+          );
+        });
+      });
+    });
+
+    // Quotes list: clone to loop slow
+    (function(){
+      const list = document.getElementById("qList");
+      if(!list) return;
+      const rows = Array.from(list.children);
+      rows.forEach(r => list.appendChild(r.cloneNode(true)));
+
+      const perRowSeconds = 2.2;
+      const minSeconds = 48;
+      const t = Math.max(minSeconds, rows.length * perRowSeconds);
+      list.style.setProperty("--scroll-time", t + "s");
+    })();
+  </script>
+</body>
+</html>
