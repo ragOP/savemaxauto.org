@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoQuote Pilot — Messenger Style Chat Lander</title>
+
+  <!-- Inter + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ugaqmwe991");
+  </script>
+
+  <!-- GTM -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PL5B9NSD');</script>
+
+  <!-- Tracking -->
+  <script type="text/javascript" src="https://trk.reliableautopolicy.com/track.js?rtkcmpid=692430d43ce7194f6210e962"></script>
+
+  <style>
+    :root{
+      --ink:#0f1326;
+      --muted:rgba(255,255,255,.78);
+
+      /* Messenger-like gradient background */
+      --g1:#7c2bbf;
+      --g2:#4b2bbf;
+      --g3:#2b2f86;
+      --g4:#9b2bb0;
+
+      --bubbleA:rgba(255,255,255,.16);     /* agent bubble */
+      --bubbleU:rgba(255, 86, 178, .92);   /* user bubble pink */
+      --bubbleU2:rgba(255, 86, 178, .80);
+
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.10);
+
+      --radius:22px;
+      --radius2:18px;
+
+      --shadow:0 18px 50px rgba(0,0,0,.22);
+
+      --max:520px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(700px 520px at 25% 15%, rgba(255,255,255,.10), transparent 55%),
+        radial-gradient(520px 520px at 90% 85%, rgba(255,86,178,.18), transparent 55%),
+        linear-gradient(160deg, var(--g1), var(--g2) 38%, var(--g3) 72%, var(--g4));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+    }
+
+    .phone{
+      width:100%;
+      max-width:var(--max);
+      height:min(860px, calc(100vh - 32px));
+      border-radius:34px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      position:relative;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(255,255,255,.08), transparent 55%),
+        radial-gradient(700px 600px at 80% 80%, rgba(255,86,178,.12), transparent 55%),
+        linear-gradient(160deg, rgba(124,43,191,.92), rgba(75,43,191,.92) 38%, rgba(43,47,134,.92) 72%, rgba(155,43,176,.92));
+    }
+
+    /* Top chat header */
+    .top{
+      position:sticky;
+      top:0;
+      z-index:10;
+      padding:14px 14px 12px;
+      background:linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,0));
+      backdrop-filter: blur(10px);
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color:#fff;
+    }
+    .icon{
+      width:42px;height:42px;border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      display:grid;place-items:center;
+      user-select:none;
+    }
+    .icon:active{transform:translateY(1px)}
+    .profile{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .avatar{
+      width:44px;height:44px;border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.16);
+      display:grid;place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .avatar i{font-size:18px; color:rgba(255,255,255,.92)}
+    .pmeta{min-width:0}
+    .pmeta .name{
+      font-weight:900;
+      font-size:15px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height:1.05;
+    }
+    .pmeta .status{
+      margin-top:4px;
+      font-weight:800;
+      font-size:12px;
+      color:rgba(255,255,255,.75);
+      display:flex; align-items:center; gap:8px;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      background:#22c55e;
+      box-shadow:0 0 0 0 rgba(34,197,94,.35);
+      animation:pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(34,197,94,.35)}
+      70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}
+      100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+    }
+
+    /* Messages area */
+    .msgs{
+      padding:10px 12px 98px;
+      overflow:auto;
+      height:calc(100% - 78px);
+      scroll-behavior:smooth;
+    }
+
+    .day{
+      display:flex; justify-content:center;
+      margin:10px 0 12px;
+    }
+    .day span{
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.80);
+      font-weight:900;
+      font-size:12px;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      margin:10px 0;
+      align-items:flex-end;
+    }
+    .row.a{justify-content:flex-start;}
+    .row.u{justify-content:flex-end;}
+
+    .bubble{
+      max-width:82%;
+      border-radius:24px;
+      padding:12px 14px;
+      font-weight:700;
+      font-size:14px;
+      line-height:1.45;
+      position:relative;
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      transform:translateY(6px);
+      opacity:0;
+      animation:pop .36s ease forwards;
+    }
+    @keyframes pop{
+      to{transform:translateY(0); opacity:1;}
+    }
+
+    .bubble.agent{
+      background:var(--bubbleA);
+      color:rgba(255,255,255,.92);
+      border-top-left-radius:14px;
+    }
+    .bubble.user{
+      background:linear-gradient(180deg, var(--bubbleU), var(--bubbleU2));
+      color:#fff;
+      border-top-right-radius:14px;
+      border-color:rgba(255,255,255,.16);
+      box-shadow:0 16px 30px rgba(255,86,178,.16);
+    }
+
+    .time{
+      font-size:11px;
+      font-weight:900;
+      color:rgba(255,255,255,.55);
+      margin:6px 0 0 8px;
+      letter-spacing:.2px;
+    }
+    .row.u .time{margin:6px 8px 0 0; text-align:right;}
+
+    /* typing bubble */
+    .typing{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      color:rgba(255,255,255,.75);
+      font-weight:900;
+      font-size:12px;
+    }
+    .dots{
+      display:inline-flex; gap:4px; align-items:center;
+    }
+    .dots i{
+      width:6px;height:6px;border-radius:999px;
+      background:rgba(255,255,255,.70);
+      display:inline-block;
+      animation:b 1.1s infinite;
+      opacity:.65;
+    }
+    .dots i:nth-child(2){animation-delay:.12s}
+    .dots i:nth-child(3){animation-delay:.24s}
+    @keyframes b{
+      0%,100%{transform:translateY(0); opacity:.55}
+      50%{transform:translateY(-4px); opacity:1}
+    }
+
+    /* Answer buttons (Messenger quick replies) */
+    .quick{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+      justify-content:flex-start;
+    }
+    .qr{
+      border:none;
+      border-radius:999px;
+      padding:12px 14px;
+      font-weight:900;
+      font-size:13px;
+      color:#fff;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      user-select:none;
+      box-shadow:0 16px 28px rgba(0,0,0,.12);
+      transition:transform .12s ease, filter .12s ease;
+    }
+    .qr:active{transform:translateY(1px) scale(.99)}
+    .qr.primary{
+      background:linear-gradient(180deg, rgba(255,86,178,.92), rgba(255,86,178,.70));
+      border-color:rgba(255,255,255,.22);
+    }
+    .qr.alt{
+      background:rgba(255,255,255,.12);
+    }
+
+    /* Input bar */
+    .inputbar{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      padding:12px 12px 14px;
+      background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.22));
+      backdrop-filter: blur(10px);
+    }
+    .inputwrap{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .plus{
+      width:48px;height:48px;border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      display:grid;place-items:center;
+      color:#fff;
+      user-select:none;
+    }
+    .plus:active{transform:translateY(1px)}
+    .fakeinput{
+      flex:1;
+      height:52px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      display:flex; align-items:center;
+      padding:0 16px;
+      color:rgba(255,255,255,.80);
+      font-weight:900;
+      user-select:none;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+    .send{
+      width:52px;height:52px;border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,86,178,.92), rgba(255,86,178,.72));
+      border:1px solid rgba(255,255,255,.20);
+      display:grid;place-items:center;
+      color:#fff;
+      box-shadow:0 18px 34px rgba(255,86,178,.18);
+      user-select:none;
+      position:relative;
+      overflow:hidden;
+    }
+    /* shimmer on send only */
+    .send:before{
+      content:"";
+      position:absolute; inset:-40% -30%;
+      background:linear-gradient(110deg, transparent 35%, rgba(255,255,255,.22), transparent 65%);
+      transform:translateX(-60%) rotate(8deg);
+      animation:sh 2.8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes sh{
+      0%{transform:translateX(-70%) rotate(8deg)}
+      55%{transform:translateX(20%) rotate(8deg)}
+      100%{transform:translateX(70%) rotate(8deg)}
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .bubble{animation:none; opacity:1; transform:none}
+      .dot{animation:none}
+      .dots i{animation:none}
+      .send:before{animation:none}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- GTM noscript -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL5B9NSD"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div class="phone" role="application" aria-label="Auto insurance chat">
+
+    <!-- Header -->
+    <div class="top">
+      <div class="topbar">
+        <div class="icon tap" title="Back"><i class="fa-solid fa-arrow-left"></i></div>
+
+        <div class="profile">
+          <div class="avatar" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="pmeta">
+            <div class="name">AutoQuote Assistant</div>
+            <div class="status"><span class="dot"></span> Online</div>
+          </div>
+        </div>
+
+        <div class="icon tap" title="Menu"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="msgs" id="msgs">
+      <div class="day"><span>Today</span></div>
+
+      <!-- Step 0: Welcome -->
+      <div class="row a">
+        <div>
+          <div class="bubble agent" style="animation-delay:.05s">
+            Hey 👋 Welcome! I’ll help you check <b>auto insurance rates</b> in under a minute.
+          </div>
+          <div class="time">9:00 AM</div>
+        </div>
+      </div>
+
+      <div class="row a">
+        <div>
+          <div class="bubble agent" style="animation-delay:.12s">
+            First question: are you currently insured?
+            <div class="quick" data-q="insured">
+              <button class="qr primary" data-answer="Yes, I’m insured">Yes</button>
+              <button class="qr alt" data-answer="No, not insured">No</button>
+            </div>
+          </div>
+          <div class="time">9:00 AM</div>
+        </div>
+      </div>
+
+      <!-- typing placeholder (injected by JS) -->
+    </div>
+
+    <!-- Input bar -->
+    <div class="inputbar">
+      <div class="inputwrap">
+        <div class="plus tap" title="Add"><i class="fa-solid fa-plus"></i></div>
+        <div class="fakeinput">Write a message</div>
+        <div class="send tap" id="sendBtn" title="Send"><i class="fa-solid fa-paper-plane"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========= Helpers =========
+    const msgs = document.getElementById("msgs");
+
+    function scrollBottom(){
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function nowTime(){
+      // lightweight "time" display
+      const d = new Date();
+      let h = d.getHours();
+      const m = String(d.getMinutes()).padStart(2,'0');
+      const ap = h >= 12 ? "PM" : "AM";
+      h = h % 12; if(!h) h = 12;
+      return `${h}:${m} ${ap}`;
+    }
+
+    function addUserBubble(text){
+      const wrap = document.createElement("div");
+      wrap.className = "row u";
+      wrap.innerHTML = `
+        <div>
+          <div class="bubble user">${escapeHtml(text)}</div>
+          <div class="time">${nowTime()}</div>
+        </div>
+      `;
+      msgs.appendChild(wrap);
+      scrollBottom();
+    }
+
+    function addAgentBubble(html, withQuickButtonsHtml){
+      const wrap = document.createElement("div");
+      wrap.className = "row a";
+      wrap.innerHTML = `
+        <div>
+          <div class="bubble agent">${html}${withQuickButtonsHtml || ""}</div>
+          <div class="time">${nowTime()}</div>
+        </div>
+      `;
+      msgs.appendChild(wrap);
+      scrollBottom();
+    }
+
+    function addTyping(){
+      const wrap = document.createElement("div");
+      wrap.className = "row a";
+      wrap.id = "typing";
+      wrap.innerHTML = `
+        <div class="typing">
+          AutoQuote Assistant
+          <span class="dots"><i></i><i></i><i></i></span>
+        </div>
+      `;
+      msgs.appendChild(wrap);
+      scrollBottom();
+    }
+
+    function removeTyping(){
+      const t = document.getElementById("typing");
+      if(t) t.remove();
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // ========= Flow =========
+    const state = {
+      insured: null,
+      tickets: null,
+      zip: null
+    };
+
+    // step 1 after insured -> ask 2 questions (tickets + zip) in messenger style
+    function askTwoQuestions(){
+      addTyping();
+      setTimeout(()=>{
+        removeTyping();
+        addAgentBubble(
+          `Got it ✅ Now just <b>two quick questions</b> and I’ll match you with the best options.`
+        );
+        scrollBottom();
+      }, 650);
+
+      setTimeout(()=>{
+        addTyping();
+      }, 950);
+
+      setTimeout(()=>{
+        removeTyping();
+        addAgentBubble(
+          `Any tickets or accidents in the last 3 years?`,
+          `
+            <div class="quick" data-q="tickets">
+              <button class="qr primary" data-answer="No tickets/accidents">No</button>
+              <button class="qr alt" data-answer="Yes, I had one">Yes</button>
+            </div>
+          `
+        );
+      }, 1500);
+
+      setTimeout(()=>{
+        addTyping();
+      }, 1900);
+
+      setTimeout(()=>{
+        removeTyping();
+        addAgentBubble(
+          `Last one: what’s your ZIP code?`,
+          `
+            <div class="quick" data-q="zip">
+              <button class="qr primary" data-answer="Enter ZIP">Enter ZIP</button>
+              <button class="qr alt" data-answer="Skip for now">Skip</button>
+            </div>
+          `
+        );
+      }, 2450);
+    }
+
+    function finishAndRedirect(){
+      addTyping();
+      setTimeout(()=>{
+        removeTyping();
+        addAgentBubble(
+          `Perfect ✅ I’m finding the best rates for you now…`
+        );
+      }, 650);
+
+      setTimeout(()=>{
+        addTyping();
+      }, 1000);
+
+      setTimeout(()=>{
+        removeTyping();
+        addAgentBubble(
+          `One moment…`,
+          `
+            <div class="quick">
+              <button class="qr primary" id="goBtn">See My Quotes</button>
+            </div>
+          `
+        );
+        const goBtn = document.getElementById("goBtn");
+        if(goBtn){
+          goBtn.addEventListener("click", ()=>{
+            // Redirect to your tracker link
+            window.location.href = "https://trk.reliableautopolicy.com/click";
+          });
+        }
+      }, 1650);
+    }
+
+    // ========= Click handling for quick replies =========
+    msgs.addEventListener("click", (e)=>{
+      const btn = e.target.closest("button.qr");
+      if(!btn) return;
+
+      const quick = btn.closest(".quick");
+      const q = quick?.getAttribute("data-q");
+
+      const answer = btn.getAttribute("data-answer") || btn.textContent.trim();
+      addUserBubble(answer);
+
+      // disable this quick-reply set after selection
+      if(quick){
+        quick.querySelectorAll("button").forEach(b=>{
+          b.disabled = true;
+          b.style.opacity = ".55";
+          b.style.cursor = "not-allowed";
+        });
+      }
+
+      // route by question
+      if(q === "insured"){
+        state.insured = answer;
+        askTwoQuestions();
+      }
+
+      if(q === "tickets"){
+        state.tickets = answer;
+
+        // if zip already answered, finish
+        if(state.zip !== null){
+          finishAndRedirect();
+        }
+      }
+
+      if(q === "zip"){
+        if(answer === "Enter ZIP"){
+          // quick inline prompt (no real input box to keep it messenger-like)
+          addTyping();
+          setTimeout(()=>{
+            removeTyping();
+            addAgentBubble(
+              `Type your ZIP in the message box and hit send (example: 90210).`
+            );
+            // allow "fake send" to capture typed zip via prompt
+            window.__ZIP_EXPECTED__ = true;
+          }, 650);
+        }else{
+          state.zip = "Skipped";
+          if(state.tickets !== null){
+            finishAndRedirect();
+          }
+        }
+      }
+    });
+
+    // ========= Fake send button (ZIP capture) =========
+    document.getElementById("sendBtn").addEventListener("click", ()=>{
+      if(!window.__ZIP_EXPECTED__) return;
+
+      const zip = prompt("Enter ZIP code (5 digits):", "");
+      if(!zip) return;
+
+      const clean = String(zip).trim();
+      addUserBubble(clean);
+
+      state.zip = clean;
+      window.__ZIP_EXPECTED__ = false;
+
+      if(state.tickets !== null){
+        finishAndRedirect();
+      }else{
+        addTyping();
+        setTimeout(()=>{
+          removeTyping();
+          addAgentBubble(`Thanks! ✅`);
+        }, 550);
+      }
+    });
+
+    // Start at bottom
+    scrollBottom();
+  </script>
+</body>
+</html>
