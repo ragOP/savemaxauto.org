@@ -6,392 +6,279 @@
   <title>AutoQuote Pilot - Blue Lander</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ugaqmwe991");
+  </script>
 
   <style>
     :root{
       --blue:#0b63ad;
       --blue-dark:#084f8a;
-      --blue-2:#2b7dd0;
+      --blue-line:#4e8fd3;
+      --soft:#eef4fb;
       --text:#0b1220;
       --muted:#5b6575;
+      --card:#fff;
       --line:#e5e7eb;
       --orange:#f59e0b;
-
-      /* warm white */
-      --paper:#fbf6ea;
-      --paper2:#f7f0de;
-
-      --shadow1: 0 10px 26px rgba(2,6,23,.10);
-      --shadow2: 0 18px 42px rgba(2,6,23,.14);
-      --shadow3: 0 26px 70px rgba(2,6,23,.18);
-      --ring: 0 0 0 4px rgba(253,224,71,.35);
-
       --inner:980px;
-      --r12:12px;
-      --r16:16px;
-      --r20:20px;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;}
     body{
       margin:0;
-      font-family: Inter, system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg, var(--paper), #fff 46%, var(--paper) 100%);
+      background:#fff;
     }
-    a{color:inherit}
     .page,.container{width:100%;}
     .inner{max-width:var(--inner);margin:0 auto;padding:0 14px;}
 
-    /* =================== HEADER (NEW DESIGN) =================== */
+    /* =================== TOP SOCIAL BAR =================== */
     .topbar{
+      background:#f6e8c9;
+      border-bottom:1px solid rgba(0,0,0,.06);
+      font-size:12px;
+      font-weight:800;
+      padding:6px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
       position:sticky;
       top:0;
-      z-index:80;
-      padding:10px 10px;
-      background:
-        radial-gradient(900px 220px at 50% 0%, rgba(253,224,71,.30), rgba(253,224,71,0) 60%),
-        linear-gradient(90deg, rgba(246,232,201,.92), rgba(242,247,255,.92));
-      border-bottom:1px solid rgba(2,6,23,.08);
-      backdrop-filter:saturate(140%) blur(10px);
-    }
-    .topbar-inner{
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-    }
-
-    /* left: brand chip */
-    .brandchip{
-      justify-self:start;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:9px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(2,6,23,.08);
-      box-shadow:0 10px 22px rgba(2,6,23,.06);
-      min-width:0;
-      overflow:hidden;
-    }
-    .brandmark{
-      width:34px;height:34px;border-radius:12px;
-      display:inline-flex;align-items:center;justify-content:center;
-      background:linear-gradient(180deg, rgba(11,99,173,.16), rgba(11,99,173,.06));
-      border:1px solid rgba(11,99,173,.18);
-      box-shadow:0 10px 18px rgba(2,6,23,.07);
-      flex:0 0 auto;
-    }
-    .brandmark i{color:var(--blue); font-size:16px;}
-    .brandtxt{display:flex;flex-direction:column;min-width:0;line-height:1.05}
-    .brandtxt b{
-      font-size:12.5px;
-      font-weight:950;
-      letter-spacing:.2px;
+      z-index:50;
+      text-align:center;
       white-space:nowrap;
       overflow:hidden;
-      text-overflow:ellipsis;
     }
-    .brandtxt small{
-      font-size:10.5px;
-      font-weight:850;
-      color:var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    /* center: live stat pill */
-    .pill{
-      justify-self:center;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:9px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.78);
-      border:1px solid rgba(2,6,23,.08);
-      box-shadow:0 10px 24px rgba(2,6,23,.07);
-      min-width:0;
-      overflow:hidden;
-      max-width:520px;
-    }
-    .dotGreen{
-      width:10px;height:10px;border-radius:999px;
-      background:#16a34a;
-      flex:0 0 auto;
-      box-shadow:0 0 0 0 rgba(22,163,74,.45);
-      animation:pulse 1.8s infinite;
-    }
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(22,163,74,.40)}
-      70%{box-shadow:0 0 0 12px rgba(22,163,74,0)}
-      100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}
-    }
-    .pill-text{
-      font-weight:950;
-      font-size:12.5px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      min-width:0;
-    }
-
-    /* right: security + faces (more premium) */
-    .top-right{
-      justify-self:end;
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap:10px;
-      min-width:0;
-    }
-    .secure-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:9px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.78);
-      border:1px solid rgba(2,6,23,.10);
-      box-shadow:0 10px 24px rgba(2,6,23,.07);
-      font-weight:950;
-      font-size:12px;
-      white-space:nowrap;
-    }
-    .secure-badge i{color:var(--blue); opacity:.95}
-    .faces{
-      height:28px;
+    .topbar .faces{
+      height:20px;
       width:auto;
       border-radius:999px;
       object-fit:cover;
-      border:1px solid rgba(2,6,23,.10);
-      box-shadow:0 12px 26px rgba(2,6,23,.10);
     }
 
-    /* mobile header: stack & keep clean */
-    @media (max-width: 560px){
-      .topbar-inner{
-        grid-template-columns: 1fr;
-        gap:8px;
-      }
-      .brandchip{justify-self:stretch;}
-      .pill{justify-self:stretch; max-width:none;}
-      .top-right{justify-self:stretch; justify-content:space-between;}
-      .faces{height:26px;}
-    }
-    @media (max-width: 390px){
-      .secure-badge span{display:none;}
-      .secure-badge{padding:9px 10px;}
-      .faces{height:24px;}
-      .pill-text{font-size:12px;}
+    /* make hero triggers feel clickable */
+    .scroll-trigger{cursor:pointer; -webkit-tap-highlight-color: transparent;}
+    .scroll-trigger:active{transform:scale(.99);}
+
+    .arrow-section {
+      text-align: center;
+      padding: 1em 0 1.5em 0;
+      color: #f1f1f3;
     }
 
-    /* =================== HERO (MINIMAL + PREMIUM) =================== */
+    .arrow-section i {
+      font-size: 2.8em;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,20%,50%,80%,100% { transform: translateY(0); }
+      40% { transform: translateY(-0.3em); }
+      60% { transform: translateY(-0.15em); }
+    }
+
+    /* =================== HERO =================== */
     .hero{
       position:relative;
       color:#fff;
       background:
-        radial-gradient(1100px 420px at 50% 0%, rgba(253,224,71,.20), rgba(253,224,71,0) 62%),
-        linear-gradient(0deg, rgba(11,99,173,.94), rgba(11,99,173,.94)),
+        linear-gradient(0deg, rgba(11,99,173,.96), rgba(11,99,173,.96)),
         url("https://s.autoquotepilot.com/V4-rfv-opf-5/images/banner-img.jpg") center/cover no-repeat;
-      padding:18px 12px 0;
+      min-height:520px;
+      padding:22px 12px 0;
       overflow:hidden;
-      border-bottom:1px solid rgba(255,255,255,.10);
     }
+
     .hero-inner{
-      max-width:560px;
+      max-width:520px;
       margin:0 auto;
       text-align:center;
-      padding-bottom:16px;
-      position:relative;
-      min-height:520px;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-start;
+      padding-bottom:18px;
     }
-    .glow1,.glow2{
-      position:absolute;
-      width:280px;height:280px;border-radius:999px;
-      filter:blur(32px);
-      opacity:.30;
-      pointer-events:none;
-      mix-blend-mode:screen;
-    }
-    .glow1{left:-140px;top:140px;background:radial-gradient(circle at 30% 30%, #fde047, rgba(253,224,71,0) 62%);}
-    .glow2{right:-150px;top:230px;background:radial-gradient(circle at 30% 30%, #7dd3fc, rgba(125,211,252,0) 62%);}
 
     .hero h1{
-      margin:18px 0 10px;
-      font-size:30px;
-      line-height:1.14;
+      margin:8px 0 6px;
+      font-size:28px;
+      line-height:1.22;
       font-weight:900;
       letter-spacing:.2px;
-      text-shadow:0 2px 12px rgba(0,0,0,.25);
+      text-shadow:0 2px 10px rgba(0,0,0,.25);
     }
     .hero .sub{
       font-size:14.5px;
-      font-weight:850;
-      opacity:.98;
-      margin:0 auto 16px;
-      max-width:360px;
-      text-shadow:0 1px 8px rgba(0,0,0,.22);
+      font-weight:800;
+      opacity:.96;
+      margin-top:22px;
+      margin-bottom:12px;
+      text-shadow:0 1px 6px rgba(0,0,0,.25);
     }
 
-    .start-nudge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(8px);
-      box-shadow:0 10px 22px rgba(0,0,0,.14);
-      font-weight:900;
-      font-size:12.5px;
-      margin:0 auto 14px;
-      cursor:pointer;
-      -webkit-tap-highlight-color:transparent;
-      user-select:none;
-    }
-    .start-nudge i{
-      font-size:18px;
-      animation:bounce 2s infinite;
-    }
-    @keyframes bounce{
-      0%,20%,50%,80%,100% { transform: translateY(0); }
-      40% { transform: translateY(-0.25em); }
-      60% { transform: translateY(-0.12em); }
-    }
-
-    /* =================== QUESTION CARD =================== */
     .q-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.98), #fff);
-      color:#0b1220;
-      border-radius:var(--r20);
-      padding:18px 14px 14px;
-      box-shadow:var(--shadow2);
+      background:#fff;
+      color:#000;
+      border-radius:12px;
+      padding:22px 12px 26px;
+      box-shadow:0 12px 30px rgba(0,0,0,.22);
+      margin:8px auto 8px;
       width:100%;
-      max-width:430px;
-      border:1px solid rgba(2,6,23,.08);
-      position:relative;
-      overflow:hidden;
-      scroll-margin-top: 92px;
-      margin:0 auto;
+      max-width:410px;
+      border:1px solid rgba(0,0,0,.06);
+      scroll-margin-top: 76px;
     }
-    .q-card:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(420px 160px at 50% -10%, rgba(253,224,71,.35), rgba(253,224,71,0) 60%),
-        linear-gradient(90deg, rgba(11,99,173,.10), rgba(11,99,173,0));
-      opacity:.65;
-      pointer-events:none;
-    }
-    .q-card > *{position:relative; z-index:1;}
-
     .q-title{
       font-weight:900;
-      font-size:18px;
-      margin:2px 0 12px;
-      letter-spacing:.1px;
-      line-height:1.15;
+      font-size:25px;
+      margin-bottom:20px;
+      white-space:nowrap;
     }
     .q-btns{
       display:grid;
-      grid-template-columns:1fr;
+      grid-template-columns:1fr 1fr;
       gap:10px;
-      margin-top:6px;
     }
 
-    .btn{
+    /* =================== YES/NO BUTTONS (UPGRADED SHIMMER + ANIM) =================== */
+    .q-btn{
       position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      width:100%;
-      border-radius:16px;
-      padding:14px 14px;
+      overflow:hidden;
+      isolation:isolate;
+      background:#fde047;
+      border:2px solid #0c0c0c;
+      border-radius:10px;
+      padding:11px 0;
       font-weight:900;
-      font-size:16px;
+      font-size:34px;
+      cursor:pointer;
       text-decoration:none;
-      border:1px solid rgba(2,6,23,.12);
-      box-shadow:0 10px 20px rgba(2,6,23,.10);
-      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-      user-select:none;
-      -webkit-tap-highlight-color:transparent;
-    }
-    .btn:active{transform:translateY(1px) scale(.995);}
-    .btn:focus{outline:none; box-shadow: var(--shadow1), var(--ring);}
-
-    .btn-left{display:flex; align-items:center; gap:10px;}
-    .btn-icon{
-      width:36px;height:36px;border-radius:12px;
-      display:inline-flex;align-items:center;justify-content:center;
-      border:1px solid rgba(2,6,23,.10);
-      background:rgba(255,255,255,.55);
-      box-shadow:0 8px 18px rgba(2,6,23,.08);
-      font-size:16px;
-      flex:0 0 auto;
-    }
-    .btn-txt{display:flex; flex-direction:column; align-items:flex-start; line-height:1.05;}
-    .btn-txt .big{font-size:16px; font-weight:900;}
-    .btn-txt .small{font-size:12px; font-weight:850; color:rgba(2,6,23,.65); margin-top:3px; white-space:nowrap;}
-
-    .btn-arrow{
-      width:34px;height:34px;border-radius:999px;
-      display:inline-flex;align-items:center;justify-content:center;
-      background:rgba(2,6,23,.06);
-      border:1px solid rgba(2,6,23,.10);
-      flex:0 0 auto;
-    }
-
-    /* YES primary (shimmer allowed) */
-    .btn-primary{
       color:#0b1220;
-      background:linear-gradient(180deg, #fde047, #facc15);
-      border:1px solid rgba(2,6,23,.18);
+      transition: transform .12s ease, box-shadow .18s ease, background-color .18s ease;
+      box-shadow:
+        0 10px 18px rgba(2,6,23,.16),
+        0 2px 0 rgba(0,0,0,.25);
+      transform: translateZ(0);
+      -webkit-tap-highlight-color: transparent;
     }
-    .btn-primary:before{
+
+    /* glow ring */
+    .q-btn::before{
       content:"";
-      position:absolute; inset:0;
-      border-radius:16px;
-      background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0));
-      transform:translateX(-120%);
-      opacity:.75;
+      position:absolute;
+      inset:-2px;
+      border-radius:12px;
+      background:
+        radial-gradient(120px 60px at 50% 0%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
+        radial-gradient(120px 60px at 50% 100%, rgba(11,99,173,.28), rgba(11,99,173,0) 70%);
+      opacity:.85;
       pointer-events:none;
+      z-index:0;
+      mix-blend-mode: soft-light;
+      filter: blur(.2px);
     }
-    .btn-primary:hover{filter:saturate(1.05);}
-    .btn-primary:hover:before{animation:shimmer 1.2s ease forwards;}
-    @keyframes shimmer{to{transform:translateX(120%);}}
 
-    /* NO secondary */
-    .btn-secondary{
-      color:#0b1220;
-      background:linear-gradient(180deg, #ffffff, #f8fafc);
+    /* shimmer sweep */
+    .q-btn::after{
+      content:"";
+      position:absolute;
+      top:-30%;
+      left:-60%;
+      width:65%;
+      height:160%;
+      background: linear-gradient(115deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.55) 35%,
+        rgba(255,255,255,.15) 55%,
+        rgba(255,255,255,0) 70%
+      );
+      transform: translateX(-20%) rotate(12deg);
+      filter: blur(.2px);
+      opacity:.9;
+      z-index:1;
+      pointer-events:none;
+      animation: btnShimmer 2.2s ease-in-out infinite;
     }
+
+    /* subtle floating pulse (not too "AI") */
+    .q-btn{
+      animation: btnFloat 2.6s ease-in-out infinite;
+    }
+
+    /* keep text above effects */
+    .q-btn{ z-index:0; }
+    .q-btn > *{ position:relative; z-index:2; }
+
+    /* hover / focus */
+    .q-btn:hover{
+      transform: translateY(-1px);
+      box-shadow:
+        0 14px 28px rgba(2,6,23,.20),
+        0 2px 0 rgba(0,0,0,.25),
+        0 0 0 4px rgba(253,224,71,.22);
+    }
+    .q-btn:active{
+      transform: translateY(1px) scale(.99);
+      box-shadow:
+        0 8px 16px rgba(2,6,23,.16),
+        0 2px 0 rgba(0,0,0,.25);
+    }
+    .q-btn:focus-visible{
+      outline:none;
+      box-shadow:
+        0 14px 28px rgba(2,6,23,.20),
+        0 2px 0 rgba(0,0,0,.25),
+        0 0 0 4px rgba(11,99,173,.28);
+    }
+
+    /* make YES slightly more "primary" */
+    .q-btns a:first-child{
+      background: linear-gradient(180deg, #fde047 0%, #fbbf24 100%);
+    }
+
+    /* NO slightly calmer but still same style */
+    .q-btns a:last-child{
+      background: linear-gradient(180deg, #fff2a6 0%, #fde047 55%, #fbbf24 100%);
+    }
+
+    /* animations */
+    @keyframes btnShimmer{
+      0%   { transform: translateX(-30%) rotate(12deg); opacity:.0; }
+      12%  { opacity:.9; }
+      55%  { transform: translateX(230%) rotate(12deg); opacity:.65; }
+      56%  { opacity:0; }
+      100% { transform: translateX(230%) rotate(12deg); opacity:0; }
+    }
+
+    @keyframes btnFloat{
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-1px); }
+    }
+
+    /* pause motion for reduced-motion users */
+    @media (prefers-reduced-motion: reduce){
+      .q-btn{ animation:none; }
+      .q-btn::after{ animation:none; }
+    }
+    /* =================== END BUTTONS =================== */
 
     .secure{
-      margin:14px 0 0;
-      font-size:12px;
-      font-weight:850;
+      margin:18px 0 0;
+      font-size:11px;
+      font-weight:800;
       opacity:.98;
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:8px;
+      gap:6px;
     }
     .secure .lock{
-      width:12px; height:12px; border-radius:3px;
+      width:12px; height:12px; border-radius:2px;
       background:#fff; display:inline-block; position:relative; flex:0 0 auto;
     }
     .secure .lock:before{
@@ -402,223 +289,82 @@
 
     .hero-strip{
       width:100%;
-      height:140px;
-      margin-top:12px;
+      height:160px;
+      margin-top:10px;
       background:url("https://s.autoquotepilot.com/V4-rfv-opf-5/images/banner-img.jpg") center bottom/cover no-repeat;
-      opacity:.16;
-      filter:saturate(1.1);
     }
 
-    @media (min-width: 520px){
-      .q-btns{grid-template-columns:1fr 1fr;}
-      .btn-arrow{margin-left:auto;}
-    }
-    @media (min-width: 900px){
-      .hero{padding-top:26px;}
-      .hero-inner{max-width:1100px; min-height:720px;}
-      .hero h1{font-size:46px; line-height:1.12;}
-      .hero .sub{font-size:17px; max-width:520px;}
-      .q-card{max-width:660px; padding:18px 18px 14px;}
-      .q-title{font-size:20px;}
-      .btn{padding:16px 16px;}
-      .secure{font-size:13px;}
-    }
-
-    /* =================== TRUST STRIP (UNCHANGED) =================== */
+    /* =================== TRUST STRIP =================== */
     .trust-wrap{
-      background:linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.92));
-      padding:12px 0;
+      background:#fff;
+      padding:10px 0;
       border-bottom:1px solid #eef2f7;
-      position:relative;
-    }
-    .trust-wrap:before{
-      content:"";
-      position:absolute; inset:0;
-      background:radial-gradient(700px 260px at 50% 0%, rgba(11,99,173,.08), rgba(11,99,173,0) 60%);
-      pointer-events:none;
-      opacity:.9;
     }
     .trust-row{
       display:flex;
-      gap:12px;
-      align-items:stretch;
-      padding:2px 12px;
+      gap:18px;
+      align-items:center;
+      padding:4px 12px;
       overflow-x:auto;
       scrollbar-width:none;
-      position:relative;
-      z-index:1;
     }
     .trust-row::-webkit-scrollbar{display:none;}
     .trust{
-      min-width:170px;
-      flex:0 0 auto;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(2,6,23,.08);
-      background:#fff;
-      box-shadow:0 10px 22px rgba(2,6,23,.06);
+      min-width:140px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      font-size:11px;
+      font-weight:800;
+      color:#0b1220;
+      gap:3px;
+      white-space:nowrap;
     }
     .trust .logo{
-      width:46px;height:46px;border-radius:14px;
-      background:linear-gradient(180deg, #f2f7ff, #fff);
-      border:1px solid rgba(11,99,173,.16);
-      display:flex;align-items:center;justify-content:center;
-      flex:0 0 auto;
+      height:24px; display:flex; align-items:center; justify-content:center;
     }
-    .trust img{height:22px; width:auto; object-fit:contain;}
-    .trust .meta{
-      display:flex; flex-direction:column; gap:2px; min-width:0;
-      say: left;
-    }
-    .trust .meta strong{
-      font-size:12px;
-      font-weight:900;
-      color:#0b1220;
-      white-space:nowrap;
-    }
-    .trust .meta small{
-      font-size:10.5px;
-      color:var(--muted);
-      font-weight:850;
-      white-space:nowrap;
-    }
-    @media (min-width: 900px){
-      .trust-row{
-        max-width:980px;
-        margin:0 auto;
-        justify-content:space-between;
-        overflow:visible;
-      }
-    }
+    .trust img{height:24px; width:auto; object-fit:contain;}
+    .trust small{font-size:9.5px; color:var(--muted); font-weight:800;}
 
-    /* =================== SECTIONS =================== */
-    .section{padding:14px 0; background:transparent;}
+    /* =================== REALTIME QUOTES =================== */
+    .section{padding:12px 0; background:#fff;}
     .section h2{
-      text-align:center;
-      font-size:20px;
-      font-weight:900;
-      margin:8px 0 10px;
-    }
-    .section .hint{
-      text-align:center;
-      font-size:12.5px;
-      color:var(--muted);
-      font-weight:750;
-      margin:0 18px 12px;
+      text-align:center; font-size:20px; font-weight:900; margin:6px 0 10px;
     }
 
-    /* =================== REAL-TIME QUOTES (REDESIGNED) =================== */
-    .quotes-shell{
-      max-width:860px;
-      margin:0 auto;
-    }
     .quotes-card{
-      border:1px solid rgba(2,6,23,.10);
-      border-radius:18px;
+      border:1px solid var(--line);
+      border-radius:10px;
       overflow:hidden;
+      max-width:520px;
       margin:0 auto;
-      background:
-        radial-gradient(900px 240px at 50% 0%, rgba(11,99,173,.10), rgba(11,99,173,0) 60%),
-        rgba(255,255,255,.92);
-      box-shadow:var(--shadow3);
-      transform: translateZ(0);
-    }
-
-    .quotes-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:12px 12px 12px;
-      background:
-        linear-gradient(90deg, rgba(11,99,173,.14), rgba(253,224,71,.12));
-      border-bottom:1px solid rgba(2,6,23,.08);
-    }
-
-    .quotes-title{
-      display:flex; align-items:center; gap:10px;
-      font-weight:950;
-      font-size:14px;
-      color:#0b1220;
-      min-width:0;
-    }
-    .quotes-title .iconwrap{
-      width:34px;height:34px;border-radius:12px;
-      display:inline-flex;align-items:center;justify-content:center;
-      background:linear-gradient(180deg, rgba(11,99,173,.16), rgba(11,99,173,.06));
-      border:1px solid rgba(11,99,173,.18);
-      box-shadow:0 10px 18px rgba(2,6,23,.07);
-      flex:0 0 auto;
-    }
-    .quotes-title .iconwrap i{color:var(--blue);}
-
-    .livechip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
       background:#fff;
-      border:1px solid rgba(2,6,23,.10);
-      font-weight:950;
-      font-size:12px;
-      color:#0b1220;
-      box-shadow:0 12px 26px rgba(2,6,23,.08);
-      white-space:nowrap;
+      box-shadow:0 8px 18px rgba(15,23,42,.06);
     }
-    .livechip .dot{
-      width:8px;height:8px;border-radius:999px;background:#ef4444;
-      box-shadow:0 0 0 0 rgba(239,68,68,.40);
-      animation:pulseRed 1.6s infinite;
-    }
-    @keyframes pulseRed{
-      0%{box-shadow:0 0 0 0 rgba(239,68,68,.35)}
-      70%{box-shadow:0 0 0 10px rgba(239,68,68,0)}
-      100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}
-    }
-
-    /* header row: more premium + sticky inside viewport */
     .quotes-head{
-      background:linear-gradient(90deg, var(--blue), var(--blue-2));
+      background:var(--blue);
       color:#fff;
-      font-weight:950;
+      font-weight:900;
       font-size:12px;
-      padding:10px 10px;
+      padding:9px 8px;
       display:grid;
-      grid-template-columns:1.4fr 1.2fr .8fr .8fr;
+      grid-template-columns:1.2fr 1fr .8fr .8fr;
       gap:6px;
-      letter-spacing:.2px;
     }
 
-    /* viewport + inner depth */
+    /* SLOW scrolling viewport */
     .quotes-viewport{
       position:relative;
-      height:288px;
+      height:260px;
       overflow:hidden;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.96), #fff);
+      background:#fff;
     }
-    .quotes-viewport:before{
-      content:"";
-      position:absolute; inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(700px 220px at 50% 0%, rgba(253,224,71,.16), rgba(253,224,71,0) 60%);
-      opacity:.9;
-      z-index:0;
-    }
-
     .quotes-body{
-      position:relative;
-      z-index:1;
       display:block;
       will-change:transform;
       animation: quotesScroll linear infinite;
-      animation-duration: var(--scroll-time, 64s);
+      animation-duration: var(--scroll-time, 60s);
     }
+
     @keyframes quotesScroll{
       from{ transform: translateY(0); }
       to{ transform: translateY(-50%); }
@@ -626,277 +372,74 @@
 
     .quotes-row{
       display:grid;
-      grid-template-columns:1.4fr 1.2fr .8fr .8fr;
+      grid-template-columns:1.2fr 1fr .8fr .8fr;
       gap:6px;
-      padding:12px 10px;
+      padding:11px 8px;
       font-size:13px;
       align-items:center;
-      border-top:1px solid rgba(2,6,23,.08);
+      border-top:1px solid var(--line);
     }
     .quotes-row:nth-child(even){background:#f7f9fc;}
-    .quotes-row:hover{background:linear-gradient(90deg, rgba(253,224,71,.10), rgba(11,99,173,.06));}
-
-    .namecell{
-      display:flex; align-items:center; gap:10px; min-width:0;
-    }
-
-    /* brand pill in model column */
-    .modelcell{
-      display:flex; align-items:center; gap:10px; min-width:0;
-    }
-    .brand-badge{
-      width:34px;height:34px;border-radius:12px;
-      display:inline-flex;align-items:center;justify-content:center;
-      background:linear-gradient(180deg, #f2f7ff, #fff);
-      border:1px solid rgba(11,99,173,.16);
-      box-shadow:0 10px 18px rgba(2,6,23,.06);
-      flex:0 0 auto;
-      color:#0b63ad;
-      font-weight:950;
-      font-size:13px;
-    }
-    .brand-name{
-      font-weight:900;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .avatar-mini{
-      width:28px;height:28px;border-radius:10px;
-      background:linear-gradient(180deg, #f2f7ff, #fff);
-      border:1px solid rgba(11,99,173,.18);
-      box-shadow:0 8px 18px rgba(2,6,23,.06);
-      display:inline-flex;align-items:center;justify-content:center;
-      font-weight:950;color:#0b63ad;flex:0 0 auto;
-    }
     .blur{
-      height:10px; width:74%;
+      height:12px; width:70%;
       background:linear-gradient(90deg,#d1d5db,#eef2f7);
       border-radius:999px;
     }
+    .rate{font-weight:900; text-align:right;}
 
-    .statepill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:6px;
-      padding:6px 8px;
-      border-radius:999px;
-      border:1px solid rgba(2,6,23,.10);
-      background:rgba(255,255,255,.9);
-      font-weight:950;
-      font-size:12px;
-      width:max-content;
-      box-shadow:0 10px 18px rgba(2,6,23,.06);
-    }
-    .statepill i{color:var(--blue); font-size:12px;}
-
-    .rate{
-      font-weight:950;
-      text-align:right;
+    .quotes-viewport:hover .quotes-body{
+      animation-play-state:paused;
     }
 
-    .quotes-viewport:hover .quotes-body{animation-play-state:paused;}
-    .fadeTop,.fadeBottom{
-      position:absolute; left:0; right:0; height:26px;
-      pointer-events:none; z-index:5;
-    }
-    .fadeTop{top:0;background:linear-gradient(180deg,#fff, rgba(255,255,255,0));}
-    .fadeBottom{bottom:0;background:linear-gradient(0deg,#fff, rgba(255,255,255,0));}
-
-    @media (min-width: 900px){
-      .quotes-viewport{height:320px;}
-      .section h2{font-size:22px;}
-      .quotes-head{padding:11px 12px;}
-      .quotes-row{padding:13px 12px;}
-    }
-    @media (max-width: 430px){
-      .quotes-head{grid-template-columns: 1.5fr 1.1fr .8fr .8fr;}
-      .quotes-row{grid-template-columns: 1.5fr 1.1fr .8fr .8fr;}
-      .statepill{padding:5px 7px; font-size:11.5px;}
-      .brand-badge{width:32px;height:32px;}
-    }
-
-    /* =================== REVIEWS (UNCHANGED) =================== */
+    /* =================== REVIEWS =================== */
     .reviews{
-      background:linear-gradient(180deg, rgba(242,247,251,.0), rgba(242,247,251,.72));
-      padding:16px 0 10px;
+      background:#f2f7fb;
+      padding:14px 0 6px;
     }
-    .reviews h2{margin:0 0 8px; text-align:center;}
     .reviews .lead{
       text-align:center;
-      font-size:12.8px;
+      font-size:12.5px;
       color:#111827;
-      margin:0 18px 14px;
-      font-weight:750;
+      margin:0 18px 12px;
+      font-weight:650;
     }
-    .reviews-wrap{
-      max-width:820px;
-      margin:0 auto;
-      padding:0 14px;
+    .r-card{
+      background:#fff;
+      border:2px solid var(--blue-line);
+      border-radius:10px;
+      padding:14px 12px;
+      max-width:520px;
+      margin:12px auto;
+      box-shadow:0 8px 18px rgba(15,23,42,.05);
     }
-    .reviews-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-      margin:10px 0 8px;
-    }
-    .note{
-      position:relative;
-      border-radius:18px;
-      padding:14px 14px 12px;
-      border:1px solid rgba(2,6,23,.10);
-      box-shadow:var(--shadow1);
-      overflow:hidden;
-      transform:rotate(var(--r, 0deg));
-      background:linear-gradient(180deg, #fff, #fff);
-    }
-    .note:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(420px 220px at 10% 0%, rgba(253,224,71,.25), rgba(253,224,71,0) 60%),
-        radial-gradient(420px 220px at 100% 30%, rgba(125,211,252,.18), rgba(125,211,252,0) 60%);
-      opacity:.85;
-      pointer-events:none;
-    }
-    .note > *{position:relative; z-index:1;}
-    .tape{
-      position:absolute;
-      top:10px;
-      left:50%;
-      transform:translateX(-50%) rotate(-2deg);
-      width:110px;height:26px;border-radius:8px;
-      background:linear-gradient(180deg, rgba(253,224,71,.55), rgba(253,224,71,.30));
-      border:1px solid rgba(2,6,23,.10);
-      box-shadow:0 10px 22px rgba(2,6,23,.10);
-      opacity:.9;
-      z-index:2;
-    }
-    .note.hasTape{padding-top:30px;}
-    .note-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:8px;
-    }
-    .stars{display:flex; gap:3px; align-items:center;}
-    .star{
+    .r-stars{display:flex; gap:3px; margin-bottom:6px;}
+    .r-star{
       width:14px;height:14px;
       background:conic-gradient(from 0deg,var(--orange) 0 100%);
       clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 67% 57%, 79% 91%, 50% 70%, 21% 91%, 33% 57%, 2% 35%, 39% 35%);
-      filter:drop-shadow(0 1px 0 rgba(2,6,23,.10));
     }
-    .quote{
-      font-size:13.5px;
-      font-weight:800;
-      color:#0b1220;
-      line-height:1.55;
-      margin:6px 0 12px;
+    .r-quote{
+      font-size:13px; font-weight:700; color:#0b1220; line-height:1.5;
+      margin-bottom:12px;
     }
-    .userrow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .user{
+    .r-user{
       display:flex; align-items:center; gap:10px;
-      min-width:0;
     }
-    .avatar{
-      width:44px;height:44px;border-radius:16px;
-      overflow:hidden;
-      background:#e5e7eb;
-      border:1px solid rgba(2,6,23,.10);
-      box-shadow:0 10px 22px rgba(2,6,23,.10);
-      flex:0 0 auto;
+    .r-avatar{
+      width:46px;height:46px;border-radius:999px; overflow:hidden;
+      background:#e5e7eb; flex:0 0 auto;
+      border:2px solid #fff;
+      box-shadow:0 2px 6px rgba(0,0,0,.1);
     }
-    .avatar img{width:100%;height:100%;object-fit:cover; display:block;}
-    .uname{display:flex; flex-direction:column; min-width:0;}
-    .uname b{
-      font-size:13px;
-      font-weight:900;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis (normal);
-    }
-    .verified{
-      display:inline-flex; align-items:center; gap:6px;
-      font-size:11px; font-weight:900;
-      color:#16a34a;
-      margin-top:3px;
-      white-space:nowrap;
+    .r-avatar img{width:100%;height:100%;object-fit:cover;}
+    .r-name{font-weight:900; font-size:13px;}
+    .r-verified{
+      font-size:11px; font-weight:900; color:#16a34a; display:flex; align-items:center; gap:5px;
+      margin-top:2px;
     }
     .check{
-      width:16px;height:16px;border-radius:999px;background:#16a34a;color:#fff;
-      display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;
-      box-shadow:0 8px 18px rgba(22,163,74,.20);
-    }
-    .badge-right{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      background:rgba(11,99,173,.10);
-      border:1px solid rgba(11,99,173,.18);
-      font-size:11px;
-      font-weight:900;
-      color:#0b2b55;
-      white-space:nowrap;
-      flex:0 0 auto;
-    }
-    .reviews-cta{
-      margin:14px auto 6px;
-      max-width:520px;
-      padding:0 14px;
-    }
-    .cta-box{
-      border-radius:18px;
-      background:linear-gradient(90deg, rgba(11,99,173,.10), rgba(253,224,71,.12));
-      border:1px solid rgba(2,6,23,.10);
-      box-shadow:var(--shadow1);
-      padding:12px 12px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .cta-box .txt{
-      text-align:left;
-      font-weight:900;
-      color:#0b1220;
-      line-height:1.15;
-      font-size:12.5px;
-    }
-    .cta-box .txt small{
-      display:block;
-      margin-top:4px;
-      font-weight:850;
-      color:var(--muted);
-      font-size:11.5px;
-    }
-    .cta-box .miniBtn{
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:14px;
-      background:linear-gradient(180deg, #fde047, #facc15);
-      border:1px solid rgba(2,6,23,.18);
-      font-weight:900;
-      font-size:12.5px;
-      box-shadow:0 10px 20px rgba(2,6,23,.10);
-      white-space:nowrap;
-    }
-    .cta-box .miniBtn:active{transform:translateY(1px);}
-    @media (min-width: 900px){
-      .reviews-grid{grid-template-columns:1fr 1fr 1fr; gap:14px;}
+      width:14px;height:14px;border-radius:999px;background:#16a34a;color:#fff;
+      display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;
     }
 
     /* =================== FOOTER =================== */
@@ -906,18 +449,47 @@
       color:#374151;
       line-height:1.45;
       text-align:center;
-      background:linear-gradient(180deg, rgba(255,255,255,.92), #fff);
+      background:#fff;
       border-top:1px solid #eef2f7;
     }
-    footer a{color:#111827;text-decoration:none;font-weight:900;}
+    footer a{color:#111827;text-decoration:none;font-weight:800;}
     footer .links{
-      margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-weight:900;
+      margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-weight:800;
     }
 
-    /* accessibility */
-    @media (prefers-reduced-motion: reduce){
-      .dotGreen, .livechip .dot, .start-nudge i{animation:none!important;}
-      .quotes-body{animation:none!important;}
+    @media (min-width: 900px){
+      .hero{
+        min-height:720px;
+        padding-top:34px;
+        background:
+          linear-gradient(0deg, rgba(11,99,173,.96), rgba(11,99,173,.96)),
+          url("https://s.autoquotepilot.com/V4-rfv-opf-5/images/banner-img.jpg") center/cover no-repeat;
+      }
+      .hero-inner{
+        max-width:1100px;
+        padding-top:20px;
+      }
+      .hero h1{font-size:44px; line-height:1.18;}
+      .hero .sub{font-size:17px; margin-bottom:18px;}
+
+      .q-card{max-width:620px; border-radius:12px; padding:18px 16px;}
+      .q-title{font-size:20px; margin-bottom:14px;}
+      .q-btn{
+        font-size:16px;
+        padding:14px 0;
+        border-radius:10px;
+      }
+      .secure{font-size:13px; margin-top:14px;}
+
+      .trust-row{
+        max-width:900px;
+        margin:0 auto;
+        justify-content:space-between;
+        overflow:visible;
+      }
+      .quotes-card, .r-card{max-width:750px;}
+      .section h2{font-size:22px;}
+      .quotes-viewport{height:300px;}
     }
   </style>
 
@@ -926,90 +498,84 @@
       try {
         const res = await fetch("https://ipapi.co/json/");
         const data = await res.json();
-        const state = data.region || "Your State";
+
+        let state = data.region || "Your State";
+
         const subEl = document.querySelector(".hero .sub");
-        if (subEl) subEl.innerHTML = `Rates Starting At $19.99 / Month In <b>${state}</b>`;
+        if (subEl) {
+          subEl.innerHTML = `Rates Starting At $19.99 Per Month In <b>${state}</b>`;
+        }
       } catch (e) {
+        console.warn("Location lookup failed");
         const subEl = document.querySelector(".hero .sub");
-        if (subEl) subEl.innerHTML = `Rates Starting At $19.99 / Month In Your State`;
+        if (subEl) {
+          subEl.innerHTML = `Rates Starting At $19.99 Per Month In Your State`;
+        }
       }
     }
     setStateName();
   </script>
-
   <!-- TikTok Pixel Code Start -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+  var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+  ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    ttq.load('D2H5NABC77UCCBANISK0');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PL5B9NSD');</script>
+  <!-- End Google Tag Manager -->
+
   <script type="text/javascript" src="https://trk.reliableautopolicy.com/track.js?rtkcmpid=692430d43ce7194f6210e962"></script>
 </head>
 
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL5B9NSD"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <div class="page">
     <main class="container">
 
-      <!-- TOP BAR (NEW) -->
+      <!-- TOP BAR -->
       <div class="topbar">
-        <div class="topbar-inner">
-
-        
-
-          <div class="pill" title="Live activity">
-            <span class="dotGreen" aria-hidden="true"></span>
-            <div class="pill-text">60,754 Americans Saved On Auto Insurance</div>
-          </div>
-
-      
-
-        </div>
+        <span>60,754 Americans Saved On Auto Insurance</span>
+        <img class="faces" src="https://autoquotepilot.com/aksh/v1/review-faces.png" alt="recent users"/>
       </div>
 
-      <!-- HERO (MINIMAL) -->
+      <!-- HERO -->
       <section class="hero">
-        <div class="glow1" aria-hidden="true"></div>
-        <div class="glow2" aria-hidden="true"></div>
-
         <div class="hero-inner">
-          <h1 class="scroll-trigger">
-            Get back <span style="color:#fde047;">$710</span> In Savings<br/>On Your Auto Insurance
-          </h1>
 
-          <div class="sub scroll-trigger">Rates Starting At $19.99 / Month In America</div>
+          <!-- CLICKABLE HERO CONTENT -->
+          <h1 class="scroll-trigger">Get back <span style="color:#fde047;">$710</span> In Savings<br/>On Your Auto Insurance</h1>
+          <div class="sub scroll-trigger">Rates Starting At $19.99 Per Month In America</div>
 
-          <div class="start-nudge scroll-trigger" aria-label="Scroll to question">
-            <span>Tap to start</span>
-            <i class="fa-solid fa-angle-down" aria-hidden="true"></i>
+          <div class="arrow-section scroll-trigger" aria-label="Scroll to question">
+            <i class="fa-solid fa-angle-down"></i>
           </div>
 
-          <!-- QUESTION CARD -->
+          <!-- QUESTION CARD (SCROLL TARGET) -->
           <div class="q-card" id="questionCard">
-            <div class="q-title">Are you currently insured?</div>
-
+            <div class="q-title">Are You Currently Insured?</div>
             <div class="q-btns">
-              <a class="btn btn-primary" href="https://trk.reliableautopolicy.com/click" role="button" aria-label="Yes, I am insured">
-                <span class="btn-left">
-                  <span class="btn-icon"><i class="fa-solid fa-check"></i></span>
-                  <span class="btn-txt">
-                    <span class="big">YES</span>
-                    <span class="small">See my best match</span>
-                  </span>
-                </span>
-                <span class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-              </a>
-
-              <a class="btn btn-secondary" href="https://trk.reliableautopolicy.com/click" role="button" aria-label="No, I am not insured">
-                <span class="btn-left">
-                  <span class="btn-icon"><i class="fa-solid fa-xmark"></i></span>
-                  <span class="btn-txt">
-                    <span class="big">NO</span>
-                    <span class="small">Find options now</span>
-                  </span>
-                </span>
-                <span class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-              </a>
+              <a class="q-btn" href="https://trk.reliableautopolicy.com/click" role="button">YES</a>
+              <a class="q-btn" href="https://trk.reliableautopolicy.com/click" role="button">NO</a>
             </div>
+          </div>
 
-            <div class="secure">
-              <span class="lock" aria-hidden="true"></span>
-              <span>We keep your information 100% secure &amp; confidential.</span>
-            </div>
+          <div class="secure">
+            <span class="lock"></span>
+            <span>We keep all your information 100% secure &amp; confidential, always.</span>
           </div>
         </div>
 
@@ -1021,106 +587,76 @@
         <div class="trust-row">
           <div class="trust">
             <div class="logo">
-              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon1.png" alt="Reviews 6000+"/>
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon1.png" style="width:90px;height:24px;border-radius:4px;"/>
             </div>
-            <div class="meta">
-              <strong>Top Rated</strong>
-              <small>Based on 6,000+ reviews</small>
-            </div>
+            <small>Based on 6,000+ Reviews</small>
           </div>
 
           <div class="trust">
             <div class="logo">
-              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon2.png" alt="Reviews 31000+"/>
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon2.png" style="width:90px;height:24px;border-radius:4px;"/>
             </div>
-            <div class="meta">
-              <strong>Highly Trusted</strong>
-              <small>Based on 31,000+ reviews</small>
-            </div>
+            <small>Based on 31,000+ Reviews</small>
           </div>
 
           <div class="trust">
             <div class="logo">
-              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon3.png" alt="Reviews 22000+"/>
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon3.png" style="width:90px;height:24px;border-radius:4px;"/>
             </div>
-            <div class="meta">
-              <strong>Verified Savings</strong>
-              <small>Based on 22,000+ reviews</small>
-            </div>
+            <small>Based on 22,000+ Reviews</small>
           </div>
         </div>
       </div>
 
-      <!-- REAL-TIME QUOTES (REDESIGNED) -->
+      <!-- REAL-TIME QUOTES -->
       <section class="section">
-        <div class="inner quotes-shell">
+        <div class="inner">
           <h2>Real-Time Quotes</h2>
-          <p class="hint">Updated frequently — hover to pause.</p>
 
           <div class="quotes-card">
-            <div class="quotes-top">
-              <div class="quotes-title">
-                <span class="iconwrap" aria-hidden="true"><i class="fa-solid fa-wave-square"></i></span>
-                <span>Live matches</span>
-              </div>
-              <div class="livechip">
-                <span class="dot" aria-hidden="true"></span>
-                <span>LIVE</span>
-              </div>
-            </div>
-
             <div class="quotes-head">
               <div>Name</div><div>Model</div><div>State</div><div style="text-align:right;">Rate</div>
             </div>
 
             <div class="quotes-viewport" id="quotesViewport">
-              <div class="fadeTop" aria-hidden="true"></div>
-              <div class="fadeBottom" aria-hidden="true"></div>
-
               <div class="quotes-body" id="quotesBody">
                 <div class="quotes-row">
-                  <div class="namecell"><span class="avatar-mini">M</span><div class="blur"></div></div>
-                  <div class="modelcell"><span class="brand-badge">C</span><span class="brand-name">Chrysler</span></div>
-                  <div><span class="statepill"><i class="fa-solid fa-location-dot"></i> MT</span></div>
+                  <div><div class="blur"></div></div>
+                  <div>Chrysler</div>
+                  <div>MT</div>
                   <div class="rate">$32/mo</div>
                 </div>
-
                 <div class="quotes-row">
-                  <div class="namecell"><span class="avatar-mini">J</span><div class="blur" style="width:58%"></div></div>
-                  <div class="modelcell"><span class="brand-badge">F</span><span class="brand-name">Ford</span></div>
-                  <div><span class="statepill"><i class="fa-solid fa-location-dot"></i> NC</span></div>
+                  <div><div class="blur" style="width:55%"></div></div>
+                  <div>Ford</div>
+                  <div>NC</div>
                   <div class="rate">$29/mo</div>
                 </div>
-
                 <div class="quotes-row">
-                  <div class="namecell"><span class="avatar-mini">A</span><div class="blur" style="width:62%"></div></div>
-                  <div class="modelcell"><span class="brand-badge">D</span><span class="brand-name">Dodge</span></div>
-                  <div><span class="statepill"><i class="fa-solid fa-location-dot"></i> MO</span></div>
+                  <div><div class="blur" style="width:60%"></div></div>
+                  <div>Dodge</div>
+                  <div>MO</div>
                   <div class="rate">$30/mo</div>
                 </div>
-
                 <div class="quotes-row">
-                  <div class="namecell"><span class="avatar-mini">S</span><div class="blur" style="width:52%"></div></div>
-                  <div class="modelcell"><span class="brand-badge">F</span><span class="brand-name">Fiat</span></div>
-                  <div><span class="statepill"><i class="fa-solid fa-location-dot"></i> WI</span></div>
+                  <div><div class="blur" style="width:50%"></div></div>
+                  <div>Fiat</div>
+                  <div>WI</div>
                   <div class="rate">$33/mo</div>
                 </div>
-
                 <div class="quotes-row">
-                  <div class="namecell"><span class="avatar-mini">R</span><div class="blur" style="width:66%"></div></div>
-                  <div class="modelcell"><span class="brand-badge">F</span><span class="brand-name">Ford</span></div>
-                  <div><span class="statepill"><i class="fa-solid fa-location-dot"></i> TX</span></div>
+                  <div><div class="blur" style="width:65%"></div></div>
+                  <div>Ford</div>
+                  <div>TX</div>
                   <div class="rate">$30/mo</div>
                 </div>
-
                 <div class="quotes-row">
-                  <div class="namecell"><span class="avatar-mini">E</span><div class="blur" style="width:60%"></div></div>
-                  <div class="modelcell"><span class="brand-badge">G</span><span class="brand-name">Genesis</span></div>
-                  <div><span class="statepill"><i class="fa-solid fa-location-dot"></i> NY</span></div>
+                  <div><div class="blur" style="width:58%"></div></div>
+                  <div>Genesis</div>
+                  <div>NY</div>
                   <div class="rate">$25/mo</div>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -1129,95 +665,63 @@
 
       <!-- CUSTOMER REVIEWS -->
       <section class="reviews">
-        <div class="reviews-wrap">
-          <h2>Customer Reviews</h2>
-          <p class="lead">Real feedback from real drivers — quick reads, high trust, mobile-first.</p>
+        <div class="inner">
+          <h2 style="margin-top:0;">Customer Reviews</h2>
+          <p class="lead">
+            Real feedback from real drivers. Learn how we’ve helped our customers save on auto insurance.
+          </p>
 
-          <div class="reviews-grid">
-
-            <div class="note hasTape" style="--r:-.6deg;">
-              <div class="tape" aria-hidden="true"></div>
-
-              <div class="note-top">
-                <div class="stars" aria-label="5 star rating">
-                  <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                </div>
-                <span class="badge-right"><i class="fa-solid fa-piggy-bank"></i> Saved $58/mo</span>
+          <div class="r-card">
+            <div class="r-stars">
+              <span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span>
+            </div>
+            <div class="r-quote">
+              "Excellent coverage for less money. This is the smartest way to insure your car!"
+            </div>
+            <div class="r-user">
+              <div class="r-avatar">
+                <img src="https://quotediscountusa.com/images/download%20(4).jpeg" style="width:100%;height:100%;background:#455f7f;">
               </div>
-
-              <div class="quote">“Excellent coverage for less money. This is the smartest way to insure your car!”</div>
-
-              <div class="userrow">
-                <div class="user">
-                  <div class="avatar"><img src="https://quotediscountusa.com/images/download%20(4).jpeg" alt="Grace K avatar"></div>
-                  <div class="uname">
-                    <b>Grace K</b>
-                    <div class="verified"><span class="check">✓</span> Verified Buyer</div>
-                  </div>
-                </div>
-                <span class="badge-right"><i class="fa-solid fa-shield"></i> Secure</span>
+              <div>
+                <div class="r-name">Grace K</div>
+                <div class="r-verified"><span class="check">✓</span> Verified Buyer</div>
               </div>
             </div>
-
-            <div class="note hasTape" style="--r:.4deg;">
-              <div class="tape" aria-hidden="true"></div>
-
-              <div class="note-top">
-                <div class="stars" aria-label="5 star rating">
-                  <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                </div>
-                <span class="badge-right"><i class="fa-solid fa-bolt"></i> Fast</span>
-              </div>
-
-              <div class="quote">“The signup process was a breeze, and the savings are real. I’m recommending this to everyone!”</div>
-
-              <div class="userrow">
-                <div class="user">
-                  <div class="avatar"><img src="https://quotediscountusa.com/images/download%20(2).jpeg" alt="Emily B avatar"></div>
-                  <div class="uname">
-                    <b>Emily B.</b>
-                    <div class="verified"><span class="check">✓</span> Verified Buyer</div>
-                  </div>
-                </div>
-                <span class="badge-right"><i class="fa-solid fa-tag"></i> Low rate</span>
-              </div>
-            </div>
-
-            <div class="note hasTape" style="--r:-.2deg;">
-              <div class="tape" aria-hidden="true"></div>
-
-              <div class="note-top">
-                <div class="stars" aria-label="5 star rating">
-                  <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                </div>
-                <span class="badge-right"><i class="fa-solid fa-thumbs-up"></i> Easy</span>
-              </div>
-
-              <div class="quote">“Switching saved me money without compromising service. Highly recommend!”</div>
-
-              <div class="userrow">
-                <div class="user">
-                  <div class="avatar"><img src="https://quotediscountusa.com/images/aca_hero_4.png" alt="Amy I avatar"></div>
-                  <div class="uname">
-                    <b>Amy I.</b>
-                    <div class="verified"><span class="check">✓</span> Verified Buyer</div>
-                  </div>
-                </div>
-                <span class="badge-right"><i class="fa-solid fa-star"></i> 5/5</span>
-              </div>
-            </div>
-
           </div>
 
-          <div class="reviews-cta">
-            <div class="cta-box">
-              <div class="txt">
-                Ready to check your rate?
-                <small>Tap below — takes under 30 seconds.</small>
+          <div class="r-card">
+            <div class="r-stars">
+              <span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span>
+            </div>
+            <div class="r-quote">
+              "The signup process was a breeze, and the savings are real. I'm recommending this to everyone!"
+            </div>
+            <div class="r-user">
+              <div class="r-avatar">
+                <img src="https://quotediscountusa.com/images/download%20(2).jpeg" style="width:100%;height:100%;background:#455f7f;">
               </div>
-              <a class="miniBtn scroll-trigger" href="#questionCard" role="button">
-                Start Now <i class="fa-solid fa-arrow-right"></i>
-              </a>
+              <div>
+                <div class="r-name">Emily B.</div>
+                <div class="r-verified"><span class="check">✓</span> Verified Buyer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="r-card">
+            <div class="r-stars">
+              <span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span>
+            </div>
+            <div class="r-quote">
+              "Switching to this insurance saved me money without compromising on service. Highly recommend!"
+            </div>
+            <div class="r-user">
+              <div class="r-avatar">
+                <img src="https://quotediscountusa.com/images/aca_hero_4.png" style="width:100%;height:100%;background:#cbd5e1;">
+              </div>
+              <div>
+                <div class="r-name">Amy I.</div>
+                <div class="r-verified"><span class="check">✓</span> Verified Buyer</div>
+              </div>
             </div>
           </div>
 
@@ -1252,14 +756,16 @@
       const rows = Array.from(body.children);
       rows.forEach(r => body.appendChild(r.cloneNode(true)));
 
-      const perRowSeconds = 2.2;
-      const minSeconds = 46;
+      // VERY VERY SLOW
+      const perRowSeconds = 2;
+      const minSeconds = 40;
       const time = Math.max(minSeconds, rows.length * perRowSeconds);
+
       body.style.setProperty("--scroll-time", time + "s");
     })();
   </script>
 
-  <!-- CLICK HERO/NUDGE => SMOOTH SCROLL TO QUESTION CARD -->
+  <!-- CLICK HERO/HEADLINE/ARROW => SMOOTH SCROLL TO QUESTION CARD -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const triggers = document.querySelectorAll(".scroll-trigger");
@@ -1269,25 +775,20 @@
       const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       triggers.forEach(el => {
-        el.addEventListener("click", (e) => {
-          const href = el.getAttribute && el.getAttribute("href");
-          if (href && href.startsWith("#")) e.preventDefault();
-
+        el.addEventListener("click", () => {
           target.scrollIntoView({
             behavior: prefersReduced ? "auto" : "smooth",
             block: "center"
           });
 
-          if (!prefersReduced && target.animate) {
-            target.animate(
-              [
-                { transform: "scale(1)", boxShadow: "0 18px 42px rgba(2,6,23,.14)" },
-                { transform: "scale(1.012)", boxShadow: "0 22px 54px rgba(2,6,23,.18)" },
-                { transform: "scale(1)", boxShadow: "0 18px 42px rgba(2,6,23,.14)" }
-              ],
-              { duration: 420, easing: "ease-out" }
-            );
-          }
+          target.animate?.(
+            [
+              { transform: "scale(1)", boxShadow: "0 12px 30px rgba(0,0,0,.22)" },
+              { transform: "scale(1.01)", boxShadow: "0 16px 38px rgba(0,0,0,.26)" },
+              { transform: "scale(1)", boxShadow: "0 12px 30px rgba(0,0,0,.22)" }
+            ],
+            { duration: 420, easing: "ease-out" }
+          );
         });
       });
     });
