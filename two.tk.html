@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AutoQuote Pilot - Blue Lander</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ugaqmwe991");
+  </script>
+
+  <style>
+    :root{
+      --blue:#0b63ad;
+      --blue-dark:#084f8a;
+      --blue-line:#4e8fd3;
+      --soft:#eef4fb;
+      --text:#0b1220;
+      --muted:#5b6575;
+      --card:#fff;
+      --line:#e5e7eb;
+      --orange:#f59e0b;
+      --inner:980px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;} /* fallback smooth scroll */
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:#fff;
+    }
+    .page,.container{width:100%;}
+    .inner{max-width:var(--inner);margin:0 auto;padding:0 14px;}
+
+    /* =================== TOP SOCIAL BAR =================== */
+    .topbar{
+      background:#f6e8c9;
+      border-bottom:1px solid rgba(0,0,0,.06);
+      font-size:12px;
+      font-weight:800;
+      padding:6px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      position:sticky;
+      top:0;
+      z-index:50;
+      text-align:center;
+      white-space:nowrap;
+      overflow:hidden;
+    }
+    .topbar .faces{
+      height:20px;
+      width:auto;
+      border-radius:999px;
+      object-fit:cover;
+    }
+
+    /* make hero triggers feel clickable */
+    .scroll-trigger{cursor:pointer; -webkit-tap-highlight-color: transparent;}
+    .scroll-trigger:active{transform:scale(.99);}
+
+    .arrow-section {
+      text-align: center;
+      padding: 1em 0 1.5em 0;
+      color: #f1f1f3;
+    }
+
+    .arrow-section i {
+      font-size: 2.8em;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,20%,50%,80%,100% { transform: translateY(0); }
+      40% { transform: translateY(-0.3em); }
+      60% { transform: translateY(-0.15em); }
+    }
+
+    /* =================== HERO =================== */
+    .hero{
+      position:relative;
+      color:#fff;
+      background:
+        linear-gradient(0deg, rgba(11,99,173,.96), rgba(11,99,173,.96)),
+        url("https://s.autoquotepilot.com/V4-rfv-opf-5/images/banner-img.jpg") center/cover no-repeat;
+      min-height:520px;
+      padding:22px 12px 0;
+      overflow:hidden;
+    }
+
+    .hero-inner{
+      max-width:520px;
+      margin:0 auto;
+      text-align:center;
+      padding-bottom:18px;
+    }
+
+    .hero h1{
+      margin:8px 0 6px;
+      font-size:28px;
+      line-height:1.22;
+      font-weight:900;
+      letter-spacing:.2px;
+      text-shadow:0 2px 10px rgba(0,0,0,.25);
+    }
+    .hero .sub{
+      font-size:14.5px;
+      font-weight:800;
+      opacity:.96;
+      margin-top:22px;
+      margin-bottom:12px;
+      text-shadow:0 1px 6px rgba(0,0,0,.25);
+    }
+
+    .q-card{
+      background:#fff;
+      color:#000;
+      border-radius:12px;
+      padding:22px 12px 26px;
+      box-shadow:0 12px 30px rgba(0,0,0,.22);
+      margin:8px auto 8px;
+      width:100%;
+      max-width:410px;
+      border:1px solid rgba(0,0,0,.06);
+      scroll-margin-top: 76px; /* keeps it visible under sticky topbar when scrolled */
+    }
+    .q-title{
+      font-weight:900;
+      font-size:25px;
+      margin-bottom:20px;
+      white-space:nowrap;
+    }
+    .q-btns{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .q-btn{
+      background:#fde047;
+      border:2px solid #0c0c0c;
+      border-radius:6px;
+      padding:11px 0;
+      font-weight:900;
+      font-size:34px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition:.12s ease;
+    }
+    .q-btn:hover{background:#f2f7ff;}
+    .q-btn:active{transform:translateY(1px);}
+
+    .secure{
+      margin:18px 0 0;
+      font-size:11px;
+      font-weight:800;
+      opacity:.98;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+    }
+    .secure .lock{
+      width:12px; height:12px; border-radius:2px;
+      background:#fff; display:inline-block; position:relative; flex:0 0 auto;
+    }
+    .secure .lock:before{
+      content:"";
+      position:absolute; left:2px; right:2px; top:-5px; height:6px;
+      border:2px solid #fff; border-bottom:none; border-radius:7px 7px 0 0;
+    }
+
+    .hero-strip{
+      width:100%;
+      height:160px;
+      margin-top:10px;
+      background:url("https://s.autoquotepilot.com/V4-rfv-opf-5/images/banner-img.jpg") center bottom/cover no-repeat;
+    }
+
+    /* =================== TRUST STRIP =================== */
+    .trust-wrap{
+      background:#fff;
+      padding:10px 0;
+      border-bottom:1px solid #eef2f7;
+    }
+    .trust-row{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      padding:4px 12px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .trust-row::-webkit-scrollbar{display:none;}
+    .trust{
+      min-width:140px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      font-size:11px;
+      font-weight:800;
+      color:#0b1220;
+      gap:3px;
+      white-space:nowrap;
+    }
+    .trust .logo{
+      height:24px; display:flex; align-items:center; justify-content:center;
+    }
+    .trust img{height:24px; width:auto; object-fit:contain;}
+    .trust small{font-size:9.5px; color:var(--muted); font-weight:800;}
+
+    /* =================== REALTIME QUOTES =================== */
+    .section{padding:12px 0; background:#fff;}
+    .section h2{
+      text-align:center; font-size:20px; font-weight:900; margin:6px 0 10px;
+    }
+
+    .quotes-card{
+      border:1px solid var(--line);
+      border-radius:10px;
+      overflow:hidden;
+      max-width:520px;
+      margin:0 auto;
+      background:#fff;
+      box-shadow:0 8px 18px rgba(15,23,42,.06);
+    }
+    .quotes-head{
+      background:var(--blue);
+      color:#fff;
+      font-weight:900;
+      font-size:12px;
+      padding:9px 8px;
+      display:grid;
+      grid-template-columns:1.2fr 1fr .8fr .8fr;
+      gap:6px;
+    }
+
+    /* SLOW scrolling viewport */
+    .quotes-viewport{
+      position:relative;
+      height:260px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .quotes-body{
+      display:block;
+      will-change:transform;
+      animation: quotesScroll linear infinite;
+      animation-duration: var(--scroll-time, 60s); /* default fallback slow */
+    }
+
+    @keyframes quotesScroll{
+      from{ transform: translateY(0); }
+      to{ transform: translateY(-50%); }
+    }
+
+    .quotes-row{
+      display:grid;
+      grid-template-columns:1.2fr 1fr .8fr .8fr;
+      gap:6px;
+      padding:11px 8px;
+      font-size:13px;
+      align-items:center;
+      border-top:1px solid var(--line);
+    }
+    .quotes-row:nth-child(even){background:#f7f9fc;}
+    .blur{
+      height:12px; width:70%;
+      background:linear-gradient(90deg,#d1d5db,#eef2f7);
+      border-radius:999px;
+    }
+    .rate{font-weight:900; text-align:right;}
+
+    .quotes-viewport:hover .quotes-body{
+      animation-play-state:paused;
+    }
+
+    /* =================== REVIEWS =================== */
+    .reviews{
+      background:#f2f7fb;
+      padding:14px 0 6px;
+    }
+    .reviews .lead{
+      text-align:center;
+      font-size:12.5px;
+      color:#111827;
+      margin:0 18px 12px;
+      font-weight:650;
+    }
+    .r-card{
+      background:#fff;
+      border:2px solid var(--blue-line);
+      border-radius:10px;
+      padding:14px 12px;
+      max-width:520px;
+      margin:12px auto;
+      box-shadow:0 8px 18px rgba(15,23,42,.05);
+    }
+    .r-stars{display:flex; gap:3px; margin-bottom:6px;}
+    .r-star{
+      width:14px;height:14px;
+      background:conic-gradient(from 0deg,var(--orange) 0 100%);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 67% 57%, 79% 91%, 50% 70%, 21% 91%, 33% 57%, 2% 35%, 39% 35%);
+    }
+    .r-quote{
+      font-size:13px; font-weight:700; color:#0b1220; line-height:1.5;
+      margin-bottom:12px;
+    }
+    .r-user{
+      display:flex; align-items:center; gap:10px;
+    }
+    .r-avatar{
+      width:46px;height:46px;border-radius:999px; overflow:hidden;
+      background:#e5e7eb; flex:0 0 auto;
+      border:2px solid #fff;
+      box-shadow:0 2px 6px rgba(0,0,0,.1);
+    }
+    .r-avatar img{width:100%;height:100%;object-fit:cover;}
+    .r-name{font-weight:900; font-size:13px;}
+    .r-verified{
+      font-size:11px; font-weight:900; color:#16a34a; display:flex; align-items:center; gap:5px;
+      margin-top:2px;
+    }
+    .check{
+      width:14px;height:14px;border-radius:999px;background:#16a34a;color:#fff;
+      display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;
+    }
+
+    /* =================== FOOTER =================== */
+    footer{
+      padding:14px 0 26px;
+      font-size:10.5px;
+      color:#374151;
+      line-height:1.45;
+      text-align:center;
+      background:#fff;
+      border-top:1px solid #eef2f7;
+    }
+    footer a{color:#111827;text-decoration:none;font-weight:800;}
+    footer .links{
+      margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-weight:800;
+    }
+
+    @media (min-width: 900px){
+      .hero{
+        min-height:720px;
+        padding-top:34px;
+        background:
+          linear-gradient(0deg, rgba(11,99,173,.96), rgba(11,99,173,.96)),
+          url("https://s.autoquotepilot.com/V4-rfv-opf-5/images/banner-img.jpg") center/cover no-repeat;
+      }
+      .hero-inner{
+        max-width:1100px;
+        padding-top:20px;
+      }
+      .hero h1{font-size:44px; line-height:1.18;}
+      .hero .sub{font-size:17px; margin-bottom:18px;}
+
+      .q-card{max-width:620px; border-radius:12px; padding:18px 16px;}
+      .q-title{font-size:20px; margin-bottom:14px;}
+      .q-btn{
+        font-size:16px;
+        padding:14px 0;
+        border-radius:8px;
+      }
+      .secure{font-size:13px; margin-top:14px;}
+
+      .trust-row{
+        max-width:900px;
+        margin:0 auto;
+        justify-content:space-between;
+        overflow:visible;
+      }
+      .quotes-card, .r-card{max-width:750px;}
+      .section h2{font-size:22px;}
+      .quotes-viewport{height:300px;}
+    }
+  </style>
+
+  <script>
+    async function setStateName() {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+
+        let state = data.region || "Your State";
+
+        const subEl = document.querySelector(".hero .sub");
+        if (subEl) {
+          subEl.innerHTML = `Rates Starting At $19.99 Per Month In <b>${state}</b>`;
+        }
+      } catch (e) {
+        console.warn("Location lookup failed");
+        const subEl = document.querySelector(".hero .sub");
+        if (subEl) {
+          subEl.innerHTML = `Rates Starting At $19.99 Per Month In Your State`;
+        }
+      }
+    }
+    setStateName();
+  </script>
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  ttq.load('D2H5NABC77UCCBANISK0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PL5B9NSD');</script>
+  <!-- End Google Tag Manager -->
+
+ 
+  <script type="text/javascript" src="https://trk.reliableautopolicy.com/track.js?rtkcmpid=6946788c9056478fc50bd7b5"></script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL5B9NSD"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="page">
+    <main class="container">
+
+      <!-- TOP BAR -->
+      <div class="topbar">
+        <span>60,754 Americans Saved On Auto Insurance</span>
+        <img class="faces" src="https://autoquotepilot.com/aksh/v1/review-faces.png" alt="recent users"/>
+      </div>
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-inner">
+
+          <!-- CLICKABLE HERO CONTENT -->
+          <h1 class="scroll-trigger">Get back <span style="color:#fde047;">$710</span> In Savings<br/>On Your Auto Insurance</h1>
+          <div class="sub scroll-trigger">Rates Starting At $19.99 Per Month In America</div>
+
+          <div class="arrow-section scroll-trigger" aria-label="Scroll to question">
+            <i class="fa-solid fa-angle-down"></i>
+          </div>
+
+          <!-- QUESTION CARD (SCROLL TARGET) -->
+          <div class="q-card" id="questionCard">
+            <div class="q-title">Are You Currently Insured?</div>
+            <div class="q-btns">
+              <a class="q-btn" href="https://trk.reliableautopolicy.com/click" role="button">YES</a>
+              <a class="q-btn" href="https://trk.reliableautopolicy.com/click" role="button">NO</a>
+            </div>
+          </div>
+
+          <div class="secure">
+            <span class="lock"></span>
+            <span>We keep all your information 100% secure &amp; confidential, always.</span>
+          </div>
+        </div>
+
+        <div class="hero-strip" aria-hidden="true"></div>
+      </section>
+
+      <!-- TRUST STRIP -->
+      <div class="trust-wrap">
+        <div class="trust-row">
+          <div class="trust">
+            <div class="logo">
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon1.png" style="width:90px;height:24px;border-radius:4px;"/>
+            </div>
+            <small>Based on 6,000+ Reviews</small>
+          </div>
+
+          <div class="trust">
+            <div class="logo">
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon2.png" style="width:90px;height:24px;border-radius:4px;"/>
+            </div>
+            <small>Based on 31,000+ Reviews</small>
+          </div>
+
+          <div class="trust">
+            <div class="logo">
+              <img src="https://s.autoquotepilot.com/V4-rfv-opf-5/images/rate_icon3.png" style="width:90px;height:24px;border-radius:4px;"/>
+            </div>
+            <small>Based on 22,000+ Reviews</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- REAL-TIME QUOTES -->
+      <section class="section">
+        <div class="inner">
+          <h2>Real-Time Quotes</h2>
+
+          <div class="quotes-card">
+            <div class="quotes-head">
+              <div>Name</div><div>Model</div><div>State</div><div style="text-align:right;">Rate</div>
+            </div>
+
+            <div class="quotes-viewport" id="quotesViewport">
+              <div class="quotes-body" id="quotesBody">
+                <div class="quotes-row">
+                  <div><div class="blur"></div></div>
+                  <div>Chrysler</div>
+                  <div>MT</div>
+                  <div class="rate">$32/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:55%"></div></div>
+                  <div>Ford</div>
+                  <div>NC</div>
+                  <div class="rate">$29/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:60%"></div></div>
+                  <div>Dodge</div>
+                  <div>MO</div>
+                  <div class="rate">$30/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:50%"></div></div>
+                  <div>Fiat</div>
+                  <div>WI</div>
+                  <div class="rate">$33/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:65%"></div></div>
+                  <div>Ford</div>
+                  <div>TX</div>
+                  <div class="rate">$30/mo</div>
+                </div>
+                <div class="quotes-row">
+                  <div><div class="blur" style="width:58%"></div></div>
+                  <div>Genesis</div>
+                  <div>NY</div>
+                  <div class="rate">$25/mo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CUSTOMER REVIEWS -->
+      <section class="reviews">
+        <div class="inner">
+          <h2 style="margin-top:0;">Customer Reviews</h2>
+          <p class="lead">
+            Real feedback from real drivers. Learn how we’ve helped our customers save on auto insurance.
+          </p>
+
+          <div class="r-card">
+            <div class="r-stars">
+              <span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span>
+            </div>
+            <div class="r-quote">
+              "Excellent coverage for less money. This is the smartest way to insure your car!"
+            </div>
+            <div class="r-user">
+              <div class="r-avatar">
+                <img src="https://quotediscountusa.com/images/download%20(4).jpeg" style="width:100%;height:100%;background:#455f7f;">
+              </div>
+              <div>
+                <div class="r-name">Grace K</div>
+                <div class="r-verified"><span class="check">✓</span> Verified Buyer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="r-card">
+            <div class="r-stars">
+              <span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span>
+            </div>
+            <div class="r-quote">
+              "The signup process was a breeze, and the savings are real. I'm recommending this to everyone!"
+            </div>
+            <div class="r-user">
+              <div class="r-avatar">
+                <img src="https://quotediscountusa.com/images/download%20(2).jpeg" style="width:100%;height:100%;background:#455f7f;">
+              </div>
+              <div>
+                <div class="r-name">Emily B.</div>
+                <div class="r-verified"><span class="check">✓</span> Verified Buyer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="r-card">
+            <div class="r-stars">
+              <span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span><span class="r-star"></span>
+            </div>
+            <div class="r-quote">
+              "Switching to this insurance saved me money without compromising on service. Highly recommend!"
+            </div>
+            <div class="r-user">
+              <div class="r-avatar">
+                <img src="https://quotediscountusa.com/images/aca_hero_4.png" style="width:100%;height:100%;background:#cbd5e1;">
+              </div>
+              <div>
+                <div class="r-name">Amy I.</div>
+                <div class="r-verified"><span class="check">✓</span> Verified Buyer</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer>
+        <div class="inner">
+          <p>
+            Disclaimer: savemaxauto is a top savings referral service which enables consumers to quickly and easily request multiple competitive insurance company quotes from optimally selected local insurance agents and companies using our proprietary consumer alignment technology. We do not provide insurance and we do not represent any specific insurance provider. Please note that lowest listed rates and potential savings may not be representative or available from all companies. autoquotepilot.com matches users to advertisers and insurance agents only after we’ve received certain information from you, and your actual rates and savings will vary based on your location, coverage limits, deductibles, driving records, type of vehicle, affiliations, and many other variables.
+          </p>
+          <div class="links">
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms Of Use</a> |
+            <a href="mailto:contact@savemaxauto.org">contact@savemaxauto.org</a> |
+            <a href="#">savemaxauto.org</a> |
+            <span>74 E Glenwood Ave Smyrna, DE 19977</span>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- SLOW vertical scroll JS -->
+  <script>
+    (function(){
+      const body = document.getElementById("quotesBody");
+      if(!body) return;
+
+      const rows = Array.from(body.children);
+      rows.forEach(r => body.appendChild(r.cloneNode(true)));
+
+      // VERY VERY SLOW
+      const perRowSeconds = 2;
+      const minSeconds = 40;
+      const time = Math.max(minSeconds, rows.length * perRowSeconds);
+
+      body.style.setProperty("--scroll-time", time + "s");
+    })();
+  </script>
+
+  <!-- CLICK HERO/HEADLINE/ARROW => SMOOTH SCROLL TO QUESTION CARD -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const triggers = document.querySelectorAll(".scroll-trigger");
+      const target = document.getElementById("questionCard");
+      if (!target) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      triggers.forEach(el => {
+        el.addEventListener("click", () => {
+          // Use smooth scroll unless user prefers reduced motion
+          target.scrollIntoView({
+            behavior: prefersReduced ? "auto" : "smooth",
+            block: "center"
+          });
+
+          // tiny attention pulse (safe & subtle)
+          target.animate?.(
+            [
+              { transform: "scale(1)", boxShadow: "0 12px 30px rgba(0,0,0,.22)" },
+              { transform: "scale(1.01)", boxShadow: "0 16px 38px rgba(0,0,0,.26)" },
+              { transform: "scale(1)", boxShadow: "0 12px 30px rgba(0,0,0,.22)" }
+            ],
+            { duration: 420, easing: "ease-out" }
+          );
+        });
+      });
+    });
+  </script>
+</body>
+</html>
