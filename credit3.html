@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Quote Savings — Hidden Discounts Finder</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+      :root{
+        --ink:#0f172a;
+        --muted:#64748b;
+        --muted2:#94a3b8;
+        --line:rgba(15,23,42,.10);
+        --paper:#ffffff;
+
+        /* background */
+        --bg0:#f6f9ff;
+        --bg1:#f3fbff;
+        --bg2:#faf6ff;
+
+        /* tile colors (soft, not neon) */
+        --tBlue:#e9f2ff;
+        --tTeal:#e9fbf8;
+        --tPurple:#f3ecff;
+        --tMint:#eefcef;
+        --tAmber:#fff3e6;
+
+        /* buttons */
+        --btnBlue:#5aa7e9;
+        --btnTeal:#64c7c4;
+        --btnPurple:#a88cf2;
+
+        --radius:18px;
+        --radius2:14px;
+        --shadow: 0 14px 34px rgba(15,23,42,.08);
+
+        --max: 980px;
+      }
+
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        color:var(--ink);
+        background:
+          radial-gradient(1100px 520px at 16% 8%, rgba(90,167,233,.22), transparent 60%),
+          radial-gradient(900px 520px at 86% 18%, rgba(168,140,242,.20), transparent 62%),
+          radial-gradient(920px 560px at 50% 96%, rgba(100,199,196,.18), transparent 62%),
+          linear-gradient(180deg, var(--bg1), var(--bg0) 42%, var(--bg2));
+      }
+
+      /* Soft background blocks (layered color blocks) */
+      .bg-blocks{
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:-1;
+        overflow:hidden;
+      }
+      .bg-block{
+        position:absolute;
+        filter: blur(0px);
+        opacity:.9;
+        transform: rotate(6deg);
+        border-radius: 34px;
+      }
+      .bg-block.b1{
+        width: 520px; height: 260px;
+        left: -120px; top: 90px;
+        background: linear-gradient(135deg, rgba(90,167,233,.18), rgba(100,199,196,.14));
+      }
+      .bg-block.b2{
+        width: 520px; height: 280px;
+        right: -160px; top: 220px;
+        background: linear-gradient(135deg, rgba(168,140,242,.18), rgba(90,167,233,.12));
+      }
+      .bg-block.b3{
+        width: 560px; height: 300px;
+        left: -180px; bottom: 120px;
+        background: linear-gradient(135deg, rgba(100,199,196,.16), rgba(255,195,120,.14));
+      }
+
+      .wrap{
+        min-height:100%;
+        display:flex;
+        justify-content:center;
+        padding: 18px 14px 44px;
+      }
+
+      /* Layout: mobile-first */
+      .shell{
+        width:100%;
+        max-width: 520px;           /* phone-ish by default */
+      }
+
+      /* Desktop: center phone inside a nicer frame */
+      @media (min-width: 980px){
+        .wrap{ padding: 34px 18px 60px; }
+        .shell{
+          max-width: var(--max);
+          display:grid;
+          grid-template-columns: 1fr 440px;
+          gap: 26px;
+          align-items:start;
+        }
+      }
+
+      /* Left preview panel on desktop */
+      .desk-preview{
+        display:none;
+      }
+      @media (min-width: 980px){
+        .desk-preview{
+          display:block;
+          padding: 18px;
+        }
+        .desk-preview .card{
+          background: rgba(255,255,255,.55);
+          border:1px solid rgba(15,23,42,.08);
+          border-radius: 26px;
+          padding: 20px;
+          box-shadow: 0 30px 80px rgba(15,23,42,.10);
+          backdrop-filter: blur(10px);
+        }
+        .desk-preview h2{
+          margin:0 0 10px;
+          font-size: 22px;
+          letter-spacing: -0.02em;
+        }
+        .desk-preview p{
+          margin:0;
+          color:var(--muted);
+          line-height:1.5;
+          font-size:14px;
+        }
+        .mini-grid{
+          margin-top:14px;
+          display:grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px;
+        }
+        .mini{
+          border-radius: 16px;
+          border:1px solid rgba(15,23,42,.08);
+          padding: 12px;
+          background: rgba(255,255,255,.62);
+        }
+        .mini .k{ font-size: 12px; color: var(--muted); }
+        .mini .v{ margin-top:6px; font-weight:700; font-size: 14px; }
+      }
+
+      /* Phone frame */
+      .phone{
+        width:100%;
+        border-radius: 28px;
+        background: rgba(255,255,255,.55);
+        border: 1px solid rgba(15,23,42,.10);
+        box-shadow: 0 34px 90px rgba(15,23,42,.14);
+        backdrop-filter: blur(12px);
+        overflow:hidden;
+      }
+
+      /* top header */
+      .topbar{
+        padding: 14px 16px 10px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap: 4px;
+        border-bottom: 1px solid rgba(15,23,42,.08);
+        background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.55));
+      }
+      .brand{
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        font-size: 18px;
+        color: #1f2a44;
+      }
+      .sub{
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .content{
+        padding: 18px 16px 16px;
+      }
+
+      .hero{
+        text-align:center;
+        padding: 10px 6px 14px;
+      }
+      .hero h1{
+        margin:0;
+        font-size: 26px;
+        letter-spacing:-0.03em;
+        line-height:1.1;
+      }
+      .hero .hl{
+        color: #2b5ea8;
+        background: linear-gradient(90deg, rgba(90,167,233,.25), rgba(168,140,242,.18));
+        padding: 0 .18em;
+        border-radius: 10px;
+      }
+      .hero p{
+        margin: 10px auto 0;
+        max-width: 28ch;
+        color: var(--muted);
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      /* tiles */
+      .tiles{
+        margin-top: 12px;
+        display:grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 12px;
+      }
+      .tile{
+        border-radius: var(--radius);
+        border: 1px solid rgba(15,23,42,.10);
+        background: rgba(255,255,255,.62);
+        padding: 12px 12px;
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        min-height: 58px;
+      }
+      .tile[data-c="blue"]{ background: linear-gradient(180deg, rgba(233,242,255,.95), rgba(255,255,255,.55)); }
+      .tile[data-c="teal"]{ background: linear-gradient(180deg, rgba(233,251,248,.95), rgba(255,255,255,.55)); }
+      .tile[data-c="purple"]{ background: linear-gradient(180deg, rgba(243,236,255,.95), rgba(255,255,255,.55)); }
+      .tile[data-c="mint"]{ background: linear-gradient(180deg, rgba(238,252,239,.95), rgba(255,255,255,.55)); }
+      .tile[data-c="amber"]{ background: linear-gradient(180deg, rgba(255,243,230,.95), rgba(255,255,255,.55)); }
+
+      .icon{
+        width: 36px;
+        height: 36px;
+        border-radius: 14px;
+        display:grid;
+        place-items:center;
+        border: 1px solid rgba(15,23,42,.10);
+        background: rgba(255,255,255,.65);
+      }
+      .icon svg{
+        width: 18px; height: 18px;
+        opacity: .9;
+      }
+      .tile .t{
+        font-weight: 700;
+        font-size: 13.5px;
+        letter-spacing:-0.01em;
+      }
+      .tile .d{
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .tileText{display:flex; flex-direction:column; line-height:1.15}
+
+      /* divider wave */
+      .wave{
+        margin: 14px -16px 0;
+        height: 26px;
+        background:
+          radial-gradient(90% 110% at 0% 50%, rgba(90,167,233,.18), transparent 55%),
+          radial-gradient(90% 110% at 100% 50%, rgba(168,140,242,.16), transparent 55%),
+          linear-gradient(90deg, rgba(100,199,196,.10), rgba(90,167,233,.08), rgba(168,140,242,.10));
+        clip-path: path("M 0 14 C 80 0, 160 28, 240 14 C 320 0, 400 28, 520 14 L 520 26 L 0 26 Z");
+        opacity:.85;
+      }
+
+      /* question */
+      .section{
+        padding: 14px 6px 0;
+        text-align:center;
+      }
+      .section h3{
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: -0.02em;
+      }
+      .section .q{
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .btns{
+        margin-top: 12px;
+        display:grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 0 6px;
+      }
+
+      .btn{
+        border: 0;
+        width: 100%;
+        padding: 13px 14px;
+        border-radius: 16px;
+        font-weight: 800;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+        color: #0b1220;
+        cursor:pointer;
+        transition: transform .08s ease, filter .12s ease;
+      }
+      .btn:active{ transform: scale(.99); }
+      .btn.primary{
+        background: rgba(90,167,233,.55);
+      }
+      .btn.secondary{
+        background: rgba(168,140,242,.45);
+      }
+
+      /* ensure buttons stay readable */
+      .btn.primary{ color: #0b1220; }
+      .btn.secondary{ color: #0b1220; }
+
+      /* reassurance + trust line */
+      .meta{
+        padding: 12px 14px 0;
+        display:flex;
+        flex-direction:column;
+        gap: 10px;
+      }
+      .note{
+        display:flex;
+        gap: 10px;
+        align-items:flex-start;
+        color: var(--muted);
+        font-size: 12.5px;
+        line-height: 1.45;
+      }
+      .dot{
+        width: 22px;
+        height: 22px;
+        border-radius: 10px;
+        display:grid;
+        place-items:center;
+        border: 1px solid rgba(15,23,42,.10);
+        background: rgba(255,255,255,.65);
+        flex: 0 0 auto;
+      }
+      .dot svg{ width: 12px; height: 12px; opacity: .8; }
+
+      .hr{
+        height:1px;
+        background: rgba(15,23,42,.10);
+        margin: 2px 0 0;
+      }
+
+      /* footer */
+      .footer{
+        padding: 12px 14px 16px;
+        color: rgba(15,23,42,.70);
+        font-size: 11.5px;
+        line-height: 1.45;
+        background: rgba(255,255,255,.60);
+        border-top: 1px solid rgba(15,23,42,.08);
+      }
+      .footer strong{ font-weight: 800; }
+
+      /* desktop improvements */
+      @media (min-width: 980px){
+        .phone{
+          max-width: 440px;
+          justify-self:end;
+        }
+        .hero h1{ font-size: 28px; }
+      }
+
+      /* very small phones */
+      @media (max-width: 360px){
+        .hero h1{ font-size: 24px; }
+        .tile{ padding: 11px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="bg-blocks" aria-hidden="true">
+      <div class="bg-block b1"></div>
+      <div class="bg-block b2"></div>
+      <div class="bg-block b3"></div>
+    </div>
+
+    <main class="wrap">
+      <section class="shell">
+        <!-- Desktop helper panel -->
+        <aside class="desk-preview">
+          <div class="card">
+            <h2>Hidden Discounts Finder</h2>
+            <p>
+              A colorful, professional fintech look designed for discovery. This panel appears on desktop
+              while the phone UI stays mobile-first.
+            </p>
+
+            <div class="mini-grid" aria-hidden="true">
+              <div class="mini">
+                <div class="k">Tone</div>
+                <div class="v">Exploratory</div>
+              </div>
+              <div class="mini">
+                <div class="k">Style</div>
+                <div class="v">Fintech UI</div>
+              </div>
+              <div class="mini">
+                <div class="k">Claims</div>
+                <div class="v">No promises</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Phone UI -->
+        <div class="phone" role="region" aria-label="Quote Savings discounts check">
+          <header class="topbar">
+            <div class="brand">Quote Savings</div>
+            <div class="sub">Insurance Discounts Check</div>
+          </header>
+
+          <div class="content">
+            <div class="hero">
+              <h1>
+                You may be <span class="hl">missing</span><br />
+                auto insurance <span class="hl">discounts</span>
+              </h1>
+              <p>
+                Some discounts aren’t applied automatically. Check what may be available based on your profile.
+              </p>
+            </div>
+
+            <section class="tiles" aria-label="Common discounts">
+              <div class="tile" data-c="blue">
+                <div class="icon" aria-hidden="true">
+                  <!-- shield -->
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M8.5 12.2l2.2 2.2 4.8-5.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="tileText">
+                  <div class="t">Safe Driver</div>
+                  <div class="d">Driving history</div>
+                </div>
+              </div>
+
+              <div class="tile" data-c="amber">
+                <div class="icon" aria-hidden="true">
+                  <!-- layers -->
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 4l8 4-8 4-8-4 8-4z" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M4 12l8 4 8-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4 16l8 4 8-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="tileText">
+                  <div class="t">Multi-Policy</div>
+                  <div class="d">Bundle options</div>
+                </div>
+              </div>
+
+              <div class="tile" data-c="purple">
+                <div class="icon" aria-hidden="true">
+                  <!-- gauge -->
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 13a8 8 0 10-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12 13l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M6.5 18h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="tileText">
+                  <div class="t">Low Mileage</div>
+                  <div class="d">Usage patterns</div>
+                </div>
+              </div>
+
+              <div class="tile" data-c="teal">
+                <div class="icon" aria-hidden="true">
+                  <!-- car check -->
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7 16l-1 2M17 16l1 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M6 16h12l-1.2-6.2A2 2 0 0014.84 8H9.16A2 2 0 007.2 9.8L6 16z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M8.2 16.2a1.2 1.2 0 102.4 0 1.2 1.2 0 00-2.4 0zM13.4 16.2a1.2 1.2 0 102.4 0 1.2 1.2 0 00-2.4 0z" fill="currentColor" opacity=".18"/>
+                    <path d="M14.4 9.9l1.5 1.5 2.7-2.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="tileText">
+                  <div class="t">Vehicle Safety</div>
+                  <div class="d">Built-in features</div>
+                </div>
+              </div>
+
+              <div class="tile" data-c="mint" style="grid-column: 1 / -1; justify-content:center;">
+                <div class="icon" aria-hidden="true">
+                  <!-- trophy -->
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M8 4h8v3a4 4 0 01-8 0V4z" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M6 5H4v2a4 4 0 004 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M18 5h2v2a4 4 0 01-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12 11v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M9 20h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M10 14h4a3 3 0 010 6h-4a3 3 0 010-6z" fill="currentColor" opacity=".12"/>
+                    <path d="M10 14h4a3 3 0 010 6h-4a3 3 0 010-6z" stroke="currentColor" stroke-width="1.2" opacity=".35"/>
+                  </svg>
+                </div>
+                <div class="tileText" style="align-items:center;text-align:center;">
+                  <div class="t">Loyalty</div>
+                  <div class="d">Time with insurer</div>
+                </div>
+              </div>
+            </section>
+
+            <div class="wave" aria-hidden="true"></div>
+
+            <section class="section" aria-label="Start check">
+              <h3>Start your discounts check</h3>
+              <p class="q">Do you currently have <strong>auto insurance</strong>?</p>
+
+              <div class="btns">
+                <button class="btn primary" type="button">Yes, I’m insured</button>
+                <button class="btn secondary" type="button">No, I’m not insured</button>
+              </div>
+            </section>
+
+            <div class="meta">
+              <div class="note">
+                <span class="dot" aria-hidden="true">
+                  <!-- info -->
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 17v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 8.2h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span>This check is free and does not change your current policy.</span>
+              </div>
+
+              <div class="hr"></div>
+
+              <div class="note">
+                <span class="dot" aria-hidden="true">
+                  <!-- check -->
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span>Designed to help drivers explore commonly overlooked discounts.</span>
+              </div>
+            </div>
+          </div>
+
+          <footer class="footer">
+            <strong>Quote Savings</strong> is an independent insurance comparison service. Discounts, pricing, and availability vary by driver profile, state, and insurer. Savings are not guaranteed. This service is not affiliated with any government agency.
+          </footer>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

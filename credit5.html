@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Quote Savings — Insurance Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#f4f6fb;
+        --panel:#ffffff;
+        --line:#e6ebf3;
+        --text:#0f172a;
+        --muted:#6b7280;
+
+        --nav1:#0b1a33;
+        --nav2:#1d3b62;
+
+        --blue:#2563eb;
+        --blue2:#1d4ed8;
+        --teal:#14b8a6;
+        --violet:#7c3aed;
+        --amber:#f59e0b;
+
+        --shadow: 0 18px 55px rgba(15, 23, 42, .10);
+        --shadow2: 0 10px 26px rgba(15, 23, 42, .08);
+        --r-xl: 18px;
+        --r-lg: 14px;
+        --r-md: 12px;
+      }
+
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+        color:var(--text);
+        background:
+          radial-gradient(900px 600px at 25% 10%, rgba(37,99,235,.10), transparent 55%),
+          radial-gradient(700px 520px at 80% 20%, rgba(20,184,166,.10), transparent 58%),
+          radial-gradient(800px 520px at 70% 85%, rgba(124,58,237,.10), transparent 58%),
+          linear-gradient(180deg, #eef2ff 0%, var(--bg) 40%, #f7f8fc 100%);
+        -webkit-font-smoothing:antialiased;
+        -moz-osx-font-smoothing:grayscale;
+      }
+
+      /* wrapper */
+      .wrap{
+        min-height:100%;
+        display:flex;
+        justify-content:center;
+        padding:18px 12px 30px;
+      }
+      .phone{
+        width:min(420px, 100%);
+        background:transparent;
+      }
+
+      /* top status header */
+      .topbar{
+        height:58px;
+        border-radius:16px;
+        background: linear-gradient(90deg, var(--nav1), var(--nav2));
+        color:#fff;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:0 14px;
+        box-shadow: var(--shadow2);
+        position:sticky;
+        top:10px;
+        z-index:5;
+        backdrop-filter: blur(10px);
+      }
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        min-width: 120px;
+      }
+      .mark{
+        width:26px;height:26px;border-radius:9px;
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.25));
+        border:1px solid rgba(255,255,255,.22);
+        position:relative;
+        overflow:hidden;
+      }
+      .mark:before{
+        content:"";
+        position:absolute; inset:-30%;
+        background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 35%, transparent 70%);
+        transform: rotate(25deg);
+        animation: sheen 2.8s ease-in-out infinite;
+      }
+      @keyframes sheen{
+        0%{transform: translateX(-40%) rotate(25deg)}
+        50%{transform: translateX(40%) rotate(25deg)}
+        100%{transform: translateX(-40%) rotate(25deg)}
+      }
+      .brand b{font-weight:800; letter-spacing:.2px}
+      .centerTitle{
+        font-weight:700;
+        opacity:.95;
+        font-size:13px;
+        letter-spacing:.2px;
+        text-align:center;
+        flex:1;
+      }
+      .status{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        justify-content:flex-end;
+        min-width: 130px;
+      }
+      .pill{
+        display:flex;
+        align-items:center;
+        gap:6px;
+        padding:6px 10px;
+        border-radius:999px;
+        font-size:11px;
+        background: rgba(255,255,255,.10);
+        border: 1px solid rgba(255,255,255,.14);
+        white-space:nowrap;
+      }
+      .dot{
+        width:8px;height:8px;border-radius:99px;
+        background: #22c55e;
+        box-shadow: 0 0 0 3px rgba(34,197,94,.18);
+      }
+      .dot.amber{
+        background: var(--amber);
+        box-shadow: 0 0 0 3px rgba(245,158,11,.18);
+      }
+      .dot.gray{
+        background: #cbd5e1;
+        box-shadow: 0 0 0 3px rgba(203,213,225,.18);
+      }
+
+      /* content spacing */
+      .stack{ display:flex; flex-direction:column; gap:14px; padding:14px 6px 0; }
+
+      /* main panel */
+      .panel{
+        background: var(--panel);
+        border:1px solid var(--line);
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow);
+        overflow:hidden;
+      }
+      .panelHeader{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:14px 14px 12px;
+        position:relative;
+        border-bottom:1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(15,23,42,.02), transparent),
+          radial-gradient(650px 180px at 50% 0%, rgba(37,99,235,.08), transparent 70%);
+      }
+      .panelHeader h2{
+        margin:0;
+        font-size:18px;
+        letter-spacing:.2px;
+      }
+      .dots{
+        position:absolute;
+        right:12px; top:12px;
+        width:34px; height:34px;
+        display:grid;
+        place-items:center;
+        border-radius:10px;
+        border:1px solid var(--line);
+        background:#fff;
+        color:#94a3b8;
+        cursor:pointer;
+      }
+      .dots:hover{filter:brightness(.98)}
+      .dots:active{transform:translateY(1px)}
+      .dots span{
+        display:block;
+        letter-spacing:2px;
+        font-weight:800;
+        transform: translateY(-1px);
+      }
+
+      /* checks list */
+      .checks{
+        padding:12px;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+      }
+      .checkRow{
+        display:grid;
+        grid-template-columns: 34px 1fr;
+        gap:10px;
+        align-items:center;
+        padding:12px;
+        border-radius:14px;
+        border:1px solid var(--line);
+        background: linear-gradient(180deg, #fff, #fbfdff);
+      }
+      .ico{
+        width:34px;height:34px;border-radius:12px;
+        display:grid; place-items:center;
+        border:1px solid var(--line);
+        background:#fff;
+      }
+      .ico svg{ width:18px;height:18px; }
+      .checkMain{
+        display:flex; align-items:center; justify-content:space-between; gap:10px;
+      }
+      .label{
+        display:flex; flex-direction:column; gap:4px;
+      }
+      .label b{ font-size:13px }
+      .label span{ font-size:12px; color:var(--muted) }
+      .bar{
+        height:8px;
+        width:140px;
+        border-radius:999px;
+        border:1px solid var(--line);
+        background: linear-gradient(180deg, #f8fafc, #eef2ff);
+        overflow:hidden;
+        position:relative;
+      }
+      .fill{
+        height:100%;
+        border-radius:999px;
+        width:40%;
+        position:absolute;
+        left:0; top:0;
+      }
+      .fill.blue{ background: linear-gradient(90deg, rgba(37,99,235,.85), rgba(20,184,166,.75)); animation: drift 2.4s ease-in-out infinite; }
+      .fill.amber{ background: linear-gradient(90deg, rgba(245,158,11,.9), rgba(37,99,235,.65)); animation: drift 2.8s ease-in-out infinite; }
+      .fill.teal{ background: linear-gradient(90deg, rgba(20,184,166,.9), rgba(124,58,237,.65)); animation: drift 3s ease-in-out infinite; }
+      .fill.violet{ background: linear-gradient(90deg, rgba(124,58,237,.9), rgba(37,99,235,.6)); animation: drift 2.6s ease-in-out infinite; }
+      @keyframes drift{
+        0%{ width:30% }
+        50%{ width:72% }
+        100%{ width:30% }
+      }
+
+      /* insight cards */
+      .cards{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:10px;
+        padding:0 12px 12px;
+      }
+      .mini{
+        border:1px solid var(--line);
+        border-radius:14px;
+        padding:12px 10px;
+        background: #fff;
+        box-shadow: 0 10px 24px rgba(15,23,42,.06);
+      }
+      .mini b{
+        display:block;
+        font-size:13px;
+        margin-bottom:8px;
+      }
+      .mini p{
+        margin:0;
+        color:var(--muted);
+        font-size:12px;
+        line-height:1.25;
+      }
+
+      /* timeline */
+      .timeline{
+        background: var(--panel);
+        border:1px solid var(--line);
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow2);
+        padding:12px;
+      }
+      .steps{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        overflow:hidden;
+      }
+      .step{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        flex:1;
+        min-width:0;
+      }
+      .badge{
+        width:28px;height:28px;border-radius:12px;
+        display:grid; place-items:center;
+        font-weight:800;
+        font-size:12px;
+        border:1px solid var(--line);
+        background:#fff;
+        color:#64748b;
+      }
+      .step.active .badge{
+        border-color: rgba(37,99,235,.35);
+        background: linear-gradient(180deg, rgba(37,99,235,.18), rgba(37,99,235,.06));
+        color: var(--blue2);
+      }
+      .step .name{
+        font-size:12px;
+        color:#64748b;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .connector{
+        height:2px;
+        flex:1;
+        background: linear-gradient(90deg, rgba(148,163,184,.35), rgba(148,163,184,.12));
+        border-radius:99px;
+      }
+
+      /* question module */
+      .question{
+        background: var(--panel);
+        border:1px solid var(--line);
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow);
+        overflow:hidden;
+      }
+      .qHead{
+        padding:14px 14px 12px;
+        border-bottom:1px solid var(--line);
+        background:
+          radial-gradient(500px 140px at 10% 0%, rgba(20,184,166,.10), transparent 60%),
+          radial-gradient(520px 140px at 90% 0%, rgba(37,99,235,.10), transparent 60%),
+          linear-gradient(180deg, rgba(15,23,42,.02), transparent);
+      }
+      .qHead h3{
+        margin:0;
+        font-size:16px;
+        letter-spacing:.2px;
+      }
+      .qBody{
+        padding:14px;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+      }
+      .qText{
+        margin:0;
+        font-size:14px;
+        line-height:1.35;
+      }
+
+      /* control buttons */
+      .btnRow{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:10px;
+      }
+      .btn{
+        position:relative;
+        border:1px solid var(--line);
+        border-radius:14px;
+        padding:14px 12px;
+        font-weight:700;
+        font-size:14px;
+        cursor:pointer;
+        user-select:none;
+        transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        overflow:hidden;
+      }
+      .btnPrimary{
+        background: linear-gradient(180deg, rgba(37,99,235,.95), rgba(29,78,216,.95));
+        border-color: rgba(37,99,235,.35);
+        color:#fff;
+        box-shadow: 0 16px 30px rgba(37,99,235,.18);
+      }
+      .btnSecondary{
+        background: linear-gradient(180deg, #f8fafc, #eef2ff);
+        color:#0f172a;
+      }
+      .btn:active{ transform: translateY(1px) }
+      .btn:hover{ filter:brightness(1.02) }
+
+      /* shimmer for buttons */
+      .btn:before{
+        content:"";
+        position:absolute;
+        inset:-40% -40%;
+        background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 70%);
+        transform: translateX(-40%) rotate(18deg);
+        animation: btnSheen 2.6s ease-in-out infinite;
+        pointer-events:none;
+      }
+      .btnSecondary:before{
+        background: linear-gradient(120deg, transparent 0%, rgba(37,99,235,.18) 45%, transparent 70%);
+        animation-duration: 3.1s;
+      }
+      @keyframes btnSheen{
+        0%{ transform: translateX(-60%) rotate(18deg) }
+        55%{ transform: translateX(60%) rotate(18deg) }
+        100%{ transform: translateX(-60%) rotate(18deg) }
+      }
+
+      .explain{
+        margin:0;
+        color:var(--muted);
+        font-size:12.5px;
+        line-height:1.35;
+        padding-top:2px;
+      }
+
+      /* safeguards */
+      .safeRow{
+        background: rgba(255,255,255,.75);
+        border:1px solid var(--line);
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow2);
+        padding:12px 12px;
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap:10px;
+        backdrop-filter: blur(10px);
+      }
+      .safeItem{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding:10px;
+        border-radius:14px;
+        border:1px solid rgba(230,235,243,.8);
+        background:#fff;
+      }
+      .safeIcon{
+        width:34px;height:34px;border-radius:12px;
+        display:grid; place-items:center;
+        border:1px solid var(--line);
+        background: linear-gradient(180deg, #ffffff, #f8fafc);
+      }
+      .safeItem b{
+        font-size:12px;
+        display:block;
+      }
+
+      /* footer compliance */
+      .footer{
+        background: rgba(255,255,255,.75);
+        border:1px solid var(--line);
+        border-radius: var(--r-xl);
+        padding:14px;
+        box-shadow: var(--shadow2);
+        backdrop-filter: blur(10px);
+      }
+      .footer b{
+        display:block;
+        font-size:13px;
+        margin-bottom:8px;
+      }
+      .footer p{
+        margin:0;
+        color:var(--muted);
+        font-size:12px;
+        line-height:1.45;
+      }
+
+      /* desktop view: center with nicer spacing */
+      @media (min-width: 900px){
+        .wrap{ padding:26px 12px 44px; }
+        .phone{
+          width: 420px;
+        }
+      }
+
+      /* small phones */
+      @media (max-width: 360px){
+        .cards{ grid-template-columns: 1fr; }
+        .btnRow{ grid-template-columns: 1fr; }
+        .status{ gap:8px }
+        .pill{ padding:6px 8px }
+        .centerTitle{ display:none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <main class="phone" aria-label="Smart Insurance Analyzer">
+        <header class="topbar">
+          <div class="brand">
+            <div class="mark" aria-hidden="true"></div>
+            <b>Quote Savings</b>
+          </div>
+
+          <div class="centerTitle">Insurance Analyzer</div>
+
+          <div class="status">
+            <div class="pill"><span class="dot"></span>Secure</div>
+            <div class="pill"><span class="dot amber"></span>Analyzing</div>
+            <div class="pill"><span class="dot gray"></span>Private</div>
+          </div>
+        </header>
+
+        <section class="stack">
+          <!-- Main Intelligence Panel -->
+          <section class="panel" aria-label="Insurance Analysis Overview">
+            <div class="panelHeader">
+              <h2>Insurance Analysis Overview</h2>
+              <button class="dots" type="button" aria-label="More options" title="More options">
+                <span>•••</span>
+              </button>
+            </div>
+
+            <div class="checks">
+              <!-- Coverage Consistency -->
+              <div class="checkRow">
+                <div class="ico" title="Completed">
+                  <!-- check icon -->
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="checkMain">
+                  <div class="label">
+                    <b>Coverage Consistency</b>
+                    <span>Processing…</span>
+                  </div>
+                  <div class="bar" aria-hidden="true">
+                    <div class="fill teal"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pricing Alignment -->
+              <div class="checkRow">
+                <div class="ico" title="In progress">
+                  <!-- hourglass icon -->
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 2h12M6 22h12" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 2c0 6 8 6 8 10s-8 4-8 10" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="checkMain">
+                  <div class="label">
+                    <b>Pricing Alignment</b>
+                    <span>Evaluating…</span>
+                  </div>
+                  <div class="bar" aria-hidden="true">
+                    <div class="fill amber"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- State Factors -->
+              <div class="checkRow">
+                <div class="ico" title="Completed">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="checkMain">
+                  <div class="label">
+                    <b>State Factors</b>
+                    <span>Assessing…</span>
+                  </div>
+                  <div class="bar" aria-hidden="true">
+                    <div class="fill blue"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Discount Signals -->
+              <div class="checkRow">
+                <div class="ico" title="In progress">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 2h12M6 22h12" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 2c0 6 8 6 8 10s-8 4-8 10" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="checkMain">
+                  <div class="label">
+                    <b>Discount Signals</b>
+                    <span>Scanning…</span>
+                  </div>
+                  <div class="bar" aria-hidden="true">
+                    <div class="fill violet"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cards" aria-label="Insight summary cards">
+              <div class="mini">
+                <b>Coverage Status</b>
+                <p>Based on provided inputs</p>
+              </div>
+              <div class="mini">
+                <b>Pricing Signals</b>
+                <p>Further review required</p>
+              </div>
+              <div class="mini">
+                <b>Policy Age</b>
+                <p>May be outdated</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Progress Timeline -->
+          <section class="timeline" aria-label="Progress timeline">
+            <div class="steps">
+              <div class="step active">
+                <div class="badge">1</div>
+                <div class="name">Input</div>
+              </div>
+              <div class="connector" aria-hidden="true"></div>
+              <div class="step">
+                <div class="badge">2</div>
+                <div class="name">Analysis</div>
+              </div>
+              <div class="connector" aria-hidden="true"></div>
+              <div class="step">
+                <div class="badge">3</div>
+                <div class="name">Review</div>
+              </div>
+              <div class="connector" aria-hidden="true"></div>
+              <div class="step">
+                <div class="badge">4</div>
+                <div class="name">Options</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Active Question Module -->
+          <section class="question" aria-label="Required input question">
+            <div class="qHead">
+              <h3>Required Input</h3>
+            </div>
+
+            <div class="qBody">
+              <p class="qText"><b>Do you currently have an active auto insurance policy?</b></p>
+
+              <div class="btnRow">
+                <button class="btn btnPrimary" id="btnYes" type="button">Yes, policy active</button>
+                <button class="btn btnSecondary" id="btnNo" type="button">No active policy</button>
+              </div>
+
+              <p class="explain">
+                Your answer helps refine analysis accuracy and available paths.
+              </p>
+            </div>
+          </section>
+
+          <!-- Privacy & Safeguards -->
+          <section class="safeRow" aria-label="Privacy and safeguards">
+            <div class="safeItem">
+              <div class="safeIcon" aria-hidden="true">
+                <!-- shield -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2l8 4v6c0 5-3.5 9.4-8 10-4.5-.6-8-5-8-10V6l8-4z" stroke="#0f172a" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <b>No Credit Impact</b>
+            </div>
+
+            <div class="safeItem">
+              <div class="safeIcon" aria-hidden="true">
+                <!-- check circle -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0z" stroke="#0f172a" stroke-width="2"/>
+                  <path d="M16 9l-5.2 6L8 12.4" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <b>No Policy Changes</b>
+            </div>
+
+            <div class="safeItem">
+              <div class="safeIcon" aria-hidden="true">
+                <!-- lock -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M17 11H7a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z" stroke="#0f172a" stroke-width="2"/>
+                  <path d="M8 11V8a4 4 0 1 1 8 0v3" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <b>Secure Input Handling</b>
+            </div>
+          </section>
+
+          <!-- Footer Compliance -->
+          <footer class="footer" aria-label="Compliance footer">
+            <b>Quote Savings is an independent analysis service.</b>
+            <p>
+              This tool provides informational insights only. Results vary based on driver profile,
+              state regulations, and insurer participation. Not affiliated with any government agency.
+            </p>
+          </footer>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      // Simple interactive feedback (no tracking, no claims)
+      const yes = document.getElementById("btnYes");
+      const no = document.getElementById("btnNo");
+
+      function flash(btn){
+        btn.style.transform = "translateY(1px)";
+        setTimeout(() => (btn.style.transform = ""), 90);
+      }
+
+      yes.addEventListener("click", () => {
+        flash(yes);
+        yes.textContent = "Yes, policy active ✓";
+        no.textContent = "No active policy";
+      });
+
+      no.addEventListener("click", () => {
+        flash(no);
+        no.textContent = "No active policy ✓";
+        yes.textContent = "Yes, policy active";
+      });
+    </script>
+  </body>
+</html>

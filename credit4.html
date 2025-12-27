@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Quote Savings — Savings Explorer</title>
+
+    <!-- Fonts: Serif headline + refined sans body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root{
+        /* Editorial paper tones */
+        --paper: #fbf8f2;
+        --paper2:#fffdf9;
+        --ink: #141414;
+        --muted:#5b5b5b;
+        --muted2:#7a7a7a;
+        --line: rgba(20,20,20,.14);
+
+        --shadow: 0 18px 55px rgba(10,10,10,.08);
+
+        /* Accent is EXTREMELY subtle (not “marketing”) */
+        --accent: rgba(33, 99, 170, 0.85); /* calm ink-blue */
+        --accentSoft: rgba(33, 99, 170, 0.12);
+
+        --radius: 22px;
+
+        --serif: "Fraunces", ui-serif, Georgia, "Times New Roman", Times, serif;
+        --sans: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      }
+
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family: var(--sans);
+        color: var(--ink);
+        background:
+          radial-gradient(900px 600px at 20% -10%, rgba(0,0,0,.06), transparent 55%),
+          radial-gradient(700px 500px at 95% 15%, rgba(33,99,170,.08), transparent 55%),
+          linear-gradient(180deg, var(--paper) 0%, var(--paper2) 55%, #ffffff 100%);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a{color:inherit}
+      .wrap{
+        min-height:100%;
+        display:flex;
+        align-items:flex-start;
+        justify-content:center;
+        padding: 18px 14px 32px;
+      }
+
+      /* Phone-like frame (looks premium on desktop) */
+      .frame{
+        width: min(420px, 100%);
+        background: rgba(255,255,255,.72);
+        border: 1px solid rgba(20,20,20,.10);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow:hidden;
+        position:relative;
+        backdrop-filter: blur(10px);
+      }
+
+      /* Subtle paper grain overlay */
+      .grain{
+        pointer-events:none;
+        position:absolute; inset:0;
+        opacity:.22;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+        mix-blend-mode:multiply;
+      }
+
+      header{
+        padding: 14px 18px 12px;
+        background: rgba(251,248,242,.55);
+      }
+      .topbar{
+        display:flex;
+        align-items:baseline;
+        justify-content:space-between;
+        gap:12px;
+      }
+      .brand{
+        font-family: var(--serif);
+        letter-spacing: .2px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .tagline{
+        font-size: 12px;
+        color: var(--muted2);
+        letter-spacing: .2px;
+        white-space:nowrap;
+      }
+      .divider{
+        height:1px;
+        background: var(--line);
+        margin-top: 12px;
+      }
+
+      main{ padding: 18px 18px 16px; }
+
+      h1{
+        font-family: var(--serif);
+        font-size: 34px;
+        line-height: 1.06;
+        margin: 8px 0 10px;
+        letter-spacing: -0.3px;
+      }
+      .deck{
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+        margin: 0 0 14px;
+      }
+
+      .article{
+        padding: 14px 0 6px;
+      }
+
+      .section{
+        padding: 14px 0;
+        border-top: 1px solid rgba(20,20,20,.10);
+      }
+      .section:first-child{ border-top:none; padding-top: 8px; }
+      .kicker{
+        font-family: var(--serif);
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0 0 6px;
+        letter-spacing: -0.1px;
+      }
+      .para{
+        margin: 0;
+        color: var(--muted);
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .soft-sep{
+        margin: 16px 0 12px;
+        height:1px;
+        background: linear-gradient(90deg, transparent, rgba(20,20,20,.18), transparent);
+      }
+
+      .exploreTitle{
+        font-family: var(--serif);
+        font-size: 20px;
+        margin: 0 0 6px;
+        letter-spacing: -0.15px;
+      }
+      .exploreText{
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .q{
+        margin-top: 6px;
+        padding: 14px 0 6px;
+        border-top: 1px solid rgba(20,20,20,.10);
+      }
+      .qLabel{
+        font-size: 12px;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--muted2);
+        margin-bottom: 10px;
+      }
+      .qText{
+        font-family: var(--serif);
+        font-size: 19px;
+        line-height: 1.25;
+        margin: 0 0 12px;
+      }
+
+      /* BEAUTIFUL BUTTONS (still editorial, no loud fills) */
+      .choices{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .btn{
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        width:100%;
+        padding: 12px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(20,20,20,.14);
+        background: rgba(255,255,255,.72);
+        color: var(--ink);
+        text-decoration:none;
+        cursor:pointer;
+        user-select:none;
+        transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+        outline:none;
+      }
+
+      .btn:hover{
+        transform: translateY(-1px);
+        border-color: rgba(20,20,20,.22);
+        box-shadow: 0 14px 30px rgba(10,10,10,.08);
+        background: rgba(255,255,255,.86);
+      }
+      .btn:active{ transform: translateY(0px) scale(.99); }
+
+      .btn span{
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: .1px;
+      }
+
+      /* Shimmer sweep (very subtle, premium) */
+      .btn::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        border-radius: 999px;
+        background:
+          linear-gradient(110deg,
+            transparent 0%,
+            rgba(255,255,255,0) 35%,
+            rgba(255,255,255,.55) 50%,
+            rgba(255,255,255,0) 65%,
+            transparent 100%);
+        transform: translateX(-120%);
+        opacity:.0;
+      }
+      .btn.shimmer::before{
+        opacity:.9;
+        animation: shimmer 1.65s ease-in-out infinite;
+      }
+      @keyframes shimmer{
+        0%{ transform: translateX(-120%); }
+        60%{ transform: translateX(120%); }
+        100%{ transform: translateX(120%); }
+      }
+
+      /* Selected state (editorial underline + soft tint) */
+      .btn.is-selected{
+        border-color: rgba(33,99,170,.35);
+        background: linear-gradient(180deg, rgba(33,99,170,.10), rgba(255,255,255,.78));
+        box-shadow: 0 18px 44px rgba(33,99,170,.10);
+      }
+      .btn.is-selected span{
+        color: rgba(12, 46, 78, 0.95);
+      }
+
+      .assurance{
+        margin: 14px 0 0;
+        color: var(--muted2);
+        font-size: 12.5px;
+        line-height: 1.6;
+        font-style: italic;
+      }
+
+      footer{
+        padding: 14px 18px 18px;
+        background: rgba(251,248,242,.45);
+        border-top: 1px solid rgba(20,20,20,.10);
+      }
+      .footText{
+        margin: 0;
+        font-size: 11.5px;
+        line-height: 1.65;
+        color: rgba(20,20,20,.68);
+      }
+
+      /* Desktop breathing room */
+      .outerNote{
+        width:min(420px,100%);
+        margin-top:12px;
+        text-align:center;
+        color: rgba(20,20,20,.45);
+        font-size: 12px;
+      }
+
+      /* Accessibility focus */
+      .btn:focus-visible{
+        box-shadow: 0 0 0 4px rgba(33,99,170,.18), 0 14px 30px rgba(10,10,10,.08);
+        border-color: rgba(33,99,170,.42);
+      }
+
+      /* Small screens tighter */
+      @media (max-width: 360px){
+        h1{ font-size: 30px; }
+        .choices{ grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="frame" role="application" aria-label="Quote Savings editorial explorer">
+        <div class="grain" aria-hidden="true"></div>
+
+        <header>
+          <div class="topbar">
+            <div class="brand">Quote Savings</div>
+            <div class="tagline">Savings Explorer</div>
+          </div>
+          <div class="divider"></div>
+        </header>
+
+        <main>
+          <h1>Where drivers often miss auto insurance savings</h1>
+          <p class="deck">Insurance pricing changes quietly. Many drivers never notice.</p>
+
+          <div class="article" aria-label="Editorial sections">
+            <div class="section">
+              <div class="kicker">Pricing Changes Over Time</div>
+              <p class="para">
+                Rates can shift with inflation, claim trends, and regulatory updates. Even if your driving doesn’t change, your
+                premium can.
+              </p>
+            </div>
+
+            <div class="section">
+              <div class="kicker">Policy Defaults vs Reality</div>
+              <p class="para">
+                Many policies auto-renew with the same settings. Over time, coverage defaults may stop matching how you actually
+                drive.
+              </p>
+            </div>
+
+            <div class="section">
+              <div class="kicker">State-Level Differences</div>
+              <p class="para">
+                Location can influence everything from minimum requirements to repair costs and claim patterns, affecting pricing
+                in ways drivers rarely see.
+              </p>
+            </div>
+          </div>
+
+          <div class="soft-sep" aria-hidden="true"></div>
+
+          <div class="explore">
+            <div class="exploreTitle">Explore your situation</div>
+            <p class="exploreText">
+              Answer a few questions to explore how these factors may apply to you.
+            </p>
+
+            <div class="q" aria-label="Question">
+              <div class="qLabel">Question</div>
+              <p class="qText">Do you currently have auto insurance?</p>
+
+              <div class="choices">
+                <button id="btnYes" class="btn shimmer" type="button" aria-pressed="false">
+                  <span>Yes, I do</span>
+                </button>
+                <button id="btnNo" class="btn shimmer" type="button" aria-pressed="false">
+                  <span>No, I don’t</span>
+                </button>
+              </div>
+
+              <p class="assurance">
+                This exploration is informational and does not provide quotes or guarantees.
+              </p>
+            </div>
+          </div>
+        </main>
+
+        <footer>
+          <p class="footText">
+            Quote Savings is an independent informational service. Insurance availability and potential savings vary by
+            individual circumstances, state, and insurer participation. This site is not affiliated with any government agency.
+          </p>
+        </footer>
+      </div>
+    </div>
+
+    <div class="outerNote">Mobile-first layout (9:16 feel) — looks premium on desktop too.</div>
+
+    <script>
+      // Simple interaction: select toggle + soft feedback
+      const btnYes = document.getElementById("btnYes");
+      const btnNo = document.getElementById("btnNo");
+
+      function select(btn, other){
+        btn.classList.add("is-selected");
+        other.classList.remove("is-selected");
+        btn.setAttribute("aria-pressed", "true");
+        other.setAttribute("aria-pressed", "false");
+
+        // Keep shimmer, but soften it after selection to feel calmer
+        btn.classList.add("shimmer");
+        other.classList.remove("shimmer");
+
+        // Optional micro “editorial underline” feel via quick blink
+        btn.animate(
+          [{ transform: "translateY(-1px)" }, { transform: "translateY(0px)" }],
+          { duration: 180, easing: "ease-out" }
+        );
+      }
+
+      btnYes.addEventListener("click", () => select(btnYes, btnNo));
+      btnNo.addEventListener("click", () => select(btnNo, btnYes));
+
+      // Start with shimmer on both, then reduce to one after a short time (premium calm)
+      setTimeout(() => {
+        btnNo.classList.remove("shimmer");
+      }, 2400);
+    </script>
+  </body>
+</html>
