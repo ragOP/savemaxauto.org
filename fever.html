@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Save Max</title>
+
+    <link rel="stylesheet" href="fever.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      /* ====== MOBILE-FIRST HEADER / LOGO OPTIMIZATION ====== */
+      .div1 {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid #eee;
+      }
+
+      .brand-wrap {
+        width: min(520px, 100%);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 14px;
+      }
+
+      .brand-logo {
+        height: 40px;
+        width: auto;
+        max-width: 86%;
+        object-fit: contain;
+        display: block;
+      }
+
+      @media (min-width: 420px) {
+        .brand-wrap {
+          padding: 14px 14px;
+        }
+        .brand-logo {
+          height: 46px;
+          max-width: 90%;
+        }
+      }
+
+      @media (min-width: 768px) {
+        .brand-wrap {
+          padding: 16px 14px;
+        }
+        .brand-logo {
+          height: 52px;
+          max-width: 520px;
+        }
+      }
+
+      /* ====== CTA ====== */
+      .cta {
+        display: block;
+        width: 100%;
+        max-width: 520px;
+        margin: 12px auto;
+        background: #244572;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        padding: 18px 28px;
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      }
+      .cta:hover {
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+        filter: brightness(1.03);
+      }
+      .cta:active {
+        transform: translateY(1px) scale(0.995);
+      }
+
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .shimmer::after {
+        content: "";
+        position: absolute;
+        inset: 0 -150% 0 0;
+        transform: skewX(-20deg);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
+        animation: sh 2s infinite;
+      }
+      @keyframes sh {
+        0% {
+          transform: translateX(-100%) skewX(-20deg);
+        }
+        100% {
+          transform: translateX(100%) skewX(-20deg);
+        }
+      }
+
+      #nb-chip {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(20, 180, 90, 0.95);
+        color: white;
+        font-size: 12px;
+        font-weight: 700;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <div class="div1" onclick="smoothScrollToTop(700, 0)">
+      <div class="brand-wrap">
+        <img src="./l.svg" alt="Auto Logo" class="brand-logo" />
+      </div>
+    </div>
+
+    <div class="div2" onclick="smoothScrollToTop(700, 0)">
+      <span><strong id="counter">Stop Overpaying Today – Call Us Now!</strong></span>
+    </div>
+
+    <!-- === QUIZ AREA === -->
+    <div class="div6">
+      <div class="div7">
+        <div class="div8">CALL US and cut your Auto Insurance rate by upto 80% today!</div>
+
+        <img class="div9" src="./mana.png" alt="Hero" />
+
+        <div class="div10">
+          Checking your eligibility is very simple and takes just 60 seconds, simply answer
+          the questions below to see if you qualify now.
+        </div>
+
+        <div class="arrow-section">
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
+
+        <div class="div11">
+          <div class="div12">Answer The Question Below To Proceed:</div>
+        </div>
+      </div>
+
+      <div class="div13">
+        <div class="div14">
+          <span id="quizQuestion">1. What is your current insurance carrier?</span>
+        </div>
+
+        <!-- answers injected by JS -->
+        <div class="div15" id="answerOptions">
+          <div class="div16" onclick="nextCarrier('Allstate')">Allstate</div>
+          <div class="div16" onclick="nextCarrier('GEICO')">GEICO</div>
+          <div class="div16" onclick="nextCarrier('State Farm')">State Farm</div>
+          <div class="div16" onclick="nextCarrier('Progressive')">Progressive</div>
+        </div>
+
+        <div class="div17">
+          <div class="div18"></div>
+          <span><em><span id="claim">72</span> People Are Claiming Right Now!</em></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATUS -->
+    <div
+      class="div4 div5"
+      id="status"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 8px;
+        position: relative;
+        overflow: hidden;
+        padding: 12px 16px;
+        border-radius: 12px;
+      "
+    >
+      <span id="statusMessage"></span>
+
+      <div
+        class="status-progress"
+        style="
+          width: 100%;
+          max-width: 260px;
+          height: 6px;
+          border-radius: 999px;
+          background: #e5e7eb;
+          overflow: hidden;
+          margin-top: 4px;
+        "
+      >
+        <div
+          class="status-progress-bar"
+          style="
+            height: 100%;
+            width: 45%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+            animation: statusProgress 1.1s ease-in-out infinite;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <style>
+      #status {
+        background: linear-gradient(120deg, #e5e7eb 0%, #f9fafb 30%, #e5e7eb 60%);
+        background-size: 200% 100%;
+        animation: statusShimmer 1.4s linear infinite;
+      }
+      @keyframes statusShimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+      @keyframes statusProgress {
+        0% {
+          transform: translateX(-110%);
+        }
+        50% {
+          transform: translateX(10%);
+        }
+        100% {
+          transform: translateX(120%);
+        }
+      }
+    </style>
+
+    <!-- === CONGRATS === -->
+    <div class="div4 div5" id="congratulations">
+      <div class="div19">Congratulations, You Qualify 🎉</div>
+      <div class="div20">
+        Make A <span>Quick Call</span> To Claim Your Reduction On Auto Insurance Plan Now!
+      </div>
+
+      <div class="div21">Spots remaining: 4</div>
+
+      <div class="div99">
+        <h2>Tap Below To Call Now 👇</h2>
+      </div>
+
+      <!-- DUMMY NUMBER (YOU CAN CHANGE) -->
+      <a id="callBtn" href="tel:+10000000000" class="cta shimmer">CALL NOW</a>
+
+      <div class="div23">
+        Due to high call volume, your official agent is waiting for only
+        <strong>3 minutes</strong>.
+      </div>
+
+      <div class="div24">
+        <div class="div25" id="minutes">2</div>
+        <div class="div25">:</div>
+        <div class="div25" id="seconds">52</div>
+      </div>
+    </div>
+
+    <script>
+      /* =========================
+         QUIZ FLOW (2 QUESTIONS)
+         Q1: Carrier
+         Q2: Home owner? Yes/No
+         ========================= */
+
+      const quizState = {
+        carrier: null,
+        homeowner: null,
+      };
+
+      const questionEl = document.getElementById("quizQuestion");
+      const answersEl = document.getElementById("answerOptions");
+
+      function setQuestion(text, options) {
+        questionEl.textContent = text;
+
+        // rebuild answers
+        answersEl.innerHTML = options
+          .map(
+            (opt) =>
+              `<div class="div16" onclick="${opt.onClick}">${opt.label}</div>`
+          )
+          .join("");
+
+        // keep UI behavior
+        smoothScrollToTop(450, 432);
+      }
+
+      // Q1 handler (existing onclicks call this)
+      function nextCarrier(carrier) {
+        quizState.carrier = carrier;
+
+        setQuestion("2. Are you a home owner?", [
+          { label: "Yes", onClick: "nextHomeOwner(true)" },
+          { label: "No", onClick: "nextHomeOwner(false)" },
+        ]);
+      }
+
+      // Q2 handler
+      function nextHomeOwner(isHomeOwner) {
+        quizState.homeowner = isHomeOwner;
+
+        // go to status -> congrats
+        stepProcess();
+      }
+
+      /* === FINAL ANIMATION + TIMER === */
+
+      function stepProcess() {
+        document.querySelector(".div6").classList.add("div5");
+        document.getElementById("status").classList.remove("div5");
+
+        const msg = document.getElementById("statusMessage");
+        msg.textContent = "Reviewing Your Answers...";
+
+        setTimeout(() => {
+          msg.textContent = "Verifying Availability...";
+          setTimeout(() => {
+            msg.textContent = "Confirming Eligibility...";
+            setTimeout(() => {
+              showCongratulations();
+            }, 1200);
+          }, 1200);
+        }, 1200);
+      }
+
+      function initDummyCTA() {
+        // dummy number + simple param packing (optional)
+        const phone = "+10000000000";
+
+        // (optional) attach answers in the URL hash for debugging
+        // Example: tel:+100... doesn't support query params reliably across devices,
+        // so we keep it super simple.
+        const callBtn = document.getElementById("callBtn");
+        callBtn.setAttribute("href", `tel:${phone}`);
+      }
+
+      function showCongratulations() {
+        document.getElementById("status").classList.add("div5");
+        const congrats = document.getElementById("congratulations");
+        congrats.classList.remove("div5");
+
+        // init dummy CTA here (as you asked)
+        initDummyCTA();
+
+        let totalSeconds = 180;
+        const minEl = document.getElementById("minutes");
+        const secEl = document.getElementById("seconds");
+
+        const timer = setInterval(() => {
+          totalSeconds--;
+          const m = Math.floor(totalSeconds / 60);
+          const s = totalSeconds % 60;
+          minEl.textContent = m;
+          secEl.textContent = s < 10 ? "0" + s : s;
+
+          if (totalSeconds <= 0) clearInterval(timer);
+        }, 1000);
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    </script>
+
+    <script>
+      /* === scroll function reused === */
+      function smoothScrollToTop(duration, target = 0) {
+        const start = window.pageYOffset;
+        const dist = target - start;
+        let startT = null;
+
+        function anim(t) {
+          if (!startT) startT = t;
+          const prog = t - startT;
+          const eased =
+            prog < duration / 2
+              ? (dist / 2) * (prog / (duration / 2)) ** 2 + start
+              : (-dist / 2) * ((prog - duration) * ((prog - duration) - 2) - 1) + start;
+          window.scrollTo(0, eased);
+          if (prog < duration) requestAnimationFrame(anim);
+        }
+        requestAnimationFrame(anim);
+      }
+    </script>
+  </body>
+</html>
