@@ -36,9 +36,9 @@
       }
 
       .brand-logo {
-        height: 40px;
+        
         width: auto;
-        max-width: 86%;
+        max-width: 66%;
         object-fit: contain;
         display: block;
       }
@@ -268,7 +268,7 @@
       </div>
 
       <!-- DUMMY NUMBER (YOU CAN CHANGE) -->
-      <a id="callBtn" href="tel:+10000000000" class="cta shimmer">CALL NOW</a>
+      <a id="callBtn" href="tel:+16197753027" class="cta shimmer">1-619-775-3027</a>
 
       <div class="div23">
         Due to high call volume, your official agent is waiting for only
@@ -350,16 +350,7 @@
         }, 1200);
       }
 
-      function initDummyCTA() {
-        // dummy number + simple param packing (optional)
-        const phone = "+10000000000";
-
-        // (optional) attach answers in the URL hash for debugging
-        // Example: tel:+100... doesn't support query params reliably across devices,
-        // so we keep it super simple.
-        const callBtn = document.getElementById("callBtn");
-        callBtn.setAttribute("href", `tel:${phone}`);
-      }
+    
 
       function showCongratulations() {
         document.getElementById("status").classList.add("div5");
