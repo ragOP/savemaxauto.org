@@ -261,7 +261,7 @@
           <span id="quizQuestion">1. What's Your Age Range?</span>
         </div>
 
-        <div class="answer" id="answerOptions">
+        <div class="answer answer-grid-2col" id="answerOptions">
           <div style="border-radius:20px; font-size:22px;" class="answer-btn-5" onclick="handleAgePick('18-34')">18-34</div>
           <div style="border-radius:20px; font-size:22px;" class="answer-btn-5" onclick="handleAgePick('35-54')">35-54</div>
           <div style="border-radius:20px; font-size:22px;" class="answer-btn-5" onclick="handleAgePick('55-64')">55-64</div>
@@ -386,6 +386,9 @@
     function handleAgePick(ageValue) {
       pushAgeToTags(ageValue);
       quizText.textContent = Q_INSURED;
+
+      // Remove 2-column grid class for normal layout
+      answerOptions.classList.remove('answer-grid-2col');
 
       answerOptions.innerHTML = `
         <div style="border-radius: 20px; font-size: 22px;" class="answer-btn-5" onclick="handleInsuredPick('yes')">Yes</div>
