@@ -37,14 +37,14 @@
       text-rendering:optimizeLegibility;
     }
 
-    .lnx-wrap{
+    .srs-wrap{
       max-width:980px;
       margin:28px auto 60px;
       padding:0 20px;
     }
 
-    .lnx-lede{ text-align:center; margin:0 auto 20px; }
-    .lnx-head{
+    .srs-lede{ text-align:center; margin:0 auto 20px; }
+    .srs-head{
       margin:0;
       color:var(--brand);
       font-weight:900;
@@ -52,11 +52,11 @@
       line-height:1.25;
       font-size:clamp(24px,3.35vw,38px);
     }
-    .lnx-pill{ background:none; color:inherit; font-weight:900; padding:0; box-shadow:none; }
-    .lnx-amount{ color:var(--brand); font-weight:900; background:none; position:static; }
-    .lnx-amount::after{ content:none; }
+    .srs-pill{ background:none; color:inherit; font-weight:900; padding:0; box-shadow:none; }
+    .srs-amount{ color:var(--brand); font-weight:900; background:none; position:static; }
+    .srs-amount::after{ content:none; }
 
-    .lnx-subline{
+    .srs-subline{
       display:block;
       margin-top:14px;
       color:#2f3d58;
@@ -64,8 +64,8 @@
       font-size:clamp(14px,1.85vw,18px);
     }
 
-    .lnx-proof{ display:flex; justify-content:center; margin:22px 0 8px }
-    .lnx-proof-img{
+    .srs-proof{ display:flex; justify-content:center; margin:22px 0 8px }
+    .srs-proof-img{
       width:min(100%,600px);
       height:auto;
       border-radius:8px;
@@ -74,30 +74,30 @@
       display:block;
     }
 
-    .lnx-note{
+    .srs-note{
       text-align:center;
       font-size:14px;
       color:var(--muted);
       margin:12px 0 8px;
     }
-    .lnx-cta{ text-align:center; margin:4px 0 26px }
-    .lnx-cta a{ color:var(--brand); font-weight:800; text-decoration:underline; }
+    .srs-cta{ text-align:center; margin:4px 0 26px }
+    .srs-cta a{ color:var(--brand); font-weight:800; text-decoration:underline; }
 
-    .lnx-q-title{
+    .srs-q-title{
       text-align:center;
       font-size:clamp(20px,2.4vw,28px);
       font-weight:900;
       margin:8px 0 18px;
       color:#222a3f;
     }
-    .lnx-btns{
+    .srs-btns{
       max-width:720px;
       margin:0 auto;
       display:grid;
       gap:14px;
       grid-template-columns:1fr;
     }
-    .lnx-btn{
+    .srs-btn{
       display:block;
       text-align:center;
       text-decoration:none;
@@ -111,10 +111,10 @@
       transition:transform .05s ease, background .2s ease;
       cursor:pointer;
     }
-    .lnx-btn:hover{ background:var(--brand-600); }
-    .lnx-btn:active{ transform:translateY(1px) }
+    .srs-btn:hover{ background:var(--brand-600); }
+    .srs-btn:active{ transform:translateY(1px) }
 
-    .lnx-footer{
+    .srs-footer{
       max-width:980px;
       margin:36px auto 0;
       padding:0 20px 44px;
@@ -122,15 +122,15 @@
       color:#6b748a;
       font-size:13px;
     }
-    .lnx-footer-nav{
+    .srs-footer-nav{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       justify-content:center;
       margin-top:8px;
     }
-    .lnx-footer-nav a{ color:#6b748a; text-decoration:none }
-    .lnx-footer-nav a:hover{ text-decoration:underline }
+    .srs-footer-nav a{ color:#6b748a; text-decoration:none }
+    .srs-footer-nav a:hover{ text-decoration:underline }
 
 
        .arrow-section {
@@ -149,13 +149,13 @@
       40% { transform: translateY(-0.3em); }
       60% { transform: translateY(-0.15em); }
     }
-.lnx-btn{
+.srs-btn{
   position: relative;
   overflow: hidden;
 }
 
 /* ultra-soft shimmer */
-.lnx-btn::before{
+.srs-btn::before{
   content: "";
   position: absolute;
   top: 0;
@@ -170,12 +170,12 @@
     rgba(255,255,255,0.08) 52%,
     transparent 100%
   );
-  animation: lnx-soft-shimmer 6.5s ease-in-out infinite;
+  animation: srs-soft-shimmer 6.5s ease-in-out infinite;
   pointer-events: none;
 }
 
 /* slower + subtle */
-@keyframes lnx-soft-shimmer{
+@keyframes srs-soft-shimmer{
   0%   { left: -140%; }
   55%  { left: 140%; }
   100% { left: 140%; }
@@ -186,45 +186,45 @@
 
 </head>
 <body>
-  <main class="lnx-wrap">
-    <section class="lnx-lede" aria-labelledby="lnx-hero">
+  <main class="srs-wrap">
+    <section class="srs-lede" aria-labelledby="srs-hero">
 
-      <h1 id="lnx-hero" class="lnx-head">
-        Most Canadians Are Eligible for a <span class="lnx-pill">
+      <h1 id="srs-hero" class="srs-head">
+        Most Canadians Are Eligible for a <span class="srs-pill">
             Instant Personal Loan of Up to $50,000!</span> <br>
-        <!-- <span class="lnx-amount">$50,000</span> to Help Pay for the Upcoming Holidays, Bills, Credit
+        <!-- <span class="srs-amount">$50,000</span> to Help Pay for the Upcoming Holidays, Bills, Credit
         Card Debt, or Any Other Personal Expenses. -->
       </h1>
-      <span class="lnx-subline">Perfect for the upcoming holidays, paying bills, clearing credit card debt, or any other personal expenses.</span>
+      <span class="srs-subline">Perfect for the upcoming holidays, paying bills, clearing credit card debt, or any other personal expenses.</span>
     </section>
 
-    <div class="lnx-proof">
-      <img class="lnx-proof-img" src="./1773508826915-xicvuz0mma (1).png" alt="Before and After Transfer balances">
+    <div class="srs-proof">
+      <img class="srs-proof-img" src="./1773508826915-xicvuz0mma (1).png" alt="Before and After Transfer balances">
     </div>
 
-    <p class="lnx-note">
+    <p class="srs-note">
     This is part of the 2026 Cup Loan Program to help Canada recover from the recent unstable economy
     </p>
 
-    <p class="lnx-cta">
-      <a href="#lnx-quiz">Answer Below To See If You Qualify Now</a>
+    <p class="srs-cta">
+      <a href="#srs-quiz">Answer Below To See If You Qualify Now</a>
     </p>
 
        <div class="arrow-section scroll-trigger" aria-label="Scroll to question">
             <i class="fa-solid fa-angle-down"></i>
           </div>
 
-    <section id="lnx-quiz" aria-labelledby="lnx-q1">
-      <h2 id="lnx-q1" class="lnx-q-title">Are you a Canadian Citizen?</h2>
-      <div class="lnx-btns">
-        <a class="lnx-btn" href="google.com" rel="nofollow noopener">Yes</a>
-        <a class="lnx-btn" href="google.com" rel="nofollow noopener">No</a>
+    <section id="srs-quiz" aria-labelledby="srs-q1">
+      <h2 id="srs-q1" class="srs-q-title">Are you a Canadian Citizen?</h2>
+      <div class="srs-btns">
+        <a class="srs-btn" href="google.com" rel="nofollow noopener">Yes</a>
+        <a class="srs-btn" href="google.com" rel="nofollow noopener">No</a>
       </div>
     </section>
 
-    <footer class="lnx-footer">
-      <div>© 2025 All Rights Reserved</div>
-      <nav class="lnx-footer-nav">
+    <footer class="srs-footer">
+      <div>© 2026 All Rights Reserved</div>
+      <nav class="srs-footer-nav">
         <a href="about-us.html">About Us</a> ·
         <a href="policy.html">Privacy Policy</a> ·
         <a href="disclosure.html">Disclosure</a> ·
